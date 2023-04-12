@@ -1,4 +1,6 @@
-from selenium import webdriver
+# from selenium import webdriver
+from seleniumwire import webdriver
+from seleniumwire.storage import RequestStorage
 import chromedriver_autoinstaller as AutoChrome
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException
@@ -39,31 +41,32 @@ def get_date():
 year, month, day = get_date()
 
 
-def find_location(region):
-    url = "https://dapi.kakao.com/v2/local/search/keyword.json"
-    rest_api_key = kakao_rest_api_key
-    params = {"query": region}
-    headers = {"Authorization": "KakaoAK " + rest_api_key}
-
-    r = requests.get(url, params=params, headers=headers)
-
-    if r.status_code == 200 and r.json()["documents"] != []:
-        result_address = r.json()["documents"][0]
-        result = result_address["y"], result_address["x"]
-    elif r.json()["documents"] == []:
-        result = "알수없음", "알수없음"
-    else:
-        result = "ERROR[" + str(r.status_code) + "]"
-    return result
+# def find_location(region):
+#    url = "https://dapi.kakao.com/v2/local/search/keyword.json"
+#    rest_api_key = kakao_rest_api_key
+#    params = {"query": region}
+#    headers = {"Authorization": "KakaoAK " + rest_api_key}
+#
+#    r = requests.get(url, params=params, headers=headers)
+#
+#    if r.status_code == 200 and r.json()["documents"] != []:
+#        result_address = r.json()["documents"][0]
+#        result = result_address["y"], result_address["x"]
+#    elif r.json()["documents"] == []:
+#        result = "알수없음", "알수없음"
+#    else:
+#        result = "ERROR[" + str(r.status_code) + "]"
+#    return result
 
 
 def info_crawl():
-    f = open("./data.json", "w").close()
+    open("./data.json", "w").close()
 
     chrome_Ver = AutoChrome.get_chrome_version()
     AutoChrome.install(True)
     chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_argument("--headless")
+    # chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--incognito")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--start-maximized")  # 브라우저가 최대화된 상태로 실행됩니다.
@@ -138,8 +141,30 @@ def info_crawl():
             sleep(1)
             driver.switch_to.window(driver.window_handles[-1])
             driver.get(link)
+            req_url = link.split("?")[0]
+            request = driver.wait_for_request(req_url)
             sleep(2)
 
+            if request.response:
+                res_code = request.response.body.decode("utf-8")
+                lat_idx = res_code.find("var lat")
+                x_coor = (
+                    res_code[lat_idx : lat_idx + 70]
+                    .split(";")[0]
+                    .split("=")[1]
+                    .lstrip(" '")
+                    .rstrip("'")
+                )
+                y_coor = (
+                    res_code[lat_idx : lat_idx + 70]
+                    .split(";")[1]
+                    .split("=")[1]
+                    .lstrip(" '")
+                    .rstrip("'")
+                )
+
+            driver.backend.storage.clear_requests()
+            sleep(1)
             name = driver.find_element(
                 By.CSS_SELECTOR,
                 "#print > div.intro-top.clearfix > div.txt-box > div.event-title > h2",
@@ -170,7 +195,6 @@ def info_crawl():
                 ).get_attribute("href")
             except NoSuchElementException:
                 homepage = "없음"
-            x_coor, y_coor = find_location(address)
 
             save_data(
                 name,
