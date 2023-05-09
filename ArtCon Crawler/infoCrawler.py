@@ -1,4 +1,3 @@
-# from selenium import webdriver
 from seleniumwire import webdriver
 from seleniumwire.storage import RequestStorage
 import chromedriver_autoinstaller as AutoChrome
@@ -13,10 +12,10 @@ import requests
 from time import sleep
 import json
 
+li_item = []
 
-def save_data(
-    dbpath, name, img, address, start, end, open_time, fee, homepage, x_coor, y_coor
-):
+
+def add_data(name, img, address, start, end, open_time, fee, homepage, x_coor, y_coor):
     dict1 = {
         "전시회명": name,
         "장소명": address,
@@ -28,9 +27,17 @@ def save_data(
         "전시회 이미지 경로": img,
     }
     dict2 = {"장소명": address, "x": x_coor, "y": y_coor}
+    li_item.append({"data1": dict1, "data2": dict2})
 
+
+def save_data(dbpath):
     with open(dbpath, "a+", encoding="utf-8-sig") as f:
-        json.dump({"data1": dict1, "data2": dict2}, f, ensure_ascii=False, indent=4)
+        json.dump(
+            li_item,
+            f,
+            ensure_ascii=False,
+            indent=2,
+        )
     f.close()
 
 
@@ -64,6 +71,8 @@ def find_location(region):
 
 
 def seoul_crawl():
+    global li_item
+    li_item = []
     dbpath = DB[0]
     open(dbpath, "w").close()
 
@@ -183,8 +192,7 @@ def seoul_crawl():
             except NoSuchElementException:
                 homepage = "없음"
 
-            save_data(
-                dbpath,
+            add_data(
                 name,
                 image,
                 address,
@@ -203,9 +211,12 @@ def seoul_crawl():
 
         if page_num > 2:
             page_num -= 2
+    save_data(dbpath)
 
 
 def naver_crawl():
+    global li_item
+    li_item = []
     dbpath = DB[1]
     open(dbpath, "w").close()
 
@@ -223,7 +234,7 @@ def naver_crawl():
             "#main_pack > div.sc_new.cs_common_module.case_list.color_5._kgs_art_exhibition > div.cm_content_wrap > div > div > div.cm_paging_area._page > div > span > span._total",
         ).text
     )
-    for page_num in range(1, tot_page):
+    for page_num in range(1, 10):
         for idx in range(1, 5):
             try:
                 link = driver.find_element(
@@ -275,8 +286,7 @@ def naver_crawl():
             ).text
             driver.switch_to.default_content()
 
-            save_data(
-                dbpath,
+            add_data(
                 name,
                 image,
                 address,
@@ -297,109 +307,251 @@ def naver_crawl():
             By.CSS_SELECTOR,
             "#main_pack > div.sc_new.cs_common_module.case_list.color_5._kgs_art_exhibition > div.cm_content_wrap > div > div > div.cm_paging_area._page > div > a.pg_next.on",
         ).click()
+        sleep(3)
 
-        sleep(1)
+    save_data(dbpath)
 
 
-"""
 def interp_crawl():
-    dbpath = DB[1]
+    global li_item
+    li_item = []
+    dbpath = DB[2]
     open(dbpath, "w").close()
 
-    driver.get(url=URL[1])
+    driver.get(url=URL[2])
 
     driver.implicitly_wait(2)
-    driver.find_element(
+    exhibition = driver.find_element(
         By.CSS_SELECTOR,
-        "#main_pack > div.sc_new.cs_common_module.case_list.color_5._kgs_art_exhibition > div.cm_content_wrap > div > div > div.cm_filter_tap > div > div > div > ul > li.tab.open > div > ul > li:nth-child(1) > a",
-    ).click()
-
-    save_data(
-        dbpath,
-        name,
-        image,
-        address,
-        start,
-        end,
-        open_time,
-        fee,
-        homepage,
-        x_coor,
-        y_coor,
+        "#wrapBody > div.sR_w726 > div.Rg_list > div.Ltview > div > div:nth-child(7) > div.Gp",
     )
+    exhibitions = exhibition.find_elements(By.CLASS_NAME, "content")
 
-    driver.close()
-    driver.switch_to.window(driver.window_handles[-1])
-    sleep(1)
+    for e in exhibitions:
+        link = (
+            e.find_element(By.CLASS_NAME, "txt")
+            .find_element(By.TAG_NAME, "a")
+            .get_attribute("href")
+        )
+
+        driver.execute_script('window.open("");')
+        sleep(1)
+        driver.switch_to.window(driver.window_handles[-1])
+        driver.get(link)
+        sleep(1)
+
+        name = driver.find_element(
+            By.CSS_SELECTOR,
+            "#container > div.contents > div.productWrapper > div.productMain > div.productMainTop > div > div.summaryTop > h2",
+        ).text
+        image = driver.find_element(
+            By.CSS_SELECTOR,
+            "#container > div.contents > div.productWrapper > div.productMain > div.productMainTop > div > div.summaryBody > div > div.posterBoxTop > img",
+        ).get_attribute("src")
+
+        try:
+            start, end = driver.find_element(
+                By.CSS_SELECTOR,
+                "#container > div.contents > div.productWrapper > div.productMain > div.productMainTop > div > div.summaryBody > ul > li:nth-child(2) > div > p",
+            ).text.split(" ~")
+        except ValueError:
+            start = driver.find_element(
+                By.CSS_SELECTOR,
+                "#container > div.contents > div.productWrapper > div.productMain > div.productMainTop > div > div.summaryBody > ul > li:nth-child(2) > div > p",
+            ).text
+            end = "알수 없음"
+        open_time = "알수 없음"
+        try:
+            driver.find_element(
+                By.CSS_SELECTOR,
+                "#container > div.contents > div.productWrapper > div.productMain > div.productMainTop > div > div.summaryBody > ul > li.infoItem.infoPrice > div > ul > li.infoPriceItem.is-largePrice > a",
+            ).send_keys(Keys.ENTER)
+            fee = driver.find_element(
+                By.CSS_SELECTOR,
+                "#popup-info-price > div > div.popupBody > div > div > table > tbody > tr:nth-child(2) > td:nth-child(2)",
+            ).text
+        except NoSuchElementException:
+            fee = "알수 없음"
+        homepage = driver.current_url
+        x_coor = "추후 추가"
+        y_coor = "추후 추가"
+        driver.find_element(
+            By.CSS_SELECTOR,
+            "#container > div.contents > div.productWrapper > div.productMain > div.productMainTop > div > div.summaryBody > ul > li:nth-child(1) > div > a",
+        ).send_keys(Keys.ENTER)
+        address = driver.find_element(
+            By.CSS_SELECTOR,
+            "#popup-info-place > div > div.popupBody > div > div.popPlaceInfo > p > span",
+        ).text
+
+        add_data(
+            name,
+            image,
+            address,
+            start,
+            end,
+            open_time,
+            fee,
+            homepage,
+            x_coor,
+            y_coor,
+        )
+
+        driver.close()
+        driver.switch_to.window(driver.window_handles[-1])
+        sleep(1)
+    save_data(dbpath)
 
 
 def yes_crawl():
-    dbpath = DB[1]
+    global li_item
+    li_item = []
+    dbpath = DB[3]
     open(dbpath, "w").close()
 
-    driver.get(url=URL[1])
+    driver.get(url=URL[3])
 
     driver.implicitly_wait(2)
     driver.find_element(
         By.CSS_SELECTOR,
-        "#main_pack > div.sc_new.cs_common_module.case_list.color_5._kgs_art_exhibition > div.cm_content_wrap > div > div > div.cm_filter_tap > div > div > div > ul > li.tab.open > div > ul > li:nth-child(1) > a",
+        "body > div.content-min-wrap > div.area-division > a:nth-child(2)",
     ).click()
+    driver.find_element(
+        By.CSS_SELECTOR,
+        "body > div.content-min-wrap > div.area-srch > div.area-srch-top > a",
+    ).click()
+    driver.find_element(
+        By.CSS_SELECTOR,
+        "body > div.content-min-wrap > div.area-srch > div.area-srch-bottom.on > div.area-srch-division > dl:nth-child(1) > dd > div:nth-child(9) > label",
+    ).click()
+    driver.find_element(
+        By.CSS_SELECTOR,
+        "body > div.content-min-wrap > div.area-srch > div.area-srch-bottom.on > div.area-srch-btns > a:nth-child(2)",
+    ).click()
+    sleep(2)
+    exhibitions = driver.find_element(
+        By.CSS_SELECTOR,
+        "#ListCntText",
+    ).text.split(
+        "개"
+    )[0]
 
-    save_data(
-        dbpath,
-        name,
-        image,
-        address,
-        start,
-        end,
-        open_time,
-        fee,
-        homepage,
-        x_coor,
-        y_coor,
-    )
+    for idx in range(int(exhibitions)):
+        exnum = idx % 5 + 1
+        exline = 5 + int(idx / 5)
+        driver.find_element(
+            By.XPATH, f"/html/body/div[5]/div[{exline}]/a[{exnum}]"
+        ).click()
+        name = driver.find_element(
+            By.CSS_SELECTOR, "#mainForm > div:nth-child(43) > div > div.rn-02 > p"
+        ).text
+        image = driver.find_element(
+            By.CSS_SELECTOR,
+            "#mainForm > div.renew-wrap.rw2 > div > div.rn-03 > div.rn-03-left > div.rn-product-imgbox > img",
+        ).get_attribute("src")
+        address = driver.find_element(By.ID, "TheaterAddress").text
+        start, end = driver.find_element(
+            By.CSS_SELECTOR,
+            "#mainForm > div:nth-child(43) > div > div.rn-02 > div > p > span",
+        ).text.split(" ~ ")
+        open_time = "알수 없음"
+        fee = driver.find_element(By.CSS_SELECTOR, "#mCSB_3_container").text
+        homepage = driver.current_url
+        x_coor = "추후 추가"
+        y_coor = "추후 추가"
 
-    driver.close()
-    driver.switch_to.window(driver.window_handles[-1])
-    sleep(1)
+        add_data(
+            name,
+            image,
+            address,
+            start,
+            end,
+            open_time,
+            fee,
+            homepage,
+            x_coor,
+            y_coor,
+        )
+
+        driver.back()
+        sleep(1)
+
+    save_data(dbpath)
 
 
 def mmca_crawl():
-    dbpath = DB[1]
+    global li_item
+    li_item = []
+    dbpath = DB[4]
     open(dbpath, "w").close()
 
-    driver.get(url=URL[1])
-
+    driver.get(url=URL[4])
+    sleep(1)
     driver.implicitly_wait(2)
-    driver.find_element(
-        By.CSS_SELECTOR,
-        "#main_pack > div.sc_new.cs_common_module.case_list.color_5._kgs_art_exhibition > div.cm_content_wrap > div > div > div.cm_filter_tap > div > div > div > ul > li.tab.open > div > ul > li:nth-child(1) > a",
-    ).click()
-
-    save_data(
-        dbpath,
-        name,
-        image,
-        address,
-        start,
-        end,
-        open_time,
-        fee,
-        homepage,
-        x_coor,
-        y_coor,
+    pageling = driver.find_element(By.CSS_SELECTOR, "#pageDiv > nav")
+    pagelist = pageling.find_elements(By.TAG_NAME, "a")
+    pagelist.insert(
+        0, pageling.find_element(By.CSS_SELECTOR, "#pageDiv > nav > strong")
     )
 
-    driver.close()
-    driver.switch_to.window(driver.window_handles[-1])
-    sleep(1)
-"""
+    for page in pagelist:
+        page.click()
+        exul = driver.find_element(By.CSS_SELECTOR, "#listDiv > ul")
+        exlist = exul.find_elements(By.TAG_NAME, "li")
+
+        for ex in exlist:
+            ex.find_element(
+                By.TAG_NAME,
+                "a",
+            ).click()
+            sleep(1)
+            name = driver.find_element(
+                By.CSS_SELECTOR,
+                "#content > div > div.heading.depth01.borderX > div:nth-child(1) > h3",
+            ).text
+            image = driver.find_element(
+                By.CSS_SELECTOR,
+                "#exhInfo > div.detailBody > div > div.bodySection.detailCont > div.contSlideWrap.exhibitionView > div > div > div.swiper-slide.swiper-slide-active > figure > img",
+            ).get_attribute("src")
+            address = driver.find_element(
+                By.CSS_SELECTOR,
+                "#exhInfo > div.detailBody > div > div.bodySection.detailCont > div.box.artInfo > ul:nth-child(1) > li:nth-child(3) > dl > dd > a",
+            ).text
+            start, end = driver.find_element(
+                By.CSS_SELECTOR,
+                "#exhInfo > div.detailBody > div > div.bodySection.detailCont > div.box.artInfo > ul:nth-child(1) > li:nth-child(1) > dl > dd",
+            ).text.split(" ~ ")
+            open_time = "알수 없음"
+            fee = driver.find_element(
+                By.CSS_SELECTOR,
+                "#exhInfo > div.detailBody > div > div.bodySection.detailCont > div.box.artInfo > ul:nth-child(1) > li:nth-child(4) > dl > dd",
+            ).text
+            homepage = driver.current_url
+            x_coor = "알수 없음"
+            y_coor = "알수 없음"
+            driver.back()
+
+            add_data(
+                name,
+                image,
+                address,
+                start,
+                end,
+                open_time,
+                fee,
+                homepage,
+                x_coor,
+                y_coor,
+            )
+
+            sleep(1)
+    save_data(dbpath)
+
 
 chrome_Ver = AutoChrome.get_chrome_version()
 AutoChrome.install(True)
 chrome_options = webdriver.ChromeOptions()
-# chrome_options.add_argument("--headless")
-chrome_options.add_argument("--incognito")
+chrome_options.add_argument("--headless")
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
 chrome_options.add_argument("--start-maximized")  # 브라우저가 최대화된 상태로 실행됩니다.
@@ -415,3 +567,6 @@ driver.implicitly_wait(2)
 
 # seoul_crawl()
 naver_crawl()
+# interp_crawl()
+# yes_crawl()
+# mmca_crawl()
