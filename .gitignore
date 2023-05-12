@@ -1,5 +1,4 @@
-ArtCon Crawler/artAddress.py
-ArtCon/ArtCon/settings.py
+ArtCon/secrets.json
 ArtCon/ArtCon/__pycache__
 ArtCon/__pycache__
 ArtCon/mainpage_app/__pycache__

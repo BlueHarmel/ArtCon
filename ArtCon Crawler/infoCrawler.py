@@ -6,7 +6,8 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from artAddress import chromedriverAddress, URL, DB, kakao_rest_api_key
+from artAddress import chromedriverAddress, URL, DB
+from django.conf import settings
 import datetime
 import requests
 from time import sleep
@@ -54,7 +55,7 @@ year, month, day = get_date()
 
 def find_location(region):
     url = "https://dapi.kakao.com/v2/local/search/keyword.json"
-    rest_api_key = kakao_rest_api_key
+    rest_api_key = settings.KAKAO_REST_API_KEY
     params = {"query": region}
     headers = {"Authorization": "KakaoAK " + rest_api_key}
 
