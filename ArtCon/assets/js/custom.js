@@ -1,11 +1,18 @@
 'use strict';
 
+
+/* global kakao */
+const config = {
+    apikey: "b91aaa2bfd53504604cc3bf9e2427cc4"
+}
+const API_KEY = config.apikey;
+
 /* API 받아오기 */
 const userLocation = {
     x: 33.450701,
     y: 126.570667
 };
-/* global kakao */
+
 const container = document.getElementById('map');
 const options = { 
 	center: new kakao.maps.LatLng(userLocation.x, userLocation.y), 
