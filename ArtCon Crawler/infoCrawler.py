@@ -8,6 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from artAddress import chromedriverAddress, URL, DB
 from django.conf import settings
+import os
 import datetime
 import requests
 from time import sleep
@@ -191,7 +192,7 @@ def seoul_crawl():
                     "#print > div.intro-top.clearfix > div.txt-box > div.detail-btn > a",
                 ).get_attribute("href")
             except NoSuchElementException:
-                homepage = "없음"
+                homepage = None
 
             add_data(
                 name,
@@ -235,7 +236,7 @@ def naver_crawl():
             "#main_pack > div.sc_new.cs_common_module.case_list.color_5._kgs_art_exhibition > div.cm_content_wrap > div > div > div.cm_paging_area._page > div > span > span._total",
         ).text
     )
-    for page_num in range(1, 10):
+    for _ in range(1, tot_page):
         for idx in range(1, 5):
             try:
                 link = driver.find_element(
@@ -261,19 +262,24 @@ def naver_crawl():
                 By.CSS_SELECTOR,
                 "#main_pack > div.sc_new.cs_common_module.case_normal.color_5._kgs_art_exhibition > div.cm_content_wrap > div > div > div.detail_info > dl > div:nth-child(2) > dd",
             ).text.split(" ~ ")
-            open_time = "알수 없음"
-            fee = "알수 없음"
+            open_time = None
+            fee = None
             homepage = driver.find_element(
                 By.CSS_SELECTOR,
                 "#main_pack > div.sc_new.cs_common_module.case_normal.color_5._kgs_art_exhibition > div.cm_content_wrap > div > div > div.detail_info > a",
             ).get_attribute("href")
-            x_coor = "추후 추가"
-            y_coor = "추후 추가"
+            x_coor = None
+            y_coor = None
 
-            link = driver.find_element(
-                By.CLASS_NAME,
-                "place",
-            ).get_attribute("href")
+            try:
+                link = driver.find_element(
+                    By.CLASS_NAME,
+                    "place",
+                ).get_attribute("href")
+            except NoSuchElementException:
+                driver.close()
+                driver.switch_to.window(driver.window_handles[-1])
+                continue
             driver.execute_script('window.open("");')
             sleep(1)
             driver.switch_to.window(driver.window_handles[-1])
@@ -360,8 +366,8 @@ def interp_crawl():
                 By.CSS_SELECTOR,
                 "#container > div.contents > div.productWrapper > div.productMain > div.productMainTop > div > div.summaryBody > ul > li:nth-child(2) > div > p",
             ).text
-            end = "알수 없음"
-        open_time = "알수 없음"
+            end = None
+        open_time = None
         try:
             driver.find_element(
                 By.CSS_SELECTOR,
@@ -372,10 +378,10 @@ def interp_crawl():
                 "#popup-info-price > div > div.popupBody > div > div > table > tbody > tr:nth-child(2) > td:nth-child(2)",
             ).text
         except NoSuchElementException:
-            fee = "알수 없음"
+            fee = None
         homepage = driver.current_url
-        x_coor = "추후 추가"
-        y_coor = "추후 추가"
+        x_coor = None
+        y_coor = None
         driver.find_element(
             By.CSS_SELECTOR,
             "#container > div.contents > div.productWrapper > div.productMain > div.productMainTop > div > div.summaryBody > ul > li:nth-child(1) > div > a",
@@ -417,14 +423,17 @@ def yes_crawl():
         By.CSS_SELECTOR,
         "body > div.content-min-wrap > div.area-division > a:nth-child(2)",
     ).click()
+    sleep(1)
     driver.find_element(
         By.CSS_SELECTOR,
         "body > div.content-min-wrap > div.area-srch > div.area-srch-top > a",
     ).click()
+    sleep(1)
     driver.find_element(
         By.CSS_SELECTOR,
         "body > div.content-min-wrap > div.area-srch > div.area-srch-bottom.on > div.area-srch-division > dl:nth-child(1) > dd > div:nth-child(9) > label",
     ).click()
+    sleep(1)
     driver.find_element(
         By.CSS_SELECTOR,
         "body > div.content-min-wrap > div.area-srch > div.area-srch-bottom.on > div.area-srch-btns > a:nth-child(2)",
@@ -436,13 +445,15 @@ def yes_crawl():
     ).text.split(
         "개"
     )[0]
-
+    sleep(1)
     for idx in range(int(exhibitions)):
         exnum = idx % 5 + 1
         exline = 5 + int(idx / 5)
+        sleep(1)
         driver.find_element(
             By.XPATH, f"/html/body/div[5]/div[{exline}]/a[{exnum}]"
         ).click()
+        sleep(3)
         name = driver.find_element(
             By.CSS_SELECTOR, "#mainForm > div:nth-child(43) > div > div.rn-02 > p"
         ).text
@@ -455,11 +466,11 @@ def yes_crawl():
             By.CSS_SELECTOR,
             "#mainForm > div:nth-child(43) > div > div.rn-02 > div > p > span",
         ).text.split(" ~ ")
-        open_time = "알수 없음"
+        open_time = None
         fee = driver.find_element(By.CSS_SELECTOR, "#mCSB_3_container").text
         homepage = driver.current_url
-        x_coor = "추후 추가"
-        y_coor = "추후 추가"
+        x_coor = None
+        y_coor = None
 
         add_data(
             name,
@@ -475,7 +486,7 @@ def yes_crawl():
         )
 
         driver.back()
-        sleep(1)
+        sleep(2)
 
     save_data(dbpath)
 
@@ -487,25 +498,24 @@ def mmca_crawl():
     open(dbpath, "w").close()
 
     driver.get(url=URL[4])
-    sleep(1)
     driver.implicitly_wait(2)
     pageling = driver.find_element(By.CSS_SELECTOR, "#pageDiv > nav")
     pagelist = pageling.find_elements(By.TAG_NAME, "a")
     pagelist.insert(
         0, pageling.find_element(By.CSS_SELECTOR, "#pageDiv > nav > strong")
     )
-
     for page in pagelist:
+        sleep(3)
         page.click()
+        sleep(3)
         exul = driver.find_element(By.CSS_SELECTOR, "#listDiv > ul")
         exlist = exul.find_elements(By.TAG_NAME, "li")
-
-        for ex in exlist:
-            ex.find_element(
-                By.TAG_NAME,
-                "a",
+        for index in range(1, len(exlist) + 1):
+            driver.find_element(
+                By.CSS_SELECTOR,
+                f"#listDiv > ul > li:nth-child({index}) > a",
             ).click()
-            sleep(1)
+            sleep(3)
             name = driver.find_element(
                 By.CSS_SELECTOR,
                 "#content > div > div.heading.depth01.borderX > div:nth-child(1) > h3",
@@ -518,18 +528,19 @@ def mmca_crawl():
                 By.CSS_SELECTOR,
                 "#exhInfo > div.detailBody > div > div.bodySection.detailCont > div.box.artInfo > ul:nth-child(1) > li:nth-child(3) > dl > dd > a",
             ).text
+            sleep(1)
             start, end = driver.find_element(
                 By.CSS_SELECTOR,
                 "#exhInfo > div.detailBody > div > div.bodySection.detailCont > div.box.artInfo > ul:nth-child(1) > li:nth-child(1) > dl > dd",
             ).text.split(" ~ ")
-            open_time = "알수 없음"
+            open_time = None
             fee = driver.find_element(
                 By.CSS_SELECTOR,
                 "#exhInfo > div.detailBody > div > div.bodySection.detailCont > div.box.artInfo > ul:nth-child(1) > li:nth-child(4) > dl > dd",
             ).text
             homepage = driver.current_url
-            x_coor = "알수 없음"
-            y_coor = "알수 없음"
+            x_coor = None
+            y_coor = None
             driver.back()
 
             add_data(
@@ -546,13 +557,25 @@ def mmca_crawl():
             )
 
             sleep(1)
+
     save_data(dbpath)
 
 
-chrome_Ver = AutoChrome.get_chrome_version()
-AutoChrome.install(True)
+def driver_downloader():
+    chrome_ver = AutoChrome.get_chrome_version().split(".")[0]  # 현재 버전의 앞 두숫자
+    current_list = os.listdir(os.getcwd())  # 현재 디렉토리 내 파일/폴더의 리스트
+    if not chrome_ver in current_list:  # 버전명으로 된 폴더가 있는지 확인.
+        print("크롬드라이버 다운로드 실행")
+        AutoChrome.install(True)
+        print("크롬드라이버 다운로드 완료")
+    else:
+        print("크롬드라이버 버전이 최신입니다.")
+    return chrome_ver
+
+
+chrome_ver = driver_downloader()
 chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument("--headless")
+# chrome_options.add_argument("--headless")
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
 chrome_options.add_argument("--start-maximized")  # 브라우저가 최대화된 상태로 실행됩니다.
@@ -562,7 +585,9 @@ chrome_options.add_argument(
 chrome_options.add_experimental_option("useAutomationExtension", False)
 chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
 
-driver = webdriver.Chrome(chromedriverAddress, options=chrome_options)
+driver = webdriver.Chrome(
+    chromedriverAddress + f"/{chrome_ver}/chromedriver.exe", options=chrome_options
+)
 driver.set_window_size(1920, 1280)
 driver.implicitly_wait(2)
 
