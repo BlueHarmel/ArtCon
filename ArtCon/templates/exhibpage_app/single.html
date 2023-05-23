@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -6,16 +7,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="apple-touch-icon" href="assets/img/apple-icon.png">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <link rel="apple-touch-icon" href="{% static 'assets/img/apple-icon.png'%}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/favicon.ico'%}">
 
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/templatemo.css">
-    <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'assets/css/templatemo.css'%}">
+    <link rel="stylesheet" href="{% static 'assets/css/custom.css'%}">
 
     <!-- Load fonts style after rendering the layout styles -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;200;500;700;900&display=swap">
-    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+    <link rel="stylesheet" href="{% static 'https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;200;500;700;900&display=swap'%}">
+    <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
 </head>
 
 <body class="d-flex flex-column">
@@ -24,7 +25,7 @@
     <nav class="navbar navbar-expand-lg navbar-light shadow py-4">
         <div class="container d-flex justify-content-between align-items-center">
 
-            <a class="navbar-brand fw-bold logo align-self-center fs-3" href="index.html">
+            <a class="navbar-brand fw-bold logo align-self-center fs-3" href="{% url 'mainPage' %}">
                 ArtCon
             </a>
 
@@ -36,16 +37,16 @@
                 <div class="flex-fill">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <li class="nav-item">
-                            <a class="nav-link fs-6 fw-normal" href="index.html">홈</a>
+                            <a class="nav-link fs-6 fw-normal" href="{% url 'mainPage' %}">홈</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fs-6 fw-normal" href="search.html">검색</a>
+                            <a class="nav-link fs-6 fw-normal" href="{% url 'search' %}">검색</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fs-6 fw-normal" href="map_page.html">추천 전시회</a>
+                            <a class="nav-link fs-6 fw-normal" href="{% url 'recommend' %}">추천 전시회</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fs-6 fw-normal" href="board.html">모임 게시판</a>
+                            <a class="nav-link fs-6 fw-normal" href="{% url 'board' %}">모임 게시판</a>
                         </li>
                     </ul>
                 </div>
@@ -61,7 +62,7 @@
                     <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
                         <i class="fa fa-fw fa-search text-dark mr-2"></i>
                     </a>
-                    <a href="login.html" class="btn btn-primary rounded-1 text-white m-1 fw-normal">로그인</a>
+                    <a href="{% url 'login' %}" class="btn btn-primary rounded-1 text-white m-1 fw-normal">로그인</a>
                 </div>
                 </div>
             </div>
@@ -96,7 +97,7 @@
             <div class="row">
                 <div class="col-lg-5 mt-5">
                     <div class="card mb-3">
-                        <img class="card-img img-fluid" src="./assets/img/에드워드 호퍼 길 위에서.gif" alt="Card image cap" id="product-detail">
+                        <img class="card-img img-fluid" src="{% static 'assets/img/에드워드 호퍼 길 위에서.gif'%}" alt="Card image cap" id="product-detail">
                     </div>
 
                 </div>
@@ -120,7 +121,7 @@
                             <p class="fs-4 fw-bolder">서울시립미술관</p>
                                 <div class="row pb-3">
                                     <div class="col-4">
-                                        <a href="map_page.html" class="btn btn-success btn-lg">지도로 보기</a>
+                                        <a href="{% url 'recommend' %}" class="btn btn-success btn-lg">지도로 보기</a>
                                     </div>
                                 </div>
                                 <br>
@@ -168,7 +169,7 @@
             <div class="col-md-6 pt-5">
                 <h3 class="h3 text-dark -bottom pb-3 -light">Info<hr class="text-primary"></h3>
                 <ul class="list-unstyled footer-link-list">
-                    <li><a class="text-decoration-none text-dark" href="index.html">Home</a></li>
+                    <li><a class="text-decoration-none text-dark" href="{% url 'mainpage' %}">Home</a></li>
                     <li><a class="text-decoration-none text-dark" href="#">About Us</a></li>
                     <li><a class="text-decoration-none text-dark" href="#">FAQs</a></li>
                     <li><a class="text-decoration-none text-dark" href="#">Contact</a></li>
@@ -222,11 +223,11 @@
 <!-- End Footer -->
 
     <!-- Start Script -->
-    <script src="assets/js/jquery-1.11.0.min.js"></script>
-    <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/templatemo.js"></script>
-    <script src="assets/js/custom.js"></script>
+    <script src="{% static 'js/jquery-1.11.0.min.js'%}"></script>
+    <script src="{% static 'js/jquery-migrate-1.2.1.min.js'%}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js'%}"></script>
+    <script src="{% static 'js/templatemo.js'%}"></script>
+    <script src="{% static 'js/custom.js'%}"></script>
     <!-- End Script -->
 
    
