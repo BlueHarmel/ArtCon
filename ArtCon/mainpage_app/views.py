@@ -1,14 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-
-
-articles = {"search": "Search Page", "map": "Map Page"}
+from django.http import HttpResponse
 
 
 # Create your views here.
-def search_view(request):
-    return HttpResponse(articles["search"])
-
-
-def map_view(request):
-    return HttpResponse(articles["map"])
+def mainpage_app(request):
+    return render(request, "mainpage_app/index.html")

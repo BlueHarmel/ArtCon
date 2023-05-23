@@ -21,6 +21,10 @@ from . import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("mainpage_app/", include("mainpage_app.urls")),
-    path("", views.home_view),
+    path("", include("mainpage_app.urls")),
+    path("auth/", include("authpage_app.urls")),
+    path("board/", include("boardpage_app.urls")),
+    path("exhibition/", include("exhibpage_app.urls")),
+    path("recommend/", include("recompage_app.urls")),
+    path("search/", include("searchpage_app.urls")),
 ]
