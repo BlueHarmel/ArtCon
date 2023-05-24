@@ -4,7 +4,7 @@
     <!-- Start Login -->
     <div class="row mt-5 mb-5 pt-5 pb-5 justify-content-center align-items-center text-center">
         <div class="mb-5">
-            <p>계정이 없으신가요? <a href="register.html" class="text-decoration-underline text-body">회원가입</a> </p>
+            <p>계정이 없으신가요? <a href="{% url 'register' %}" class="text-decoration-underline text-body">회원가입</a> </p>
         </div>
         <div class="mb-3">
             <h1 style="font-weight: 700; font-size: 50px;">ArtCon</h1>
@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="mt-5 mb-5">
-            <a href="findPassword.html" class="text-decoration-underline text-body">비밀번호를 잊어버리셨나요?</a>
+            <a href="{% url 'findPassword' %}" class="text-decoration-underline text-body">비밀번호를 잊어버리셨나요?</a>
         </div>
     </div>
     <!-- Close Login -->
