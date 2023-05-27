@@ -12,5 +12,9 @@ def mainpage_app(request):
     recommend2 = serializers.serialize('json', Exhibit.objects.filter(E_name__contains='파랑새를'))
     recommend3 = serializers.serialize('json', Exhibit.objects.filter(E_name__contains='전통공예명품전'))
     recommend4 = serializers.serialize('json', Exhibit.objects.filter(E_name__contains='달마가'))
-    context = {"recommend1":recommend1, "recommend2":recommend2, "recommend3":recommend3, "recommend4":recommend4}
+    banner1 = serializers.serialize('json', Exhibit.objects.filter(E_name__contains='바당수업'))
+    banner2 = serializers.serialize('json', Exhibit.objects.filter(E_name__contains='나전장의'))
+    banner3 = serializers.serialize('json', Exhibit.objects.filter(E_name__contains='오프그리드'))
+    context = {"recommend1":recommend1, "recommend2":recommend2, "recommend3":recommend3, "recommend4":recommend4,
+               "banner1":banner1, "banner2":banner2, "banner3":banner3}
     return render(request, "mainpage_app/index.html", context=context)

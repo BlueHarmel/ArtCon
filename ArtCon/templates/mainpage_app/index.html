@@ -24,7 +24,7 @@
                 <div class="container">
                     <div class="row p-3">
                         <div class="mx-auto col-md-6 col-lg-4 order-lg-last">
-                            <img class="img-fluid w-100 h-100" src="{% static 'img/banner_img_01.jpg'%}" alt="">
+                            <img id='bannerimg1' class="img-fluid w-100 h-100" src="{% static 'img/banner_img_01.jpg'%}" alt="">
                         </div>
                         <div class="col-lg-6 mb-0 align-items-center align-self-center m-3">
                             <h3 class="h3">광고 배너 문의</h3>
@@ -39,7 +39,7 @@
                 <div class="container">
                     <div class="row p-3">
                         <div class="mx-auto col-md-6 col-lg-4 order-lg-last">
-                            <img class="img-fluid" src="{% static 'img/banner_img_02.jpg'%}" alt="">
+                            <img id='bannerimg2' class="img-fluid" src="{% static 'img/banner_img_02.jpg'%}" alt="">
                         </div>
                         <div class="col-lg-6 mb-0 align-items-center align-self-center m-3">
                             <h3 class="h3">광고 배너 문의</h3>
@@ -54,7 +54,7 @@
                 <div class="container">
                     <div class="row p-3">
                         <div class="mx-auto col-md-6 col-lg-4 order-lg-last">
-                            <img class="img-fluid" src="{% static 'img/banner_img_03.jpg'%}" alt="">
+                            <img id='bannerimg3' class="img-fluid" src="{% static 'img/banner_img_03.jpg'%}" alt="">
                         </div>
                         <div class="col-lg-4 mb-0 d-flex align-items-center">
                             <div class="col-lg-6 mb-0 align-items-center align-self-center m-3">
@@ -88,33 +88,44 @@
         <script>
             // 이미지 태그에 id 넣었는데 수정 필요할지도
             // 이미지 별로 사이즈 조정 필요할지도
+            // 변수명 맘에 안들면 수정 필요할지도
+            // 함수 위치 맘에 안 들면 수정 필요할지도
             window.onload = function(){
-                var raw1 = {{ recommend1|safe }};
-                var raw2 = {{ recommend2|safe }};
-                var raw3 = {{ recommend3|safe }};
-                var raw4 = {{ recommend4|safe }};
-                var imgRecommend1 = raw1[0]['fields']['img'];
-                var imgRecommend2 = raw2[0]['fields']['img'];
-                var imgRecommend3 = raw3[0]['fields']['img'];
-                var imgRecommend4 = raw4[0]['fields']['img'];
-                $('#img1').attr('src',imgRecommend1)
-                $('#img2').attr('src',imgRecommend2)
-                $('#img3').attr('src',imgRecommend3)
-                $('#img4').attr('src',imgRecommend4)
+                var recommendRaw1 = {{ recommend1|safe }};
+                var recommendRaw2 = {{ recommend2|safe }};
+                var recommendRaw3 = {{ recommend3|safe }};
+                var recommendRaw4 = {{ recommend4|safe }};
+                var bannerRaw1 = {{ banner1|safe }};
+                var bannerRaw2 = {{ banner2|safe }};
+                var bannerRaw3 = {{ banner3|safe }};
+                var imgRecommend1 = recommendRaw1[0]['fields']['img'];
+                var imgRecommend2 = recommendRaw2[0]['fields']['img'];
+                var imgRecommend3 = recommendRaw3[0]['fields']['img'];
+                var imgRecommend4 = recommendRaw4[0]['fields']['img'];
+                var imgBanner1 = bannerRaw1[0]['fields']['img'];
+                var imgBanner2 = bannerRaw2[0]['fields']['img']
+                var imgBanner3 = bannerRaw3[0]['fields']['img']
+                $('#recommendimg1').attr('src',imgRecommend1)
+                $('#recommendimg2').attr('src',imgRecommend2)
+                $('#recommendimg3').attr('src',imgRecommend3)
+                $('#recommendimg4').attr('src',imgRecommend4)
+                $('#bannerimg1').attr('src',imgBanner1)
+                $('#bannerimg2').attr('src',imgBanner2)
+                $('#bannerimg3').attr('src',imgBanner3)
             };
         </script>
         <div class="row">
             <div class="col-2 col-md-3 p-3 mt-3">
-                <a href="{% url 'exhibition' %}"><img id='img1' class="rounded-3 img-fluid border-opacity-25"></a>
+                <a href="{% url 'exhibition' %}"><img id='recommendimg1' class="rounded-3 img-fluid border-opacity-25"></a>
             </div>
             <div class="col-2 col-md-3 p-3 mt-3">
-                <a href="{% url 'exhibition' %}"><img id='img2' class="rounded-3 img-fluid  border-opacity-25"></a>
+                <a href="{% url 'exhibition' %}"><img id='recommendimg2' class="rounded-3 img-fluid  border-opacity-25"></a>
             </div>
             <div class="col-2 col-md-3 p-3 mt-3">
-                <a href="{% url 'exhibition' %}"><img id='img3' class="rounded-3 img-fluid  border-opacity-25"></a>
+                <a href="{% url 'exhibition' %}"><img id='recommendimg3' class="rounded-3 img-fluid  border-opacity-25"></a>
             </div>
             <div class="col-2 col-md-3 p-3 mt-3">
-                <a href="{% url 'exhibition' %}"><img id='img4' class="rounded-3 img-fluid  border-opacity-25"></a>
+                <a href="{% url 'exhibition' %}"><img id='recommendimg4' class="rounded-3 img-fluid  border-opacity-25"></a>
             </div>
         </div>
     </section>
