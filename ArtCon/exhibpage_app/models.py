@@ -24,7 +24,7 @@ class Exhibit(models.Model):
                     'img': self.img,
                     'summary': self.summary
                     })
-
+    
 class Location(models.Model):
     L_name = models.CharField(max_length=50)
     x = models.FloatField()

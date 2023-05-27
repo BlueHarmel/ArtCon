@@ -85,23 +85,76 @@
                 <h3 class="h3">추천 전시회</h3>
             </div>
         </div>
+        <script>
+            // 이미지 태그에 id 넣었는데 수정 필요할지도
+            // 이미지 별로 사이즈 조정 필요할지도
+            window.onload = function(){
+                var raw1 = {{ recommend1|safe }};
+                var raw2 = {{ recommend2|safe }};
+                var raw3 = {{ recommend3|safe }};
+                var raw4 = {{ recommend4|safe }};
+                var imgRecommend1 = raw1[0]['fields']['img'];
+                var imgRecommend2 = raw2[0]['fields']['img'];
+                var imgRecommend3 = raw3[0]['fields']['img'];
+                var imgRecommend4 = raw4[0]['fields']['img'];
+                $('#img1').attr('src',imgRecommend1)
+                $('#img2').attr('src',imgRecommend2)
+                $('#img3').attr('src',imgRecommend3)
+                $('#img4').attr('src',imgRecommend4)
+            };
+        </script>
         <div class="row">
             <div class="col-2 col-md-3 p-3 mt-3">
-                <a href="{% url 'exhibition' %}"><img src="{% static 'img/피카소와 20세기 거장들.gif'%}" class="rounded-3 img-fluid border-opacity-25"></a>
+                <a href="{% url 'exhibition' %}"><img id='img1' class="rounded-3 img-fluid border-opacity-25"></a>
             </div>
             <div class="col-2 col-md-3 p-3 mt-3">
-                <a href="{% url 'exhibition' %}"><img src="{% static 'img/제이알 크로니클스.gif'%}" class="rounded-3 img-fluid  border-opacity-25"></a>
+                <a href="{% url 'exhibition' %}"><img id='img2' class="rounded-3 img-fluid  border-opacity-25"></a>
             </div>
             <div class="col-2 col-md-3 p-3 mt-3">
-                <a href="{% url 'exhibition' %}"><img src="{% static 'img/에드워드 호퍼 길 위에서.gif'%}" class="rounded-3 img-fluid  border-opacity-25"></a>
+                <a href="{% url 'exhibition' %}"><img id='img3' class="rounded-3 img-fluid  border-opacity-25"></a>
             </div>
             <div class="col-2 col-md-3 p-3 mt-3">
-                <a href="{% url 'exhibition' %}"><img src="{% static 'img/뒤피.gif'%}" class="rounded-3 img-fluid  border-opacity-25"></a>
+                <a href="{% url 'exhibition' %}"><img id='img4' class="rounded-3 img-fluid  border-opacity-25"></a>
             </div>
         </div>
     </section>
     <!-- End Categories of The Month -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script>
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+            }
+            var csrftoken = getCookie('csrftoken');
+    </script>
+    <script>
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
 
+        function getExhibitData(){
+
+        }
+    </script>
 
     <!-- Start Featured Product
     <section class="bg-light">
