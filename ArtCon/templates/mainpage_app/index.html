@@ -90,52 +90,53 @@
             // 이미지 별로 사이즈 조정 필요할지도
             // 변수명 맘에 안들면 수정 필요할지도
             // 함수 위치 맘에 안 들면 수정 필요할지도
-            window.onload = function(){
-                var recommendRaw1 = {{ recommend1|safe }};
-                var recommendRaw2 = {{ recommend2|safe }};
-                var recommendRaw3 = {{ recommend3|safe }};
-                var recommendRaw4 = {{ recommend4|safe }};
-                var bannerRaw1 = {{ banner1|safe }};
-                var bannerRaw2 = {{ banner2|safe }};
-                var bannerRaw3 = {{ banner3|safe }};
-                var imgRecommend1 = recommendRaw1[0]['fields']['img'];
-                var imgRecommend2 = recommendRaw2[0]['fields']['img'];
-                var imgRecommend3 = recommendRaw3[0]['fields']['img'];
-                var imgRecommend4 = recommendRaw4[0]['fields']['img'];
-                // a태그에 value 추가(pk) <= exhibit id
-                var valRecommend1 = recommendRaw1[0]['pk'];
-                var valRecommend2 = recommendRaw2[0]['pk'];
-                var valRecommend3 = recommendRaw3[0]['pk'];
-                var valRecommend4 = recommendRaw4[0]['pk'];
-                var imgBanner1 = bannerRaw1[0]['fields']['img'];
-                var imgBanner2 = bannerRaw2[0]['fields']['img'];
-                var imgBanner3 = bannerRaw3[0]['fields']['img'];
-                $('#recommendimg1').attr('src',imgRecommend1);
-                $('#recommendimg2').attr('src',imgRecommend2);
-                $('#recommendimg3').attr('src',imgRecommend3);
-                $('#recommendimg4').attr('src',imgRecommend4);
-                $('#bannerimg1').attr('src',imgBanner1);
-                $('#bannerimg2').attr('src',imgBanner2);
-                $('#bannerimg3').attr('src',imgBanner3);
-                $('#test1').attr('href',"{% url 'exhibition' %}?exhibitID="+valRecommend1);
-                $('#test2').attr('href',"{% url 'exhibition' %}?exhibitID="+valRecommend2);
-                $('#test3').attr('href',"{% url 'exhibition' %}?exhibitID="+valRecommend3);
-                $('#test4').attr('href',"{% url 'exhibition' %}?exhibitID="+valRecommend4);
-                
-            };
+            //window.onload = function(){
+            //    var recommendRaw1 = {{ recommend1|safe }};
+            //    var recommendRaw2 = {{ recommend2|safe }};
+            //    var recommendRaw3 = {{ recommend3|safe }};
+            //    var recommendRaw4 = {{ recommend4|safe }};
+            //    var bannerRaw1 = {{ banner1|safe }};
+            //    var bannerRaw2 = {{ banner2|safe }};
+            //    var bannerRaw3 = {{ banner3|safe }};
+            //    var imgRecommend1 = recommendRaw1[0]['fields']['img'];
+            //    var imgRecommend2 = recommendRaw2[0]['fields']['img'];
+            //    var imgRecommend3 = recommendRaw3[0]['fields']['img'];
+            //    var imgRecommend4 = recommendRaw4[0]['fields']['img'];
+            //    // a태그에 value 추가(pk) <= exhibit id
+            //    var valRecommend1 = recommendRaw1[0]['pk'];
+            //    var valRecommend2 = recommendRaw2[0]['pk'];
+            //    var valRecommend3 = recommendRaw3[0]['pk'];
+            //    var valRecommend4 = recommendRaw4[0]['pk'];
+            //    var imgBanner1 = bannerRaw1[0]['fields']['img'];
+            //    var imgBanner2 = bannerRaw2[0]['fields']['img'];
+            //    var imgBanner3 = bannerRaw3[0]['fields']['img'];
+            //    $('#recommendimg1').attr('src',imgRecommend1);
+            //    $('#recommendimg2').attr('src',imgRecommend2);
+            //    $('#recommendimg3').attr('src',imgRecommend3);
+            //    $('#recommendimg4').attr('src',imgRecommend4);
+            //    $('#bannerimg1').attr('src',imgBanner1);
+            //    $('#bannerimg2').attr('src',imgBanner2);
+            //    $('#bannerimg3').attr('src',imgBanner3);
+            //    $('#test1').attr('href',"{% url 'exhibition' %}?exhibitID="+valRecommend1);
+            //    $('#test2').attr('href',"{% url 'exhibition' %}?exhibitID="+valRecommend2);
+            //    $('#test3').attr('href',"{% url 'exhibition' %}?exhibitID="+valRecommend3);
+            //    $('#test4').attr('href',"{% url 'exhibition' %}?exhibitID="+valRecommend4);
+            
+            //};
+            
         </script>
         <div class="row">
             <div class="col-2 col-md-3 p-3 mt-3">
-                <a id="test1" href=""><img id='recommendimg1' class="rounded-3 img-fluid border-opacity-25"></a>
+                <a id="test1" href="{% url 'exhibition' %}?exhibitID={{recommend1.0.id}}"><img src = "{{recommend1.0.img}}",id='recommendimg1' class="rounded-3 img-fluid border-opacity-25"></a>
             </div>
             <div class="col-2 col-md-3 p-3 mt-3">
-                <a id="test2" href=""><img id='recommendimg2' class="rounded-3 img-fluid  border-opacity-25"></a>
+                <a id="test2" href="{% url 'exhibition' %}?exhibitID={{recommend2.0.id}}"><img src = "{{recommend2.0.img}}",id='recommendimg2' class="rounded-3 img-fluid  border-opacity-25"></a>
             </div>
             <div class="col-2 col-md-3 p-3 mt-3">
-                <a id="test3" href=""><img id='recommendimg3' class="rounded-3 img-fluid  border-opacity-25"></a>
+                <a id="test3" href="{% url 'exhibition' %}?exhibitID={{recommend3.0.id}}"><img src = "{{recommend3.0.img}}",id='recommendimg3' class="rounded-3 img-fluid  border-opacity-25"></a>
             </div>
             <div class="col-2 col-md-3 p-3 mt-3">
-                <a id="test4" href=""><img id='recommendimg4' class="rounded-3 img-fluid  border-opacity-25"></a>
+                <a id="test4" href="{% url 'exhibition' %}?exhibitID={{recommend4.0.id}}"><img src = "{{recommend4.0.img}}",id='recommendimg4' class="rounded-3 img-fluid  border-opacity-25"></a>
             </div>
         </div>
     </section>
