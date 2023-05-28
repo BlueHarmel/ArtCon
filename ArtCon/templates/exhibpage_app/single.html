@@ -9,25 +9,23 @@
     <!-- Open Content -->
     <section class="bg-light">
         <div class="container pb-5">
+            {% for elem in exhibit %}
+            <!-- 적당히 이쁘게 꾸미는거 필요할지도 -->
+            <!-- 크롤링 평점 가져오는거도 필요할지도 -->
             <div class="row">
                 <div class="col-lg-5 mt-5">
                     <div class="card mb-3">
-                        <img class="card-img img-fluid" src="./assets/img/에드워드 호퍼 길 위에서.gif" alt="Card image cap" id="product-detail">
+                        <img class="card-img img-fluid" src="{{ elem.img }}" alt="Card image cap" id="product-detail">
                     </div>
 
                 </div>
-<!--                 
-                출력 예시
-                {% for elem in data %}
-                    <p>{{ elem.E_name }}</p>
-                    <p>{{ elem.start_date}} ~ {{ elem.end_date}}</p>
-                {% endfor %}
- -->
+            
+
                 <!-- col end -->
                 <div class="col-lg-7 mt-5">
                     <div class="card">
                         <div class="card-body">
-                            <h1 class="fs-1 fw-bold">에드워드 호퍼 길 위에서</h1>
+                            <h1 class="fs-1 fw-bold">{{ elem.E_name }}</h1>
                             <div class="text-nowrap bg-body-secondary border" style="width: 4rem;"> 전시회</div>
                             <p class="py-2">
                                 <i class="fa fa-star text-warning"></i>
@@ -38,9 +36,9 @@
                                 <span class="list-inline-item text-dark">평점 4.8</span>
                             </p>
                             <p class="fs-2 fw-bolder">날짜</p>
-                            <p class="fs-4 fw-bolder">2023.04.20~08.20</p>
+                            <p class="fs-4 fw-bolder">{{ elem.start_date}} ~ {{ elem.end_date}}</p>
                             <p class="fs-2 fw-bolder">장소</p>
-                            <p class="fs-4 fw-bolder">서울시립미술관</p>
+                            <p class="fs-4 fw-bolder">{{ elem.L_name }}</p>
                                 <div class="row pb-3">
                                     <div class="col-4">
                                         <a href="map_page.html" class="btn btn-success btn-lg">지도로 보기</a>
@@ -56,6 +54,7 @@
                     </div>
                 </div>
             </div>
+            {% endfor %}    
         </div>
     </section>
     <!-- Close Content -->
