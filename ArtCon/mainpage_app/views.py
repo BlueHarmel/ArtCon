@@ -9,13 +9,13 @@ from django.core import serializers
 # Create your views here.
 # 메인페이지인데 변수 이름을 recommend라 했는데 수정 필요할지도
 def mainpage_app(request):
-    recommend1 = Exhibit.objects.filter(E_name__contains="꼴값쇼:").values()
-    recommend2 = Exhibit.objects.filter(E_name__contains="파랑새를").values()
-    recommend3 = Exhibit.objects.filter(E_name__contains="전통공예명품전").values()
-    recommend4 = Exhibit.objects.filter(E_name__contains="달마가").values()
-    banner1 = Exhibit.objects.filter(E_name__contains="바당수업").values()
-    banner2 = Exhibit.objects.filter(E_name__contains="나전장의").values()
-    banner3 = Exhibit.objects.filter(E_name__contains="오프그리드").values()
+    recommend1 = Exhibit.objects.filter(id__exact=1).values()
+    recommend2 = Exhibit.objects.filter(id__exact=2).values()
+    recommend3 = Exhibit.objects.filter(id__exact=3).values()
+    recommend4 = Exhibit.objects.filter(id__exact=4).values()
+    banner1 = Exhibit.objects.filter(id__exact=5).values()
+    banner2 = Exhibit.objects.filter(id__exact=6).values()
+    banner3 = Exhibit.objects.filter(id__exact=7).values()
     # recommend1 = serializers.serialize(
     #    "json", Exhibit.objects.filter(E_name__contains="꼴값쇼:")
     # )
