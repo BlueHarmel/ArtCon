@@ -26,5 +26,5 @@ urlpatterns = [
     path("board/", include("boardpage_app.urls")),
     path("exhibition/", include("exhibpage_app.urls")),
     path("recommend/", include("recompage_app.urls")),
-    path("search/", include("searchpage_app.urls")),
+    path("search/", views.search, name="search"),
 ]

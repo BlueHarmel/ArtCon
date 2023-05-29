@@ -16,7 +16,6 @@ from pathlib import Path
 import pymysql
 
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -107,7 +106,7 @@ DATABASES = {
         "USER": MYSQL_CONFIG["USER"],
         "PASSWORD": MYSQL_CONFIG["PASSWORD"],
         "HOST": MYSQL_CONFIG["HOST"],
-        "PORT": MYSQL_CONFIG["PORT"]
+        "PORT": MYSQL_CONFIG["PORT"],
     }
 }
 
@@ -153,5 +152,5 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-AUTH_USER_MODEL = 'authpage_app.User'
-LOGIN_REDIRECT_URL = '/index'
+AUTH_USER_MODEL = "authpage_app.User"
+LOGIN_REDIRECT_URL = "/index"

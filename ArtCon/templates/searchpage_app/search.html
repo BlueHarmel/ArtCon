@@ -90,45 +90,24 @@
     <!-- Start Info -->
         <div class="d-flex flex-row bg-white shadow">
             <div class="text-start m-3 p-5 col-4">
-                <h3>검색 결과</h3>
+              {% if searched %}
+                <h3>{{ searched }} 검색 결과</h3>
             </div>
             <div class="d-flex flex-column p-5 m-3 col-8">
+                {% for exhibit in exhibits %}
                 <div class="d-flex flex-row" style="margin: 10px 0px;">
-                    <img src="./assets/img/에드워드 호퍼 길 위에서.gif" class="pic-sm" value="이미지 삽입"/>
+                    <img src="{{exhibit.img}}" class="pic-sm" value="이미지 삽입"/>
                     <div class="d-flex flex-column p-3">
-                        <h4 class="h4">전시회 제목</h4>
+                        <h4 class="h4">{{exhibit.E_name}}</h4>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
                         <br>
-                        <a href="#" class="text-decoration-line-underline text-light">자세히 보기</a>
+                        <a href="{% url 'exhibition' %}?exhibitID={{exhibit.id}}" class="text-decoration-line-underline text-light">자세히 보기</a>
                     </div>
                 </div>
-                <div class="d-flex flex-row">
-                    <img src="./assets/img/제이알 크로니클스.gif" class="pic-sm" value="이미지 삽입"/>
-                    <div class="d-flex flex-column p-3">
-                        <h4 class="h4">전시회 제목</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-                        <br>
-                        <a href="#" class="text-decoration-underline text-light">자세히 보기</a>
-                    </div>
-                </div>
-                <div class="d-flex flex-row">
-                    <img src="/assets/img/피카소와 20세기 거장들.gif" class="pic-sm" value="이미지 삽입"/>
-                    <div class="d-flex flex-column p-3">
-                        <h4 class="h4">전시회 제목</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-                        <br>
-                        <a href="#" class="text-decoration-underline text-light">자세히 보기</a>
-                    </div>
-                </div>
-                <div class="d-flex flex-row">
-                    <img src="/assets/img/뒤피.gif" class="pic-sm" value="이미지 삽입"/>
-                    <div class="d-flex flex-column p-3">
-                        <h4 class="h4">전시회 제목</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-                        <br>
-                        <a href="#" class="text-decoration-underline text-light">자세히 보기</a>
-                    </div>
-                </div>
+                {% endfor %}
+                {% else %}
+                <h1> 찾고 있는 전시회를 검색창에 입력해주세요. </h1>
+                {% endif %}
             </div>
         </div>
     <!-- End Info -->
