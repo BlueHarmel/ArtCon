@@ -5,6 +5,14 @@ input .form-control{
 }
 
 
+/* img optimizing */
+
+
+/* map */
+.map {
+    border: 1.5px solid;
+}
+
 /* bootstrap */
 .bg-opacity-75{
     opacity: .75;
@@ -47,3 +55,4 @@ input .form-control{
     width: 800px;
     height: 400px;
 }
+

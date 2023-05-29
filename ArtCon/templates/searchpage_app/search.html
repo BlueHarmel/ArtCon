@@ -93,13 +93,14 @@
               {% if searched %}
                 <h3>{{ searched }} 검색 결과</h3>
             </div>
+            <script>var data = {{searched|safe}}</script>
             <div class="d-flex flex-column p-5 m-3 col-8">
                 {% for exhibit in exhibits %}
                 <div class="d-flex flex-row" style="margin: 10px 0px;">
                     <img src="{{exhibit.img}}" class="pic-sm" value="이미지 삽입"/>
                     <div class="d-flex flex-column p-3">
                         <h4 class="h4">{{exhibit.E_name}}</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                        <p>{{exhibit.start_date}} ~ {{exhibit.end_date}}</p>
                         <br>
                         <a href="{% url 'exhibition' %}?exhibitID={{exhibit.id}}" class="text-decoration-line-underline text-light">자세히 보기</a>
                     </div>
