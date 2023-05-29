@@ -1,20 +1,7 @@
 'use strict';
 
-/* API 받아오기 */
-const userLocation = {
-    x: 33.450701,
-    y: 126.570667
-};
-/* global kakao */
-const container = document.getElementById('map');
-const options = { 
-	center: new kakao.maps.LatLng(userLocation.x, userLocation.y), 
-	level: 3 //지도 확대, 축소 정도
-};
-const map = new kakao.maps.Map(container, options);
-
-
-/* Save Login Info in local storage */
+/* login
+// Save Login Info in local storage 
 const loginId = document.querySelector("#loginId");
 const loginPw = document.querySelector("#loginPw");
 const loginBtn = document.querySelector("#loginBtn");
@@ -39,7 +26,7 @@ loginBtn.onclick=(e)=>{
 }
 
 
-/* Save Register Info in local storage */
+// Save Register Info in local storage 
 const joinId = document.querySelector("#registerId");
 const joinPw = document.querySelector("#registerPw");
 const joinBtn = document.querySelector("#registerBtn");
@@ -71,3 +58,4 @@ function onRegisterSubmit(e){
     const joinTel = joinTel.value;
     localStorage.setItem(JOINTEL_KEY, joinTel);
 }
+*/

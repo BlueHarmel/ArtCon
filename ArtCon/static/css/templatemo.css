@@ -116,7 +116,9 @@ body, ul, li, p, a, label, input, div {
 }
 /* Carousel Hero */
 #template-mo-zay-hero-carousel .carousel-indicators li {
-  
+  border-radius: 30%;
+  width: 30px;
+  height: 10px;
   margin-top: -25px;
   background-color: #2b80d0;
 }
