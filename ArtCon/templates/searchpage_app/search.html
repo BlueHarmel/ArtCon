@@ -59,30 +59,26 @@
         <div class="d-flex flex-row m-5 p-3 align-items-center">
             <div class="container-fluid bg-white shadow rounded box-size-sm">
                 <div class="row m-5">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-white border border-black btn-lg dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            해외작가
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-xl-end">
-                                <li><a class="dropdown-item" href="#">희화</a></li>
-                                <li><a class="dropdown-item" href="#">사진</a></li>
-                                <li><a class="dropdown-item" href="#">조형</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <br>
                     <div class="row m-5">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-white border border-black btn-lg dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            국내작가
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-xl-end">
-                                <li><a class="dropdown-item" href="#">희화</a></li>
-                                <li><a class="dropdown-item" href="#">사진</a></li>
-                                <li><a class="dropdown-item" href="#">조형</a></li>
-                            </ul>
+                        <form>
+                            <label>
+                            시작 날짜 :
+                            <input type="date" name="bday">부터
+                            </label>
+                        </form>
+                    </div>
+                    <div class="row m-5">
+                        <form>
+                            <label>
+                                종료 날짜 :
+                                <input type="date" name="bday">까지
+                            </label>
+                        </form>
+                        <div class="m-3 p-5">
+                            <p><button type="button" class="btn btn-outline-primary">날짜 검색</button></p>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
     <!-- End Filter -->
@@ -90,61 +86,25 @@
     <!-- Start Info -->
         <div class="d-flex flex-row bg-white shadow">
             <div class="text-start m-3 p-5 col-4">
-                <h3>검색 결과</h3>
+              {% if searched %}
+                <h3>{{ searched }} 검색 결과</h3>
             </div>
+            <script>var data = {{searched|safe}}</script>
             <div class="d-flex flex-column p-5 m-3 col-8">
+                {% for exhibit in exhibits %}
                 <div class="d-flex flex-row" style="margin: 10px 0px;">
-<<<<<<< HEAD
-                    <img src="{% static 'img/에드워드 호퍼 길 위에서.gif'%}" class="pic-sm" value="이미지 삽입"/>
-=======
-                    <img src="./assets/img/에드워드 호퍼 길 위에서.gif" class="pic-sm" value="이미지 삽입"/>
->>>>>>> abb19d86dc7d37f02cf4a0523411bf0b9aa3a566
+                    <img src="{{exhibit.img}}" class="pic-sm" value="이미지 삽입"/>
                     <div class="d-flex flex-column p-3">
-                        <h4 class="h4">전시회 제목</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                        <h4 class="h4">{{exhibit.E_name}}</h4>
+                        <p>{{exhibit.start_date}} ~ {{exhibit.end_date}}</p>
                         <br>
-                        <a href="#" class="text-decoration-line-underline text-light">자세히 보기</a>
+                        <a href="{% url 'exhibition' %}?exhibitID={{exhibit.id}}" class="text-decoration-line-underline text-light">자세히 보기</a>
                     </div>
                 </div>
-                <div class="d-flex flex-row">
-<<<<<<< HEAD
-                    <img src="{% static 'img/제이알 크로니클스.gif'%}" class="pic-sm" value="이미지 삽입"/>
-=======
-                    <img src="./assets/img/제이알 크로니클스.gif" class="pic-sm" value="이미지 삽입"/>
->>>>>>> abb19d86dc7d37f02cf4a0523411bf0b9aa3a566
-                    <div class="d-flex flex-column p-3">
-                        <h4 class="h4">전시회 제목</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-                        <br>
-                        <a href="#" class="text-decoration-underline text-light">자세히 보기</a>
-                    </div>
-                </div>
-                <div class="d-flex flex-row">
-<<<<<<< HEAD
-                    <img src="{% static 'img/피카소와 20세기 거장들.gif'%}" class="pic-sm" value="이미지 삽입"/>
-=======
-                    <img src="/assets/img/피카소와 20세기 거장들.gif" class="pic-sm" value="이미지 삽입"/>
->>>>>>> abb19d86dc7d37f02cf4a0523411bf0b9aa3a566
-                    <div class="d-flex flex-column p-3">
-                        <h4 class="h4">전시회 제목</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-                        <br>
-                        <a href="#" class="text-decoration-underline text-light">자세히 보기</a>
-                    </div>
-                </div>
-                <div class="d-flex flex-row">
-<<<<<<< HEAD
-                    <img src="{% static 'img/뒤피.gif'%}" class="pic-sm" value="이미지 삽입"/>
-=======
-                    <img src="/assets/img/뒤피.gif" class="pic-sm" value="이미지 삽입"/>
->>>>>>> abb19d86dc7d37f02cf4a0523411bf0b9aa3a566
-                    <div class="d-flex flex-column p-3">
-                        <h4 class="h4">전시회 제목</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-                        <br>
-                        <a href="#" class="text-decoration-underline text-light">자세히 보기</a>
-                    </div>
-                </div>
+                {% endfor %}
+                {% else %}
+                <h1> 찾고 있는 전시회를 검색창에 입력해주세요. </h1>
+                {% endif %}
             </div>
         </div>
     <!-- End Info -->
