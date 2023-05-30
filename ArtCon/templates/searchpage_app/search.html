@@ -38,7 +38,7 @@
     <section class="container mt-5 mb-5">
         <div class="d-flex flex-column col-12 my-5 bg-white shadow justify-contents-center">
             <div class="m-5">
-                <form action="{% url 'search' %}" method="POST">
+                <form action="{% url 'search' %}title" method="POST">
                     <div class="input-group mb-2 px-3">
                         {% csrf_token %}
                         <input type="search" class="form-control" id="inputModalSearch" name="searched" placeholder="전시회 검색">
@@ -47,16 +47,22 @@
                         </button>
                     </div>
                 </form>
+                <form action="{% url 'search' %}date" method="POST">
+                    {% csrf_token %}
+                    <p><input type="date" name="date"></p>
+                    <button type="submit" class="btn btn-outline-primary">날짜 검색</button>
+                </form>
             </div>
         </div>
 
     <!-- Start Info -->
         <div class="d-flex flex-row bg-white shadow my-5">
             <div class="d-flex flex-row text-start m-3 p-5 col-4">
-              {% if searched %}
-                <h3>{{ searched }} 검색 결과</h3>
+              {% if searched_title %}
+                <h3>{{ searched_title }} 검색 결과</h3>
             </div>
             <div class="d-flex flex-column p-5 m-3 col-8">
+                
                 {% for exhibit in exhibits %}
                 <div class="d-flex flex-row" style="margin: 10px 0px;">
                     <img src="{{exhibit.img}}" class="pic-sm m-3" value="이미지 삽입"/>
@@ -68,7 +74,18 @@
                     </div>
                 </div>
                 {% endfor %}
-                {% else %}
+            {% elif searched_date %}
+            <div class="d-flex flex-column p-5 m-3 col-8">
+                {% for exhibit in exhibits %}
+                <img src="{{exhibit.img}}" class="pic-sm m-3" value="이미지 삽입"/>
+                <div class="d-flex flex-column p-3">
+                    <p class="h3">{{exhibit.E_name}}</p>
+                    <p>{{exhibit.start_date}} ~ {{exhibit.end_date}}</p>
+                    <br>
+                    <a href="{% url 'exhibition' %}?exhibitID={{exhibit.id}}" class="text-decoration-line-underline text-light">자세히 보기</a>
+        </div>
+                
+                {% endfor %}
                 <div class="my-5">
                     <p class="h3"> 찾고 있는 전시회를 검색창에 입력해주세요. </p>
                 </div>

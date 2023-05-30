@@ -4,15 +4,9 @@ import datetime
 
 
 # Create your views here.
-def date_search(request):
-    date = request.GET.get("date")
-    searched = list(
-        Exhibit.objects.filter(
-            start_date__lte=datetime.date(2023, 5, 29),
-            end_date__gte=datetime.date(2023, 6, 30),
-        ).values()
-    )
-    # for i in range(len(searched)):
-    # context[i] = searched[0]
-    context = {"searched": searched}
+def search_date(request):
+    searched_date = request.POST.get('date')
+    exhibits_date = list(Exhibit.objects.filter(start_date__lte=searched_date,
+                                        end_date__gte=searched_date).values())
+    context={'searched_date':searched_date, "exhibits": exhibits_date}
     return render(request, "searchpage_app/search.html", context=context)

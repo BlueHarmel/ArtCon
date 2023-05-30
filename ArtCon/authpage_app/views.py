@@ -16,12 +16,12 @@ def login(request):
             res_data["error"] = "모든 칸을 다 입력해주세요."
         else:
             user = User.objects.get(username=username)
-            if password == user.password:
+            if auth.authenticate(username=username, password=password):
                 request.session["user"] = user.id
                 ###########################
                 ## 로그인 후 볼 화면 지정 필요 ##
                 ###########################
-                return redirect("/index")
+                return redirect("mainPage")
             else:
                 res_data["error"] = "비밀번호가 틀렸습니다."
     return render(request, "authpage_app/login.html", res_data)

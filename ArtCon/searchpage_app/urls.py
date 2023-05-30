@@ -3,5 +3,6 @@ from . import views
 
 
 urlpatterns = [
-    path("", views.search_2, name="search"),
+    # path("", views.search, name="search"),
+    path("/date", views.search_date)
 ]
