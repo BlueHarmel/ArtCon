@@ -44,15 +44,15 @@ def register(request):
         "^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$"
     )
     if request.method == "GET":
-        return render(request, "signUp.html")
+        return render(request, "authpage_app/register.html")
     elif request.method == "POST":
         username = request.POST["username"]
         password1 = request.POST["password1"]
         password2 = request.POST["password2"]
         email = request.POST["email"]
         phone_number = request.POST["phone_number"]
-        firstname = request.POST["firstname"]
-        lastname = request.POST["lastname"]
+        firstname = request.POST["first_name"]
+        lastname = request.POST["last_name"]
 
         res_data = {}
         if (
@@ -71,7 +71,7 @@ def register(request):
         elif userdb.filter(phone_number=phone_number).exists():
             res_data["phone_number_error02"] = "이미 가입된 연락처입니다."
         elif email_validation.match(email) == None:
-            res_data["email_error"] = "@와 .를 포함한 이메일형식이 아닙니다."
+            res_data["email_error"] = "이메일형식을 확인해주세요."
         elif phone_number_validation.match(phone_number) == None:
             res_data["phone_number_error"] = "-를 포함한 연락처 형식이 아닙니다."
         elif password_validation.match(password1) == None:
@@ -81,8 +81,8 @@ def register(request):
                 username=request.POST["username"],
                 password=request.POST["password1"],
                 email=request.POST["email"],
-                first_name=request.POST["firstname"],
-                last_name=request.POST["lastname"],
+                first_name=request.POST["first_name"],
+                last_name=request.POST["last_name"],
                 phone_number=request.POST["phone_number"],
             )
             auth.login(request, user)
