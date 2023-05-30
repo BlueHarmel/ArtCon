@@ -30,10 +30,10 @@
                             <img id='bannerimg1' class="img-fluid w-100 h-100" src="{{banner1.0.img}}" alt="">
                         </div>
                         <div class="col-lg-6 mb-0 align-items-center align-self-center m-3">
-                            <h3 class="h3">광고 배너 문의</h3>
+                            <h3 class="h3">{{banner1.0.E_name}}</h3>
                             <br>
-                            <p class="h5">Tel: 010-1234-XXXX</p>
-                            <p class="h5">Email: ArtCon@gmail.com</p>
+                            <p class="h5">{{banner1.0.L_name}}</p>
+                            <p class="h5">{{banner1.0.start_date}}~{{banner1.0.end_date}}</p>
                         </div>
                     </div>
                 </div>
@@ -45,10 +45,10 @@
                             <img id='bannerimg2' class="img-fluid" src="{{banner2.0.img}}" alt="">
                         </div>
                         <div class="col-lg-6 mb-0 align-items-center align-self-center m-3">
-                            <h3 class="h3">광고 배너 문의</h3>
+                            <h3 class="h3">{{banner2.0.E_name}}</h3>
                             <br>
-                            <p class="h5">Tel: 010-1234-XXXX</p>
-                            <p class="h5">Email: ArtCon@gmail.com</p>
+                            <p class="h5">{{banner2.0.L_name}}</p>
+                            <p class="h5">{{banner2.0.start_date}}~{{banner2.0.end_date}}</p>
                         </div>
                     </div>
                 </div>
@@ -61,10 +61,10 @@
                         </div>
                         <div class="col-lg-4 mb-0 d-flex align-items-center">
                             <div class="col-lg-6 mb-0 align-items-center align-self-center m-3">
-                                <h3 class="h3">광고 배너 문의</h3>
+                                <h3 class="h3">{{banner3.0.E_name}}</h3>
                                 <br>
-                                <p class="h5">Tel: 010-1234-XXXX</p>
-                                <p class="h5">Email: ArtCon@gmail.com</p>
+                                <p class="h5">{{banner3.0.L_name}}</p>
+                                <p class="h5">{{banner3.0.start_date}}~{{banner3.0.end_date}}</p>
                             </div>
                         </div>
                     </div>
@@ -85,46 +85,6 @@
                 <h3 class="h3">추천 전시회</h3>
             </div>
         </div>
-        <script>
-            // 이미지 태그에 id 넣었는데 수정 필요할지도
-            // 이미지 별로 사이즈 조정 필요할지도
-            // 변수명 맘에 안들면 수정 필요할지도
-            // 함수 위치 맘에 안 들면 수정 필요할지도
-            //window.onload = function(){
-            //    var recommendRaw1 = {{ recommend1|safe }};
-            //    var recommendRaw2 = {{ recommend2|safe }};
-            //    var recommendRaw3 = {{ recommend3|safe }};
-            //    var recommendRaw4 = {{ recommend4|safe }};
-            //    var bannerRaw1 = {{ banner1|safe }};
-            //    var bannerRaw2 = {{ banner2|safe }};
-            //    var bannerRaw3 = {{ banner3|safe }};
-            //    var imgRecommend1 = recommendRaw1[0]['fields']['img'];
-            //    var imgRecommend2 = recommendRaw2[0]['fields']['img'];
-            //    var imgRecommend3 = recommendRaw3[0]['fields']['img'];
-            //    var imgRecommend4 = recommendRaw4[0]['fields']['img'];
-            //    // a태그에 value 추가(pk) <= exhibit id
-            //    var valRecommend1 = recommendRaw1[0]['pk'];
-            //    var valRecommend2 = recommendRaw2[0]['pk'];
-            //    var valRecommend3 = recommendRaw3[0]['pk'];
-            //    var valRecommend4 = recommendRaw4[0]['pk'];
-            //    var imgBanner1 = bannerRaw1[0]['fields']['img'];
-            //    var imgBanner2 = bannerRaw2[0]['fields']['img'];
-            //    var imgBanner3 = bannerRaw3[0]['fields']['img'];
-            //    $('#recommendimg1').attr('src',imgRecommend1);
-            //    $('#recommendimg2').attr('src',imgRecommend2);
-            //    $('#recommendimg3').attr('src',imgRecommend3);
-            //    $('#recommendimg4').attr('src',imgRecommend4);
-            //    $('#bannerimg1').attr('src',imgBanner1);
-            //    $('#bannerimg2').attr('src',imgBanner2);
-            //    $('#bannerimg3').attr('src',imgBanner3);
-            //    $('#test1').attr('href',"{% url 'exhibition' %}?exhibitID="+valRecommend1);
-            //    $('#test2').attr('href',"{% url 'exhibition' %}?exhibitID="+valRecommend2);
-            //    $('#test3').attr('href',"{% url 'exhibition' %}?exhibitID="+valRecommend3);
-            //    $('#test4').attr('href',"{% url 'exhibition' %}?exhibitID="+valRecommend4);
-            
-            //};
-            
-        </script>
         <div class="row">
             <div class="col-2 col-md-3 p-3 mt-3">
                 <a id="test1" href="{% url 'exhibition' %}?exhibitID={{recommend1.0.id}}"><img src = "{{recommend1.0.img}}",id='recommendimg1' class="rounded-3 img-fluid border-opacity-25"></a>
