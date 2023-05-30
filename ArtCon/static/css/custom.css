@@ -4,8 +4,46 @@ input .form-control{
     margin-left: 5px;
 }
 
+.posterSize {
+  width: 500px; 
+  aspect-ratio: 2/3;
+  height: auto;
+  object-fit: fill;
+}
 
-/* img optimizing */
+.bannerSize {
+  aspect-ratio: 16/9;
+  width: 1000px;
+  height: auto;
+  object-fit: contain;
+}
+
+
+/* img optimizing
+@media screen and (max-width: 1200px) and (orientation: portrait){
+
+} 
+  // For screens with a maximum width of 768px
+  @media screen and (max-width: 768px) and (orientation: portrait) {
+    .posterSize {
+      width: 250px;
+      aspect-ratio: 2/3;
+      height: auto;
+      object-fit: cover;
+      
+    }
+  }
+  
+  // For screens with a maximum width of 480px
+  @media screen and (max-width: 480px) and (orientation: portrait) {
+    .posterSize {
+      width: 200px;
+      aspect-ratio: 2/3;
+      height: cover;
+      
+    }
+  }
+*/
 
 
 /* map */
