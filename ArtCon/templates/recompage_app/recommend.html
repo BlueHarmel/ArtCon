@@ -127,12 +127,36 @@
                         const zoomControl = new kakao.maps.ZoomControl();
                         map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
-                        // 지도 마커 생성
-                        const markerPosition = new kakao.maps.LatLng(userLocation.x, userLocation.y);
-                        const marker = new kakao.maps.Marker({
-                            position: markerPosition
-                        });
+                        var positions = [
+                            {
+                                title: 'user',
+                                latlng: new kakao.maps.LatLng(userLocation.x, userLocation.y)
+                            },
+                            {
+                                title: '생태연못', 
+                                latlng: new kakao.maps.LatLng(33.450936, 126.569477)
+                            },
+                            {
+                                title: '텃밭', 
+                                latlng: new kakao.maps.LatLng(33.450879, 126.569940)
+                            },
+                            {
+                                title: '근린공원',
+                                latlng: new kakao.maps.LatLng(33.451393, 126.570738)
+                            }
+                        ];
+
+                        for (let i = 0; i < positions.length; i ++) {                            
+                            const marker = new kakao.maps.Marker({
+                                map: map,
+                                position: positions[i].latlng, 
+                                title : positions[i].title,
+                            });
+                        }
                         marker.setMap(map);
+
+                        // 좌표 얻어오기
+                        const boundsStr = bounds.toString();
 
                     </script>
                     <!--End Kakao Map-->
