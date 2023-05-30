@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <!-- Start Content Page -->
+        <div class="d-flex flex-column p-5 bg-white align-items-center py-3">
+            <div class="fs-1 pt-3 text-dark" style="letter-spacing: 5px;">
+                <br>
+                <p class="fs-1 fw-bold">게시판</p>
+            </div>
+        </div>
+    <!-- Start Map 
+    <div id="mapid" style="width: 100%; height: 300px;"></div>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <script>
+        var mymap = L.map('mapid').setView([-23.013104, -43.394365, 13], 13);
+
+        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+            maxZoom: 18,
+            attribution: 'Zay Telmplte | Template Design by <a href="https://templatemo.com/">Templatemo</a> | Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+                '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            id: 'mapbox/streets-v11',
+            tileSize: 512,
+            zoomOffset: -1
+        }).addTo(mymap);
+
+        L.marker([-23.013104, -43.394365, 13]).addTo(mymap)
+            .bindPopup("<b>Zay</b> eCommerce Template<br />Location.").openPopup();
+
+        mymap.scrollWheelZoom.disable();
+        mymap.touchZoom.disable();
+    </script>
+    End Map -->
+
+    <!-- Start Contact -->
+    <div class="container border border-black">
+        <span class="border border-black">
+        <div class="row py-3">
+            <form class="col-md-12 m-auto" method="post" role="form">
+                <div class="row"> <!--드롭다운 추가-->
+                    <div class="position-relative col-md-10 m-5">
+                        <p class="position-absolute top-0 start-0">전시회러버</p>
+                        <p class="position-absolute top-0 end-0">Jan 11, 2023</p>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <p class="fs-1 fw-bold">피카소 전시회 가보신 분?</p>
+                </div>
+                <div class="m-5">
+                </div>
+                <div class="mb-3">
+                    <p class="fs-4">이번에 피카소 전시회 열린다고 해서 가보려고 하는데 어땠나요?? 후기 좀 알려주세요!!</p>
+                </div>
+                <div class="m-5">
+                </div>
+                <div class="h4 pb-2 mb-4 text-white border-bottom border-black">
+                     ..
+                  </div>
+                <div class="m-5">
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="댓글을 입력해주세요." aria-label="댓글 입력" aria-describedby="button-addon2">
+                    <button class="btn btn-outline-primary" type="button" id="button-addon2">댓글작성</button>
+                  </div>
+            </form>
+        </div>
+    </span>
+    <span class="border border-black">
+        <div class="row py-3">
+            <form class="col-md-12 m-auto">
+            <ul class="list-group">
+                <li class="list-group-item">나도 가보고 싶다!</li>
+                <li class="list-group-item">거기 재미 없었어요 ㅡㅡ</li>
+                <li class="list-group-item">나 가봤는데 엄청 좋았음!!</li>
+            </ul>
+        </form>
+        </div>
+    </span>
+    </div>
+<br>
+<br>
+<br>
+    <!-- End Contact -->
+
+{% endblock %}

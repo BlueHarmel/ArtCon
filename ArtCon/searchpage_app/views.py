@@ -2,6 +2,7 @@ from django.shortcuts import render
 from exhibpage_app.models import Exhibit
 import datetime
 
+
 # Create your views here.
 def search_date(request):
     searched_date = request.POST.get('date')

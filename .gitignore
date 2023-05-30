@@ -1,10 +1,2 @@
 ArtCon/secrets.json
-ArtCon/ArtCon/__pycache__
-ArtCon/__pycache__
-ArtCon/mainpage_app/__pycache__
-ArtCon Crawler/__pycache__
-ArtCon/searchpage_app/__pycache__
-ArtCon/authpage_app/__pycache__
-ArtCon/boardpage_app/__pycache__
-ArtCon/exhibpage_app/__pycache__
-ArtCon/recompage_app/__pycache__
+__pycache__/
