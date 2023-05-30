@@ -29,11 +29,11 @@
                         <div class="mx- auto col-md-6 col-lg-4 order-lg-last align-items-center">
                             <img id='bannerimg1' class= img-fluid w-100 h-100" src="{{banner1.0.img}}" alt="">
                         </div>
-                        <div class="col-md-6 mb-0 align-items-center align-self-center m-3">
+                        <div class="col-lg-6 mb-0 align-items-center align-self-center m-3">
                             <h3 class="h3">광고 배너 문의</h3>
                             <br>
-                            <p class="h5">Tel: 010-1234-XXXX</p>
-                            <p class="h5">Email: ArtCon@gmail.com</p>
+                            <p class="h5">{{banner1.0.L_name}}</p>
+                            <p class="h5">{{banner1.0.start_date}}~{{banner1.0.end_date}}</p>
                         </div>
                     </div>
                 </div>
@@ -44,11 +44,11 @@
                         <div class="mx- auto col-md-6 col-lg-4 order-lg-last align-items-center">
                             <img id='bannerimg2' class= img-fluid" src="{{banner2.0.img}}" alt="">
                         </div>
-                        <div class="col-md-6 mb-0 align-items-center align-self-center m-3">
+                        <div class="col-lg-6 mb-0 align-items-center align-self-center m-3">
                             <h3 class="h3">광고 배너 문의</h3>
                             <br>
-                            <p class="h5">Tel: 010-1234-XXXX</p>
-                            <p class="h5">Email: ArtCon@gmail.com</p>
+                            <p class="h5">{{banner2.0.L_name}}</p>
+                            <p class="h5">{{banner2.0.start_date}}~{{banner2.0.end_date}}</p>
                         </div>
                     </div>
                 </div>
@@ -60,11 +60,11 @@
                             <img id='bannerimg3' class= img-fluid" src="{{banner3.0.img}}" alt="">
                         </div>
                         <div class="col-lg-4 mb-0 d-flex align-items-center">
-                            <div class="col-md-6 mb-0 align-items-center align-self-center m-3">
+                            <div class="col-lg-6 mb-0 align-items-center align-self-center m-3">
                                 <h3 class="h3">광고 배너 문의</h3>
                                 <br>
-                                <p class="h5">Tel: 010-1234-XXXX</p>
-                                <p class="h5">Email: ArtCon@gmail.com</p>
+                                <p class="h5">{{banner3.0.L_name}}</p>
+                                <p class="h5">{{banner3.0.start_date}}~{{banner3.0.end_date}}</p>
                             </div>
                         </div>
                     </div>
@@ -121,9 +121,11 @@
             //    $('#test2').attr('href',"{% url 'exhibition' %}?exhibitID="+valRecommend2);
             //    $('#test3').attr('href',"{% url 'exhibition' %}?exhibitID="+valRecommend3);
             //    $('#test4').attr('href',"{% url 'exhibition' %}?exhibitID="+valRecommend4);
+            
             //};
+            
         </script>
-        <div class="row col-12 align-items-center">
+        <div class="row">
             <div class="col-2 col-md-3 p-3 mt-3">
                 <a id="test1" href="{% url 'exhibition' %}?exhibitID={{recommend1.0.id}}"><img src = "{{recommend1.0.img}}",id='recommendimg1' class="rounded-3 posterSize img-fluid border-opacity-25 "></a>
             </div>
