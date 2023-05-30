@@ -12,8 +12,8 @@ input .form-control{
 }
 
 .bannerSize {
-  aspect-ratio: 16/9;
-  width: 1000px;
+  aspect-ratio: 2/3;
+  width: 800px;
   height: auto;
   object-fit: contain;
 }
@@ -49,6 +49,34 @@ input .form-control{
 /* map */
 .map {
     border: 1.5px solid;
+}
+
+.carousel-indicators {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: -25px;
+  text-align: center;
+  padding: 5px;
+  border-radius: 50px;
+}
+
+.carousel-indicators li {
+  background-color: var(--bs-primary); 
+  border: none;
+  border-radius: 50%;
+  width: 17px;
+  height: 17px; 
+  margin: 10px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.carousel-indicators .active {
+  background-color: var(--bs-primary);
 }
 
 /* bootstrap */
