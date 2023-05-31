@@ -8,53 +8,33 @@
         </div>
     </div>
     <!-- Close Page Title -->
-      <!-- Start Filter -->
-      <div class="d-flex flex-row m-5 p-3 align-items-center">
-        <div class="container-fluid bg-white shadow rounded box-size-sm">
-          <div class="row m-5">
-            <div class="row m-5">
-              <form>
-                <label>
-                  시작 날짜 :
-                  <input type="date" name="bday">부터
-                </label>
-              </form>
-            </div>
-            <div class="row m-5">
-              <form>
-                <label>
-                  종료 날짜 :
-                  <input type="date" name="bday">까지
-                </label>
-              </form>
-              <div class="m-3 p-5">
-                <p><button type="button" class="btn btn-outline-primary">날짜 검색</button></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
     <!-- Start Main Function -->
     <section class="container mt-5 mb-5">
         <div class="d-flex flex-column col-12 my-5 bg-white shadow justify-contents-center">
             <div class="m-5">
+              <div>
+                <form action="{% url 'search' %}date" method="POST" class="d-flex flex-row mb-2 px-5 align-items-center">
+                  {% csrf_token %}
+                  <p><input type="date" name="date" class="form-control"></p>
+                  <p class="px-3"><button type="submit" class="btn btn-outline-primary d-inline-flex fs-6">날짜 검색</button></p>
+                </form>
+              </div>
+              <div>
                 <form action="{% url 'search' %}title" method="POST">
-                    <div class="input-group mb-2 px-3">
-                        {% csrf_token %}
-                        <input type="search" class="form-control" id="inputModalSearch" name="searched" placeholder="전시회 검색">
-                        <button type="submit" class="input-group-text btn-primay text-dark">
-                            <i class="fa fa-fw fa-search text-dark"></i>
-                        </button>
-                    </div>
+                  <div class="input-group mb-2 px-5">
+                      {% csrf_token %}
+                      <input type="search" class="form-control" id="inputModalSearch" name="searched" placeholder="전시회 검색">
+                      <button type="submit" class="input-group-text btn-primay text-dark">
+                          <i class="fa fa-fw fa-search text-dark"></i>
+                      </button>
+                  </div>
                 </form>
-                <form action="{% url 'search' %}date" method="POST">
-                    {% csrf_token %}
-                    <p><input type="date" name="date"></p>
-                    <button type="submit" class="btn btn-outline-primary">날짜 검색</button>
-                </form>
+              </div>
+                
+                
             </div>
         </div>
-
     <!-- Start Info -->
         <div class="d-flex flex-row bg-white shadow my-5">
             <div class="d-flex flex-row text-start m-3 p-5 col-4">
