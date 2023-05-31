@@ -41,6 +41,15 @@
                     <input name="first_name" type="name" class="form-control" id="FormControlInput1" placeholder="">
                 </div>
                 <div class="mb-4">
+                    <label for="FormControlInput1" class="form-label">선호하는 전시 카테고리</label>
+                    <select class="form-select" aria-label="Default select example">
+                        <option value="" disabled selected>선호 전시를 선택해주세요.</option>
+                        <option value="조형">조형</option>
+                        <option value="전시">전시</option>
+                        <option value="사진">사진</option>
+                      </select>
+                </div>
+                <div class="mb-4">
                     <label for="FormControlInput1" class="form-label">이메일 주소</label>
                     <input name="email" type="email" class="form-control" id="FormContorlInput1" placeholder="id@artcon.com">
                         <br><p id="message">{{ email_error }}</p>
