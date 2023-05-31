@@ -12,14 +12,16 @@
     <!-- Start Main Function -->
     <section class="container mt-5 mb-5">
         <div class="d-flex flex-column col-12 my-5 bg-white shadow justify-contents-center">
-            <div class="m-5">
+            <div class="m-5 p-5">
                <div>
                 <form action="{% url 'search' %}" method="POST">
-                  <p><input type="date" name="date" class="form-control"></p>
-                  <div class="input-group mb-2 px-5">
+                  <div class="input-group mb-2">
+                    <input type="date" class="form-control form-control-lg my-4" placeholder="날짜 선택">
+                  </div>
+                  <div class="input-group mb-2">
                       {% csrf_token %}
-                      <input type="search" class="form-control" id="inputModalSearch" name="searched" placeholder="전시회 검색">
-                      <button type="submit" class="input-group-text btn-primay text-dark">
+                      <input type="search" class="form-control form-control-lg" id="inputModalSearch" name="searched" placeholder="전시회 검색">
+                      <button type="submit" class="input-group-text btn-primary text-white">
                           <i class="fa fa-fw fa-search text-dark"></i>
                       </button>
                   </div>
