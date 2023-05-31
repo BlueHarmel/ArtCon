@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import auth
 from .models import User
+from exhibpage_app.models import Exhibit
 import re
 
 
@@ -17,6 +18,7 @@ def login(request):
         else:
             user = User.objects.get(username=username)
             if auth.authenticate(username=username, password=password):
+                auth.login(request, user)
                 request.session["user"] = user.id
                 ###########################
                 ## 로그인 후 볼 화면 지정 필요 ##

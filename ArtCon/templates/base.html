@@ -59,13 +59,24 @@
                             </div>
                         </div>
                     </div>
+                    <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
+                        <i class="fa fa-fw fa-search text-dark mr-2"></i>
+                    </a>
+                    {% if user.is_authenticated %}
+                    <form method="POST"> {% csrf_token %}
+                        <a href="{% url 'mainPage' %}" class="btn btn-primary rounded-1 text-white m-1 fw-normal">{{ user.username }} 마이페이지(예정)</a>
+                        <button type="submit" class="btn btn-primary" value="logout" onclick="location.href='{% url 'mainPage' %}'">로그아웃</button>
+                    </form>
+                    {% endif %}
+                    {% if user.is_anonymous %}
+
                     <a href="{% url 'login' %}" class="btn btn-primary rounded-1 text-white m-1 fw-normal">로그인</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </nav>
     <!-- Close Header -->
-
     {% block content %}
 
     {% endblock %}
