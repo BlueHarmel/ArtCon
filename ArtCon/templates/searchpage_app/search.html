@@ -11,9 +11,8 @@
 
     <!-- Start Main Function -->
     <section class="container mt-5 mb-5">
-        <div class="d-flex flex-column col-12 my-5 bg-white shadow justify-contents-center">
-            <div class="m-5 p-5">
-               <div>
+        <div class="d-flex flex-column col-12 my-5 bg-white shadow align-items-center">
+            <div class="m-5 p-5 col-7">
                 <form action="{% url 'search' %}" method="POST">
                   <div class="input-group mb-2">
                     <input type="date" class="form-control form-control-lg my-4" placeholder="날짜 선택">
@@ -21,16 +20,14 @@
                   <div class="input-group mb-2">
                       {% csrf_token %}
                       <input type="search" class="form-control form-control-lg" id="inputModalSearch" name="searched" placeholder="전시회 검색">
-                      <button type="submit" class="input-group-text btn-primary text-white">
+                      <button type="submit" class="input-group-text btn-outline-light">
                           <i class="fa fa-fw fa-search text-dark"></i>
                       </button>
                   </div>
                 </form>
-              </div>
-                
-                
             </div>
         </div>
+
     <!-- Start Info -->
         <div class="d-flex flex-row bg-white shadow my-5">
             <div class="d-flex flex-row text-start m-3 p-5 col-4">
