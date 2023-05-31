@@ -1,4 +1,5 @@
 from django.shortcuts import render
+
 # import pandas as pd
 #from sklearn.feature_extraction.text import TfidfVectorizer
 # from konlpy.tag import Okt

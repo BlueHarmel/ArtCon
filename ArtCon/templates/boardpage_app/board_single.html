@@ -37,11 +37,12 @@
         <span class="border border-black">
         <div class="row py-3">
             <form class="col-md-12 m-auto" method="post" role="form">
-                <div class="row"> <!--드롭다운 추가-->
-                    <div class="position-relative col-md-10 m-5">
-                        <p class="position-absolute top-0 start-0">전시회러버</p>
-                        <p class="position-absolute top-0 end-0">Jan 11, 2023</p>
-                    </div>
+                <div class="mb-2">
+                    <p>Jan 11, 2023</p>
+                    <div class="d-inline-flex text-nowrap fs-6 border rounded-3 p-1">작성자</div>
+                    <p class="fs-4 fw-bold">전시회러버</p>
+                </div>
+                <div class="m-5">
                 </div>
                 <div class="mb-3">
                     <p class="fs-1 fw-bold">피카소 전시회 가보신 분?</p>
@@ -76,6 +77,17 @@
         </form>
         </div>
     </span>
+    <div class="row">
+        <div class="col text-start mt-2">
+            <a href="{% url 'board' %}">
+                <button type="submit" class="btn btn-outline-primary btn-lg px-3">
+                    글 목록
+                </button>
+            </a>
+        </div>
+    </div>
+    <div class="m-5">
+    </div>
     </div>
 <br>
 <br>
