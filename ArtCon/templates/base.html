@@ -59,9 +59,6 @@
                             </div>
                         </div>
                     </div>
-                    <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
-                        <i class="fa fa-fw fa-search text-dark mr-2"></i>
-                    </a>
                     <a href="{% url 'login' %}" class="btn btn-primary rounded-1 text-white m-1 fw-normal">로그인</a>
                 </div>
                 </div>
@@ -69,23 +66,6 @@
         </div>
     </nav>
     <!-- Close Header -->
-    <!-- Modal -->
-    <div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="w-100 pt-1 mb-5 text-right">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="{% url 'search' %}" method="POST" class="modal-content modal-body border-0 p-0">
-                <div class="input-group mb-2">
-                    {% csrf_token %}
-                    <input type="search" class="form-control" id="inputModalSearch" name="searched" placeholder="Search">
-                    <button type="submit" class="input-group-text btn-primay text-light">
-                        <i class="fa fa-fw fa-search text-dark"></i>
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
 
     {% block content %}
 

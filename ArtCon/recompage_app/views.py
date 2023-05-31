@@ -1,6 +1,7 @@
 from django.shortcuts import render
+
 # import pandas as pd
-#from sklearn.feature_extraction.text import TfidfVectorizer
+# from sklearn.feature_extraction.text import TfidfVectorizer
 # from konlpy.tag import Okt
 # from sklearn.metrics.pairwise import linear_kernel
 import re
@@ -8,15 +9,15 @@ from exhibpage_app.models import Exhibit
 from authpage_app.models import User
 
 stopwords = ["을", "를", "이", "가", "은", "는"]
-#okt = Okt()
-#tfidf_vectorizer = TfidfVectorizer(tokenizer=okt.morphs, stop_words=stopwords)
+# okt = Okt()
+# tfidf_vectorizer = TfidfVectorizer(tokenizer=okt.morphs, stop_words=stopwords)
 
 exhibition_names = []
 
 
 # Create your views here.
 def recommend(request):
-    get_recommendations()
+    # get_recommendations()
     return render(request, "recompage_app/recommend.html")
 
 

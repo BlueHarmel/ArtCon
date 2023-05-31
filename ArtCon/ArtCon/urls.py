@@ -18,7 +18,6 @@ from django.contrib import admin
 from django.http.response import HttpResponse
 from django.urls import path, include
 from . import views
-from searchpage_app.views import search_date
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -27,7 +26,5 @@ urlpatterns = [
     path("board/", include("boardpage_app.urls")),
     path("exhibition/", include("exhibpage_app.urls")),
     path("recommend/", include("recompage_app.urls")),
-    path("search/", views.search, name="search"),
-    path("search/title", views.search_title, name='search_title'),
-    path("search/date", search_date, name='search_date')
+    path("search/", include("searchpage_app.urls")),
 ]
