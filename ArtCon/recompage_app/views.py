@@ -17,8 +17,10 @@ exhibition_names = []
 
 # Create your views here.
 def recommend(request):
-    context = get_recommendations(request)
-    return render(request, "recompage_app/recommend.html")
+    rec_id = get_recommendations(request)
+    exhibits = list(Exhibit.objects.filter(id__in=rec_id).values())
+    context = {"exhibits": exhibits}
+    return render(request, "recompage_app/recommend.html", context)
 
 
 def remove_special_characters(text):
@@ -31,7 +33,6 @@ def remove_special_characters(text):
 def get_recommendations(request):
     user_name = request.user
     user = User.objects.filter(username=user_name).values()
-    print(user)
     user = user[0]
 
     exhibits = list(Exhibit.objects.all().values())
@@ -66,11 +67,11 @@ def get_recommendations(request):
     sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
 
     # 자기 자신을 제외한 10개의 추천 영화를 슬라이싱
-    sim_scores = sim_scores[1:11]
+    sim_scores = sim_scores[1:4]
 
     # 추천 영화 목록 10개의 인덱스 정보 추출
     exhibit_indices = [i[0] for i in sim_scores]
-
-    print(df["E_name"].iloc[exhibit_indices])
+    # print(df["id"].iloc[exhibit_indices])
+    rec_id = df["id"].iloc[exhibit_indices].tolist()
     # 인덱스 정보를 통해 영화 제목 추출
-    return df["E_name"].iloc[exhibit_indices]
+    return rec_id

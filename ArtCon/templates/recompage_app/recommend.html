@@ -11,15 +11,17 @@
                 <h1 class="h3 fw-bold mb-3">추천 전시회 목록</h1>
                 <!-- Start List of Recommendation-->
                 <div class="row">
+                  {% if exhibits %}
+                  {% for exhibit in exhibits %}
                     <div class="card md-4" style="max-width: 550px;">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="card mb-4 product-wap rounded-0">
                                     <div class="card rounded-0">
-                                        <img class="card-img rounded-0 img-fluid" src="./img/에드워드 호퍼 길 위에서.gif"/>
+                                        <img class="card-img rounded-0 img-fluid" src="{{exhibit.img}}"/>
                                         <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                             <ul class="list-unstyled">
-                                                <li><a class="btn btn-success text-white mt-2" href="{% url 'exhibition' %}"><i class="far fa-eye"></i></a></li>
+                                                <li><a class="btn btn-success text-white mt-2" href="{% url 'exhibition' %}?exhibitID={{exhibit.id}}"><i class="far fa-eye"></i></a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -27,74 +29,20 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="card-body">
-                                <p class="card-title fw-bold">에드워드 호퍼 길 위에서</p>
-                                <p class="card-text fs-6">20세기 미국 현대미술사를 대표하는 작가 에드워드 호퍼의 국내 첫 대규모 개인전이 열립니다. </p>
+                                <p class="card-title fw-bold">{{exhibit.E_name}}</p>
+                                <p class="card-text fs-6">{{exhibit.summary}}</p>
                                 <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
                                 <i class="fa-solid fa-location-dot" style="color: #000000;"></i>
                                         </a>
-                                    <p class="fs-6"><i class="fas fa-regular fa-clock"></i>   08:00~19:00</p>
-                                    <p class="fs-6"><i class="fas fa-map-marker-alt"></i>   서울시 중구</p>
-                                    <a href="{% url 'exhibition' %}" class="btn btn-sm btn-primary fs-6">자세히 보기</a>
+                                    <p class="fs-6"><i class="fas fa-regular fa-clock"></i>{{exhibit.time}}</p>
+                                    <p class="fs-6"><i class="fas fa-map-marker-alt"></i>{{exhibit.L_name}}</p>
+                                    <a href="{% url 'exhibition' %}?exhibitID={{exhibit.id}}" class="btn btn-sm btn-primary fs-6">자세히 보기</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card md-4" style="max-width: 550px;">
-                        <div class="row">
-                          <div class="col-md-6">
-                            <div class="card mb-4 product-wap rounded-0">
-                                <div class="card rounded-0">
-                                    <img class="card-img rounded-0 img-fluid" src="/assets/img/피카소와 20세기 거장들.gif">
-                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                    <ul class="list-unstyled">
-                                        <li><a class="btn btn-success text-white mt-2" href="{% url 'exhibition' %}"><i class="far fa-eye"></i></a></li>
-                                    </ul>
-                                    </div>
-                                </div>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="card-body">
-                              <p class="card-title fw-bold">피카소와 20세기 거장들</p>
-                              <p class="card-text fs-6">세계 세 번째 규모의 피카소 컬렉션으로 루드비히 미술관 피카소 소장품 국내 최초 공개. 더불어 20세기 거장들의 마스터피스를 한곳에서 만날 수 있는 특별한 기회.</p>
-                              <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
-                                <i class="fa-solid fa-location-dot" style="color: #000000;"></i>
-                              </a>
-                              <p class="fs-6"><i class="fas fa-regular fa-clock"></i>   08:00~19:00</p>
-                              <p class="fs-6"><i class="fas fa-map-marker-alt"></i>   서울시 중구</p>
-                              <a href="{% url 'exhibition' %}" class="btn btn-sm btn-primary fs-6">자세히 보기</a>
-                            </div>
-                          </div>
-                        </div>
-                    </div>
-                    <div class="card md-4" style="max-width: 550px;">
-                        <div class="row">
-                          <div class="col-md-6">
-                            <div class="card mb-4 product-wap rounded-0">
-                                <div class="card rounded-0">
-                                    <img class="card-img rounded-0 img-fluid" src="./assets/img/제이알 크로니클스.gif">
-                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                    <ul class="list-unstyled">
-                                        <li><a class="btn btn-success text-white mt-2" href="{% url 'exhibition' %}"><i class="far fa-eye"></i></a></li>
-                                    </ul>
-                                    </div>
-                                </div>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="card-body">
-                              <p class="card-title fw-bold">제이알 크로니클스</p>
-                              <p class="card-text fs-6">2019년 뉴옥 미술관을 시작으로 독일에 이어 서울에서 아시아 최초로 선보이는 제이알의 20년간 펼쳐온 행보를 이번 프로젝트를 통해 소개한다.</p>
-                              <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
-                                <i class="fa-solid fa-location-dot" style="color: #000000;"></i>
-                              </a>
-                              <p class="fs-6"><i class="fas fa-regular fa-clock"></i>   08:00~19:00</p>
-                              <p class="fs-6"><i class="fas fa-map-marker-alt"></i>   서울시 중구</p>
-                              <a href="{% url 'exhibition' %}" class="btn btn-sm btn-primary fs-6">자세히 보기</a>
-                            </div>
-                          </div>
-                        </div>
-                    </div>
+                  {% endfor %}
+                  {% endif %}
                 </div>
                 <!-- End List of Recommendation-->
             </div>
