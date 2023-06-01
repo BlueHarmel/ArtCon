@@ -5,13 +5,12 @@
     <!-- Start Content -->
     <div class="container py-5">
         <div class="flex d-flex row">
-
             <!-- Start Exhibition List -->
             <div class="col-md-5 my-5">
                 <h1 class="h3 fw-bold mb-3">추천 전시회 목록</h1>
                 <!-- Start List of Recommendation-->
                 <div class="row">
-                    <div class="card md-4" style="max-width: 550px;">
+                    <div class="card md-4" style="max-width: 500px;">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="card mb-4 product-wap rounded-0">
@@ -34,12 +33,12 @@
                                         </a>
                                     <p class="fs-6"><i class="fas fa-regular fa-clock"></i>   08:00~19:00</p>
                                     <p class="fs-6"><i class="fas fa-map-marker-alt"></i>   서울시 중구</p>
-                                    <a href="{% url 'exhibition' %}" class="btn btn-sm btn-primary fs-6">자세히 보기</a>
+                                    <a href="{% url 'exhibition' %}" class="text-decoration-none fw-normal fs-6">자세히 보기</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card md-4" style="max-width: 550px;">
+                    <div class="card md-4" style="max-width: 500px;">
                         <div class="row">
                           <div class="col-md-6">
                             <div class="card mb-4 product-wap rounded-0">
@@ -62,12 +61,12 @@
                               </a>
                               <p class="fs-6"><i class="fas fa-regular fa-clock"></i>   08:00~19:00</p>
                               <p class="fs-6"><i class="fas fa-map-marker-alt"></i>   서울시 중구</p>
-                              <a href="{% url 'exhibition' %}" class="btn btn-sm btn-primary fs-6">자세히 보기</a>
+                              <a href="{% url 'exhibition' %}" class="text-decoration-none fw-normal fs-6">자세히 보기</a>
                             </div>
                           </div>
                         </div>
                     </div>
-                    <div class="card md-4" style="max-width: 550px;">
+                    <div class="card md-4" style="max-width: 500px;">
                         <div class="row">
                           <div class="col-md-6">
                             <div class="card mb-4 product-wap rounded-0">
@@ -90,7 +89,7 @@
                               </a>
                               <p class="fs-6"><i class="fas fa-regular fa-clock"></i>   08:00~19:00</p>
                               <p class="fs-6"><i class="fas fa-map-marker-alt"></i>   서울시 중구</p>
-                              <a href="{% url 'exhibition' %}" class="btn btn-sm btn-primary fs-6">자세히 보기</a>
+                              <a href="{% url 'exhibition' %}" class="text-decoration-none fw-normal fs-6">자세히 보기</a>
                             </div>
                           </div>
                         </div>
@@ -101,13 +100,13 @@
             <!-- End Exhibition List -->
 
             <!-- Start Map -->
-            <div class="col-md-6 my-5">
-                <div class="d-flex flex-row align-items-start">
-                  <h1 class="h3 fw-bold mb-3">지도로 찾아보기</h1>
+            <div class="container col-7 my-5">
+                <div class="d-flex flex-row align-items-center mb-3">
+                  <h1 class="h3 fw-bold">지도로 찾아보기</h1>
                   <button onclick="getLocation()" class="btn btn-primary mx-3">현재 위치 찾기</button>
                 </div>                
                 <div>                    
-                  <div id="map" class="map border-primary col-md-6" style="width:800px; height:900px;"></div>
+                  <div id="map" class="map border-secondary img-fluid" style="width: 800px; height:1000px;"></div>
                   <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=68869ffd346ee561ce8051bca3b782f7"></script>
                   <script>
                     // 좌표 얻어오기

@@ -64,7 +64,7 @@
                     </a>
                     {% if user.is_authenticated %}
                     <form method="POST"> {% csrf_token %}
-                        <a href="{% url 'mainPage' %}" class="btn btn-primary rounded-1 text-white m-1 fw-normal">{{ user.username }} 마이페이지(예정)</a>
+                        <a href="{% url 'mainPage' %}" class="text-dark mx-3 text-normal fs-6 text-decoration-none ">{{ user.username }} 마이페이지(예정)</a>
                         <button type="submit" class="btn btn-primary" value="logout" onclick="location.href='{% url 'mainPage' %}'">로그아웃</button>
                     </form>
                     {% endif %}
