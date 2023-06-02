@@ -12,23 +12,23 @@
             {% if exhibit %}
             <!-- 크롤링 평점 가져오는거도 필요할지도 -->
             <div class="row">
-                <div class="col-lg-5 mt-5">
+                <div class="col-lg-4 col-md-5 mt-5">
                     <div class="card mb-5">
-                        <img class="card-img img-fluid" src="{{ exhibit.0.img }}" alt="Card image cap" id="product-detail">
+                        <img class="card-img col-md-4 singleImgSize" src="{{ exhibit.0.img }}" alt="Card image cap" id="product-detail">
                     </div>
                 </div>
             
                 <!-- col end -->
-                <div class="col-lg-6 mt-5">
+                <div class="col-lg-7 col-md-7 mt-5">
                     <div class="card mb-5 p-3">
                         <div class="card-body h-100">
                             <div class="d-flex flex-row">
-                                <h1 class="h2 fw-bold">{{ exhibit.0.E_name }}
+                                <h3 class="h3 fw-bold px-3">{{ exhibit.0.E_name }}
                                     <div class="d-inline-flex text-nowrap fs-6 border rounded-3 p-1">전시회</div>
-                                </h1>   
+                                </h3>   
                             </div>
 
-                            <p class="py-3 mb-5">
+                            <p class="py-2 px-3 mb-5">
                                 <i class="fa fa-star text-warning"></i>
                                 <i class="fa fa-star text-warning"></i>
                                 <i class="fa fa-star text-warning"></i>
@@ -37,27 +37,72 @@
                                 <span class="list-inline-item text-dark mx-2">평점 4.8</span>
                             </p>
 
-                            <div class="d-flex flex-row align-items-center justify-content-between mb-5">
+                            <div class="d-flex flex-row align-items-center justify-content-between mb-5 px-3">
                                 <div class="d-flex flex-column">
-                                    <p class="h3 fw-bold">날짜</p>
-                                    <p class="fs-5">{{ exhibit.0.start_date}} ~ {{ exhibit.0.end_date}}</p>
+                                    <p class="h4 fw-bold">날짜</p>
+                                    <p>{{ exhibit.0.start_date}} ~ {{ exhibit.0.end_date}}</p>
                                 </div>
-                                <div class="col-4 mx-2">
-                                    <button onclick = "location.href='{{exhibit.0.url}}'" type="submit" class="btn btn-primary btn-lg">예약하기</button>
+                                <div class="mx-1">
+                                    <button onclick = "location.href='{{exhibit.0.url}}'" type="submit" class="btn btn-primary text-nowrap">예약하기</button>
                                 </div>
                             </div>
-                            <div class="d-flex flex-row align-items-center justify-content-between mb-5">
+                            <div class="d-flex flex-row align-items-center justify-content-between mb-1 px-3">
                                 <div class="d-flex flex-column">
-                                    <p class="h3 fw-bold">장소</p>
-                                    <p class="fs-5">{{ exhibit.0.L_name }}</p>
+                                    <p class="h4 fw-bold">장소</p>
+                                    <p>{{ exhibit.0.L_name }}</p>
                                 </div>
-                                <div class="col-4 mx-2">
-                                    <button type="submit" class="btn btn-primary btn-lg">지도보기</a>
+                                <div class="mx-1">
+                                    <button onclick="getLocation()" type="submit" class="btn btn-primary text-nowrap">지도보기</a>
                                 </div>
                             </div>
-                            <div class="row mt-5 mb-5">
+                            <!--<div class="row mt-5 mb-5">
                                 <p class="fs-5">{{ exhibit.0.summary }}</p>      
-                            </div>                                
+                            </div>-->
+                            
+                            <!-- Start Map -->
+                            <div class="my-1 p-2">                                
+                                <div id="map" class="img-fluid" style="max-width: 700px; height: 350px;"></div>
+                                <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=68869ffd346ee561ce8051bca3b782f7"></script>
+                                <script>
+                                    // 좌표 얻어오기
+                                    const defaultPosition = new kakao.maps.LatLng(37.566535, 126.9779692);
+                               
+                                    const container = document.getElementById('map');
+
+                                    window.onload = function getLocation() {
+                                    if(navigator.geolocation) {
+                                        navigator.geolocation.getCurrentPosition(
+                                            function successCallback(position) {
+                                                const x = position.coords.latitude;
+                                                const y = position.coords.longitude;
+                                    
+                                            const options = { 
+                                                center: new kakao.maps.LatLng(x, y), 
+                                                level: 3
+                                            };
+                                            // 지도 생성
+                                            const map = new kakao.maps.Map(container, options);
+
+                                            // 지도 줌 컨트롤
+                                            const mapTypeControl = new kakao.maps.MapTypeControl();
+                                            map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+                                            const zoomControl = new kakao.maps.ZoomControl();
+                                            map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+                                            }, function errorCallback() {
+                                                            setMap(defaultPosition);
+                                                        }
+                                                    )
+                                                }
+                                            }
+                                    marker.setMap(map);
+
+                                    const boundsStr = bounds.toString();   
+
+
+
+                                </script>
+                                <!--End Map-->
                         </div>
                     </div>
                 </div>

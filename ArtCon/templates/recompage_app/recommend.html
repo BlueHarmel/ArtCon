@@ -4,38 +4,38 @@
 
     <!-- Start Content -->
     <div class="container py-5">
-        <div class="flex d-flex row">
+        <div class="d-flex row">
             <!-- Start Exhibition List -->
-            <div class="col-md-5 my-5">
-                <h1 class="h3 fw-bold mb-3">추천 전시회 목록</h1>
+            <div class="col-lg-5 col-md-6 my-5">
+                <h3 class="h3 fw-bold mb-2">추천 전시회 목록</h3>
                 <!-- Start List of Recommendation-->
                 <div class="row">
                   {% if exhibits %}
                   {% for exhibit in exhibits %}
-                    <div class="card md-4" style="max-width: 550px;">
+                    <div class="card my-3">
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="card mb-4 product-wap rounded-0">
+                            <div class="col-md-5 py-3">
+                                <div class="card product-wap border-0">
                                     <div class="card rounded-0">
-                                        <img class="card-img rounded-0 img-fluid" src="{{exhibit.img}}"/>
+                                        <img class="card-img rounded-0 mapPageSize img-fluid" src="{{exhibit.img}}"/>
                                         <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                             <ul class="list-unstyled">
-                                                <li><a class="btn btn-success text-white mt-2" href="{% url 'exhibition' %}?exhibitID={{exhibit.id}}"><i class="far fa-eye"></i></a></li>
+                                                <li><a class="btn btn-primary text-white mt-2" href="{% url 'exhibition' %}?exhibitID={{exhibit.id}}"><i class="far fa-eye"></i></a></li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-7">
                                 <div class="card-body">
                                 <p class="card-title fw-bold">{{exhibit.E_name}}</p>
-                                <p class="card-text fs-6">{{exhibit.summary}}</p>
+                                <!--<p class="card-text fs-6">{{exhibit.summary}}</p>-->
                                 <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
                                 <i class="fa-solid fa-location-dot" style="color: #000000;"></i>
                                         </a>
-                                    <p class="fs-6"><i class="fas fa-regular fa-clock"></i>{{exhibit.time}}</p>
-                                    <p class="fs-6"><i class="fas fa-map-marker-alt"></i>{{exhibit.L_name}}</p>
-                                    <a href="{% url 'exhibition' %}?exhibitID={{exhibit.id}}" class="btn btn-sm btn-primary fs-6">자세히 보기</a>
+                                    <p class="fs-6"><i class="fas fa-regular fa-clock" style="margin-right: 3px;"></i>{{exhibit.time}}</p>
+                                    <p class="fs-6"><i class="fas fa-map-marker-alt" style="margin-right: 3px;"></i>{{exhibit.L_name}}</p>
+                                    <a href="{% url 'exhibition' %}?exhibitID={{exhibit.id}}" class="fs-6">자세히 보기</a>
 
                                 </div>
                             </div>
@@ -49,8 +49,8 @@
             <!-- End Exhibition List -->
 
             <!-- Start Map -->
-            <div class="container col-7 my-5">
-                <div class="d-flex flex-row align-items-center mb-3">
+            <div class="container col-lg-7 col-md-6 my-5">
+                <div class="d-flex flex-row align-items-end mb-3">
                   <h1 class="h3 fw-bold">지도로 찾아보기</h1>
                   <button onclick="getLocation()" class="btn btn-primary mx-3">현재 위치 찾기</button>
                 </div>                
