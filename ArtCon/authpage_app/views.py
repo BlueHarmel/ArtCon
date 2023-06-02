@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import auth
 from .models import User
+from exhibpage_app.models import Exhibit
 import re
 
 
@@ -17,6 +18,7 @@ def login(request):
         else:
             user = User.objects.get(username=username)
             if auth.authenticate(username=username, password=password):
+                auth.login(request, user)
                 request.session["user"] = user.id
                 ###########################
                 ## 로그인 후 볼 화면 지정 필요 ##
@@ -53,6 +55,7 @@ def register(request):
         phone_number = request.POST["phone_number"]
         firstname = request.POST["first_name"]
         lastname = request.POST["last_name"]
+        prefer_title = request.POST["prefer_title"]
 
         res_data = {}
         if (
@@ -84,6 +87,7 @@ def register(request):
                 first_name=request.POST["first_name"],
                 last_name=request.POST["last_name"],
                 phone_number=request.POST["phone_number"],
+                prefer_title=request.POST["prefer_title"]
             )
             auth.login(request, user)
             res_data["success"] = "ok"

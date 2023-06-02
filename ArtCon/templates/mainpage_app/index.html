@@ -30,7 +30,7 @@
                             <img id='bannerimg1' class="img-fluid bannerSize" src="{{banner1.0.img}}" alt="Slide1">
                         </div>
                         <div class="col-lg-6 mb-0 align-items-center align-self-center m-3">
-                            <h3 class="h3 mb-4">이번달 추천 전시회</h3>
+                            <h3 class="h3 mb-4">이번 달 추천 전시회</h3>
                             <p class="h5">{{banner1.0.L_name}}</p>
                             <p class="h5">{{banner1.0.start_date}}~{{banner1.0.end_date}}</p>
                         </div>
@@ -44,7 +44,7 @@
                             <img id='bannerimg2' class="img-fluid bannerSize" src="{{banner2.0.img}}" alt="Slide2">
                         </div>
                         <div class="col-lg-6 mb-0 align-items-center align-self-center m-3">
-                            <h3 class="h3 mb-4">이번달 추천 전시회</h3>
+                            <h3 class="h3 mb-4">이번 달 추천 전시회</h3>
                             <p class="h5">{{banner2.0.L_name}}</p>
                             <p class="h5">{{banner2.0.start_date}}~{{banner2.0.end_date}}</p>
                         </div>
@@ -58,7 +58,7 @@
                             <img id='bannerimg3' class="img-fluid bannerSize" src="{{banner3.0.img}}" alt="Slide3">
                         </div>
                         <div class="col-lg-6 mb-0 align-items-center align-self-center m-3">
-                            <h3 class="h3 mb-4">이번달 추천 전시회</h3>
+                            <h3 class="h3 mb-4">이번 달 추천 전시회</h3>
                             <p class="h5">{{banner3.0.L_name}}</p>
                             <p class="h5">{{banner3.0.start_date}}~{{banner3.0.end_date}}</p>
                         </div>
@@ -138,44 +138,6 @@
         </div>
     </section>
     <!-- End Categories of The Month -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-    <script>
-        function getCookie(name) {
-            var cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                var cookies = document.cookie.split(';');
-                for (var i = 0; i < cookies.length; i++) {
-                    var cookie = jQuery.trim(cookies[i]);
-                    // Does this cookie string begin with the name we want?
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        br/eak;
-                    }
-                }
-            }
-            return cookieValue;
-            }
-            var csrftoken = getCookie('csrftoken');
-    </script>
-    <script>
-        function csrfSafeMethod(method) {
-            // these HTTP methods do not require CSRF protection
-            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-        }
-        $.ajaxSetup({
-            beforeSend: function(xhr, settings) {
-                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                }
-            }
-        });
-        // function goExhibitSingle(){
-        //     $('#recommendimg1').attr('value').submit();
-        // }
-        $('recommendimg1').click(function(this) {
-            $('this').attr('val').submit();
-        })
-    </script>
 
     <!-- Start Featured Product
     <section class="bg-light">

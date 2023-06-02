@@ -1,24 +1,26 @@
 from django.shortcuts import render
-
-# import pandas as pd
-#from sklearn.feature_extraction.text import TfidfVectorizer
-# from konlpy.tag import Okt
-# from sklearn.metrics.pairwise import linear_kernel
+import pandas as pd
+from django.core import serializers
+from sklearn.feature_extraction.text import TfidfVectorizer
+from konlpy.tag import Okt
+from sklearn.metrics.pairwise import linear_kernel
 import re
 from exhibpage_app.models import Exhibit
 from authpage_app.models import User
 
 stopwords = ["을", "를", "이", "가", "은", "는"]
-#okt = Okt()
-#tfidf_vectorizer = TfidfVectorizer(tokenizer=okt.morphs, stop_words=stopwords)
+okt = Okt()
+tfidf_vectorizer = TfidfVectorizer(tokenizer=okt.morphs, stop_words=stopwords)
 
 exhibition_names = []
 
 
 # Create your views here.
 def recommend(request):
-    get_recommendations()
-    return render(request, "recompage_app/recommend.html")
+    rec_id = get_recommendations(request)
+    exhibits = list(Exhibit.objects.filter(id__in=rec_id).values())
+    context = {"exhibits": exhibits}
+    return render(request, "recompage_app/recommend.html", context)
 
 
 def remove_special_characters(text):
@@ -28,13 +30,16 @@ def remove_special_characters(text):
     return cleaned_text
 
 
-def get_recommendations(title):
-    exhibits = Exhibit.objects.all()
-    exhibits[0].pk
+def get_recommendations(request):
+    user_name = request.user
+    user = User.objects.filter(username=user_name).values()
+    user = user[0]
+
+    exhibits = list(Exhibit.objects.all().values())
     df = pd.DataFrame(
         exhibits,
         columns=[
-            "pk",
+            "id",
             "E_name",
             "L_name",
             "start_date",
@@ -50,10 +55,10 @@ def get_recommendations(title):
     tfidf_matrix = tfidf_vectorizer.fit_transform(df["E_name"])
     # TF-IDF 행렬 확인
     cosine_sim = linear_kernel(tfidf_matrix, tfidf_matrix)
-    indices = pd.Series(df["pk"], index=df["E_name"]).drop_duplicates()
+    indices = pd.Series(df.index, index=df["E_name"]).drop_duplicates()
 
     # 영화 제목을 통해서 전체 데이터 기준 그 영화의 index 값을 얻기
-    idx = indices[title]
+    idx = indices[user["prefer_title"]]
 
     # 코사인 유사도 매트릭스 (cosine_sim) 에서 idx 에 해당하는 데이터를 (idx, 유사도) 형태로 얻기
     sim_scores = list(enumerate(cosine_sim[idx]))
@@ -62,10 +67,11 @@ def get_recommendations(title):
     sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
 
     # 자기 자신을 제외한 10개의 추천 영화를 슬라이싱
-    sim_scores = sim_scores[1:11]
+    sim_scores = sim_scores[1:4]
 
     # 추천 영화 목록 10개의 인덱스 정보 추출
     exhibit_indices = [i[0] for i in sim_scores]
-
+    # print(df["id"].iloc[exhibit_indices])
+    rec_id = df["id"].iloc[exhibit_indices].tolist()
     # 인덱스 정보를 통해 영화 제목 추출
-    return df["E_name"].iloc[exhibit_indices]
+    return rec_id

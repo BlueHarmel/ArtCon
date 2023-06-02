@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{% static 'css/custom.css'%}">
 
     <!-- Load fonts style after rendering the layout styles -->
-    <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;200;500;700;900&display=swap">-->
+    <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;200;500;700;900&display=swap">-->
     <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
 </head>
 
@@ -62,37 +62,27 @@
                     <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
                         <i class="fa fa-fw fa-search text-dark mr-2"></i>
                     </a>
+                    {% if user.is_authenticated %}
+                    <form method="POST"> {% csrf_token %}
+                        <a href="{% url 'mainPage' %}" class="text-dark mx-3 text-normal fs-6 text-decoration-none ">{{ user.username }} 마이페이지(예정)</a>
+                        <button type="submit" class="btn btn-primary" value="logout" onclick="location.href='{% url 'mainPage' %}'">로그아웃</button>
+                    </form>
+                    {% endif %}
+                    {% if user.is_anonymous %}
+
                     <a href="{% url 'login' %}" class="btn btn-primary rounded-1 text-white m-1 fw-normal">로그인</a>
-                </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </nav>
     <!-- Close Header -->
-    <!-- Modal -->
-    <div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="w-100 pt-1 mb-5 text-right">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="{% url 'search' %}" method="POST" class="modal-content modal-body border-0 p-0">
-                <div class="input-group mb-2">
-                    {% csrf_token %}
-                    <input type="search" class="form-control" id="inputModalSearch" name="searched" placeholder="Search">
-                    <button type="submit" class="input-group-text btn-primay text-light">
-                        <i class="fa fa-fw fa-search text-dark"></i>
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-
     {% block content %}
 
     {% endblock %}
     <!-- Start Footer -->
     <footer class="bg-light" id="tempaltemo_footer">
-        <div class="container">
+        <div class="container mt-5">
             <div class="row">
                 <div class="col-md-6 pt-5">
                     <h3 class="h3 text-primary -bottom pb-3 -light logo">ArtCon<hr></h3>
@@ -107,7 +97,7 @@
                         </li>
                         <li>
                             <i class="fa fa-envelope fa-fw"></i>
-                            <a class="text-decoration-none text-dark" href="mailto:ArtCon@gmail.com">ArtCon@gmail.com</a>
+                            <a class="text-decoration-none text-dark" href="mailto:artcon2023@gmail.com">artcon2023@gmail.com</a>
                         </li>
                     </ul>
                 </div>
@@ -117,11 +107,9 @@
                     <ul class="list-unstyled footer-link-list">
                         <li><a class="text-decoration-none text-dark" href="{% url 'mainPage' %}">Home</a></li>
                         <li><a class="text-decoration-none text-dark" href="#">About Us</a></li>
-                        <li><a class="text-decoration-none text-dark" href="#">FAQs</a></li>
-                        <li><a class="text-decoration-none text-dark" href="#">Contact</a></li>
+                        <li><a class="text-decoration-none text-dark" href="mailto:artcon2023@gmail.com">Contact</a></li>
                     </ul>
                 </div>
-
             </div>
 
             <div class="row text-light mb-2">
@@ -131,33 +119,20 @@
                 <div class="col-auto me-auto">
                     <ul class="list-inline text-left footer-icons">
                         <li class="list-inline-item  -light rounded-circle text-center">
-                            <a class="text-dark text-decoration-none" target="_blank" href="http://facebook.com/"><i class="fab fa-facebook-f fa-lg fa-fw"></i></a>
+                            <a class="text-dark text-decoration-none" target="_blank" href="http://facebook.com/profile.php?id=100093355740659"><i class="fab fa-facebook-f fa-lg fa-fw"></i></a>
                         </li>
                         <li class="list-inline-item  -light rounded-circle text-center">
-                            <a class="text-dark text-decoration-none" target="_blank" href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg fa-fw"></i></a>
-                        </li>
-                        <li class="list-inline-item  -light rounded-circle text-center">
-                            <a class="text-dark text-decoration-none" target="_blank" href="https://twitter.com/"><i class="fab fa-twitter fa-lg fa-fw"></i></a>
-                        </li>
-                        <li class="list-inline-item  -light rounded-circle text-center">
-                            <a class="text-dark text-decoration-none" target="_blank" href="https://www.linkedin.com/"><i class="fab fa-linkedin fa-lg fa-fw"></i></a>
+                            <a class="text-dark text-decoration-none" target="_blank" href="https://www.instagram.com/artcon_connect/"><i class="fab fa-instagram fa-lg fa-fw"></i></a>
                         </li>
                     </ul>
-                </div>
-                <div class="col-auto">
-                    <label class="sr-only" for="subscribeEmail">Email address</label>
-                    <div class="input-group mb-2">
-                        <input type="text" class="form-control bg-light border-opacity-25" id="subscribeEmail" placeholder="Email address">
-                        <div class="input-group-text btn-primary text-light">Subscribe</div>
-                    </div>
                 </div>
             </div>
         </div>
 
         <div class="w-100 bg-primary py-1">
             <div class="container">
-                <div class="row pt-2">
-                    <div class="col-12 mt-0 mb-0">
+                <div class="row pt-1">
+                    <div class="col-12">
                         <p class="text-left text-light fw-light fs-6">
                             Copyright &copy; 2023 ArtCon
                         </p>
