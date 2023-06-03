@@ -27,4 +27,5 @@ urlpatterns = [
     path("exhibition/", include("exhibpage_app.urls")),
     path("recommend/", include("recompage_app.urls")),
     path("search/", include("searchpage_app.urls")),
+    path("summernote/", include("django_summernote.urls")),
 ]

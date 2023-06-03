@@ -38,19 +38,19 @@
         <div class="row py-3">
             <form class="col-md-12 m-auto" method="post" role="form">
                 <div class="mb-2">
-                    <p>Jan 11, 2023</p>
+                    <p>{{board.date}}</p>
                     <div class="d-inline-flex text-nowrap fs-6 border rounded-3 p-1">작성자</div>
-                    <p class="fs-4 fw-bold">전시회러버</p>
+                    <p class="fs-4 fw-bold">{{board.username}}</p>
                 </div>
                 <div class="m-5">
                 </div>
                 <div class="mb-3">
-                    <p class="fs-1 fw-bold">피카소 전시회 가보신 분?</p>
+                    <p class="fs-1 fw-bold">{{board.postname}}</p>
                 </div>
                 <div class="m-5">
                 </div>
                 <div class="mb-3">
-                    <p class="fs-4">이번에 피카소 전시회 열린다고 해서 가보려고 하는데 어땠나요?? 후기 좀 알려주세요!!</p>
+                    <p class="fs-4">{{board.contents|safe}}</p>
                 </div>
                 <div class="m-5">
                 </div>
