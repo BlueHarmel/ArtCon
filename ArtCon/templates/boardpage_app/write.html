@@ -24,6 +24,13 @@
           {% if error %}
           {{error}}
           {% endif %}
+          <div class="row">
+            <div class="col text-center mt-2">
+              <button type="submit" class="btn btn-outline-primary btn-lg px-3">
+                글쓰기
+              </button>
+            </div>
+          </div>
         </form>
       </div>
     </div>
@@ -55,69 +62,6 @@
         mymap.touchZoom.disable();
     </script>
      End Map -->
-
-    <!-- Start Contact -->
-    <div class="container border border-black">
-        <span class="border border-black">
-        <div class="row py-3">
-          <form class="col-md-10 m-auto" method="post" role="form">
-            {% csrf_token %}
-            
-            <div class="row">
-              <div class="form-group col-md-6 mb-3">
-                <label for="id_board_name">말머리</label>
-                <input type="text" class="form-control mt-1" id="id_board_name" name="board_name" placeholder="선택">
-              </div>
-            </div>
-            
-            <div class="mb-3">
-              <label for="id_postname">글 제목</label>
-              <input type="text" class="form-control mt-1" id="id_postname" name="postname" placeholder="제목">
-            </div>
-            
-            <div class="mb-3">
-              <label for="id_contents">내용</label>
-              <textarea class="form-control mt-1" id="id_contents" name="contents" placeholder="내용을 입력해주세요" rows="16"></textarea>
-            </div>
-            
-            <div class="row">
-              <div class="col text-center mt-2">
-                <button type="submit" class="btn btn-outline-primary btn-lg px-3">
-                  글쓰기
-                </button>
-              </div>
-            </div>
-          </form>
-            <!--<form class="col-md-10 m-auto" method="post" role="form">
-                <div class="row">
-                    <div class="form-group col-md-6 mb-3">
-                        <label for="inputname">말머리</label>
-                        <input type="text" class="form-control mt-1" id="name" name="name" placeholder="선택">
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="inputtitle">글 제목</label>
-                    <input type="text" class="form-control mt-1" id="subject" name="subject" placeholder="제목">
-                </div>
-                <div class="mb-3">
-                    <label for="inputmessage">내용</label>
-                    <textarea class="form-control mt-1" id="message" name="message" placeholder="내용을 입력해주세요" rows="16"></textarea>
-                </div>
-                <div class="row">
-                    <div class="col text-center mt-2">
-                            <button type="submit" class="btn btn-outline-primary btn-lg px-3">
-                                글쓰기
-                            </button>
-                    </div>
-                </div>
-            </form>-->
-        </div>
-    </div>
-</span>
-</div>
-<br>
-<br>
-<br>
     <!-- End Contact -->
 
 {% endblock %}
