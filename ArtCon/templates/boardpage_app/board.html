@@ -12,60 +12,30 @@
         <p class="fs-1 fw-bold">공유 게시판</p>
         <p class="fs-6">공유 게시판입니다. 자유롭게 전시회에 대한 주제를 가지고 글을 써보세요.</p>
         <a href="{% url 'write' %}" class="btn btn-primary position-relative" style="float:right;"> 글쓰기</a></div>
+        <p>테스트 게시판</p>
         <hr class="border border-primary border-1">
         <table class="table table-striped">
         <thead>
           <tr>
-            <th scope="col"></th>
+            <th scope="col">글번호</th>
             <th scope="col">이름</th>
             <th scope="col">제목</th>
-            <th scope="col">위치</th>
+            <th scope="col">전시회명</th>
             <th scope="col">날짜</th>
           </tr>
         </thead>
         <tbody>
+          {% for board in test1_boards%}
+          {% if board %}
           <tr>
-            <th scope="row">1</th>
-            <td><a href="{% url 'board_single' %}" style="text-decoration:none;color:black">전시회러버</a></td>
-            <td><a href="{% url 'board_single' %}" style="text-decoration:none;color:black">피카소 전시회 가보신 분?</a></td>
-            <td><a href="{% url 'board_single' %}" style="text-decoration:none;color:black">강남구</a></td>
-            <td><a href="{% url 'board_single' %}" style="text-decoration:none;color:black">Jan 11, 2023</a></td>
+            <th scope="row">{{board.id}}</th>
+            <td><a href="/board/{{board.id}}" style="text-decoration:none;color:black">{{board.username}}</a></td>
+            <td><a href="/board/{{board.id}}" style="text-decoration:none;color:black">{{board.postname}}</a></td>
+            <td><a href="/board/{{board.id}}" style="text-decoration:none;color:black">{{board.board_name}}</a></td>
+            <td><a href="/board/{{board.id}}" style="text-decoration:none;color:black">{{board.date}}</a></td>
           </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>캐논만씁니다</td>
-            <td>1/26 6시에 시간 되는 사람?</td>
-            <td>강남구</td>
-            <td>Jan 11, 2023</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>지각쟁이</td>
-            <td>전시회 추천좀</td>
-            <td>서초구</td>
-            <td>Jan 11, 2023</td>
-          </tr>
-          <tr>
-            <th scope="row">4</th>
-            <td>캡스톤파이팅</td>
-            <td>아 ㅇㅇ전시회 끝났어?</td>
-            <td>영등포구</td>
-            <td>Jan 11, 2023</td>
-          </tr>
-          <tr>
-              <th scope="row">5</th>
-              <td>GBT킹</td>
-              <td>졸리다</td>
-              <td>구로구</td>
-              <td>Jan 11, 2023</td>
-            </tr>
-            <tr>
-              <th scope="row">6</th>
-              <td>캡스톤망함</td>
-              <td>사진전 추천해줘</td>
-              <td>노원구</td>
-              <td>Jan 11, 2023</td>
-            </tr>
+          {% endif %}
+          {% endfor %}
           </tbody>
         </table>
     </div>
