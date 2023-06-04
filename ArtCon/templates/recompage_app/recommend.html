@@ -17,13 +17,13 @@
                 <div class="row">
                   {% if exhibits %}
                   {% for exhibit in exhibits %}
-                    <div class="card my-3">
+                    <div class="card my-2">
                         <div class="row">
                             <div class="col-md-5 py-3">
                                 <div class="card product-wap border-0">
                                     <div class="card rounded-0">
                                         <img class="card-img rounded-0 mapPageSize img-fluid" src="{{exhibit.img}}"/>
-                                        <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                        <div class="card-img-overlay rounded-0 product-overlay d-flex align-self-center justify-content-center">
                                             <ul class="list-unstyled">
                                                 <li><a class="btn btn-primary text-white mt-2" href="{% url 'exhibition' %}?exhibitID={{exhibit.id}}"><i class="far fa-eye"></i></a></li>
                                             </ul>
@@ -33,12 +33,12 @@
                             </div>
                             <div class="col-md-7">
                                 <div class="card-body">
-                                <p class="card-title fw-bold">{{exhibit.E_name}}</p>
+                                <p class="card-title fw-bold mb-3">{{exhibit.E_name}}</p>
                                 <!--<p class="card-text fs-6">{{exhibit.summary}}</p>-->
                                 <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
                                 <i class="fa-solid fa-location-dot" style="color: #000000;"></i>
                                         </a>
-                                    <p class="fs-6"><i class="fas fa-regular fa-clock" style="margin-right: 3px;"></i>{{exhibit.time}}</p>
+                                    <p class="fs-6"><i class="fas fa-regular fa-calendar" style="margin-right: 3px;"></i>{{exhibit.start_date}} - {{exhibit.end_date}}</p>
                                     <p class="fs-6"><i class="fas fa-map-marker-alt" style="margin-right: 3px;"></i>{{exhibit.L_name}}</p>
                                     <a href="{% url 'exhibition' %}?exhibitID={{exhibit.id}}" class="fs-6">자세히 보기</a>
 
