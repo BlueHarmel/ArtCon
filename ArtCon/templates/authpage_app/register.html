@@ -10,7 +10,7 @@
         </div>
         <div class="col-3 p-2">
             <div>
-                <p class="text-black-50">빠짐없이 입력해주세요.</p>
+                <p class="text-primary">아래 항목을 빠짐없이 입력해주세요.</p>
             </div>
             <form method="POST"> {% csrf_token %}
                 <div class="mb-4">
@@ -43,7 +43,7 @@
                 <div class="mb-4">
                     <label for="FormControlInput1" class="form-label">선호하는 전시 카테고리</label>
                     <select class="form-select" name = "prefer_title" aria-label="Default select example">
-                        <option value="" disabled selected>선호 전시를 선택해주세요.</option>
+                        <option value="" class="text-primary" disabled selected>선호 전시를 선택해주세요.</option>
                         {% for exhibit in exhibits %}
                           <option value = "{{ exhibit.E_name }}">{{ exhibit.E_name }}</option>
                         {% endfor %}

@@ -52,7 +52,7 @@
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">
-                    <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-6 pr-3">
+                    <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-6 pr-1">
                         <div class="input-group">
                             <input type="text" class="form-control mr-2" id="inputMobileSearch" placeholder="전시회 검색">
                             <div class="input-group-text">
@@ -65,7 +65,7 @@
                     </a>
                     {% if user.is_authenticated %}
                     <form method="POST" action="{% url 'logout' %}"> {% csrf_token %}
-                        <a href="{% url 'mainPage' %}" class="text-dark mx-2 text-normal fs-6 text-decoration-none ">{{ user.username }} 마이페이지</a>
+                        <a href="{% url 'mainPage' %}" class="text-dark mr-3 text-normal fs-6 text-decoration-none ">마이페이지</a>
                         <button type="submit" class="btn btn-primary">로그아웃</button>
                     </form>
                     {% endif %}
