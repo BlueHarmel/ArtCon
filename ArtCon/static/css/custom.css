@@ -4,6 +4,11 @@ input .form-control{
     margin-left: 5px;
 }
 
+.logoSize {
+  width: 20px;
+  height: 20px;
+}
+
 .posterSize {
   width: 500px; 
   aspect-ratio: 2/3;
@@ -26,6 +31,14 @@ input .form-control{
 .recomImgSize {
   width: 400px; 
   height: auto;
+}
+
+.a img {
+  transition: all 0.1s linear;
+}
+
+.a:hover img {
+  transform: scale(1.1);
 }
 
 /* map */
@@ -76,14 +89,6 @@ input .form-control{
 
 .border-opacity-25{
     border: 1px solid rgb(59, 113, 202, 0.25);
-}
-
-.s1{
-    text-shadow: 2px 2px 2px rgb(65, 65, 65);
-}
-
-.s2{
-    text-shadow: 4px 2px 2px rgb(65, 65, 65);
 }
 
 .pic-sm{
