@@ -34,7 +34,6 @@
                             <div class="col-md-7">
                                 <div class="card-body">
                                 <p class="card-title fw-bold mb-3">{{exhibit.E_name}}</p>
-                                <!--<p class="card-text fs-6">{{exhibit.summary}}</p>-->
                                 <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
                                 <i class="fa-solid fa-location-dot" style="color: #000000;"></i>
                                         </a>
@@ -64,9 +63,7 @@
                     <div id="map_exhibits" value="{{map_exhibits|safe}}">{{map_exhibits|safe}}</div>
                     <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=68869ffd346ee561ce8051bca3b782f7"></script>
                     <script>
-                    // 좌표 얻어오기
-                    // const boundsStr = bounds.toString();     
-                    
+                    // 좌표 얻어오기                    
                     const defaultPosition = new kakao.maps.LatLng(37.566535, 126.9779692);
 
                     const container = document.getElementById('map');
@@ -76,7 +73,7 @@
                     };
                     // 지도 생성
                     const map = new kakao.maps.Map(container, options);
-                    // window.onload = setMap(defaultPosition);
+
                     kakao.maps.event.addListener(map, 'bounds_changed', function() {
                         let bounds = map.getBounds();
                         const boundsStr = bounds.toString();
@@ -161,7 +158,6 @@
                 <div class="row">
                     <div class="col text-center mt-2">
                         <button type="button" class="btn btn-outline-primary">1</button>
-                        <!--<a href="/write.html"> 다음페이지 연결-->
                         <button type="button" class="btn btn-outline-primary">2</button>
                         <button type="button" class="btn btn-outline-primary">3</button>
                     </div>

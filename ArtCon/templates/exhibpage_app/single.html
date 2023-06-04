@@ -10,7 +10,6 @@
     <section class="align-items-center justify-contents-center">
         <div class="container pb-5">
             {% if exhibit %}
-            <!-- 크롤링 평점 가져오는거도 필요할지도 -->
             <div class="row">
                 <div class="col-lg-4 col-md-5 mt-5">
                     <div class="card mb-5">
@@ -54,11 +53,7 @@
                                 <div class="mx-1">
                                     <button onclick="getLocation()" type="submit" class="btn btn-primary text-nowrap">지도보기</a>
                                 </div>
-                            </div>
-                            <!--<div class="row mt-5 mb-5">
-                                <p class="fs-5">{{ exhibit.0.summary }}</p>      
-                            </div>-->
-                            
+                            </div>                            
                             <!-- Start Map -->
                             <div class="my-1 p-2">                                
                                 <div id="map" class="img-fluid" style="max-width: 700px; height: 350px;"></div>
