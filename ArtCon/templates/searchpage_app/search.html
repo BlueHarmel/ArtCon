@@ -15,7 +15,7 @@
             <div class="m-5 p-5 col-7">
                 <form action="{% url 'search' %}" method="POST">
                   <div class="input-group mb-2">
-                    <input type="date" class="form-control form-control-lg my-4" placeholder="날짜 선택">
+                    <input name = "date" type="date" class="form-control form-control-lg my-4" placeholder="날짜 선택">
                   </div>
                   <div class="input-group mb-2">
                       {% csrf_token %}
