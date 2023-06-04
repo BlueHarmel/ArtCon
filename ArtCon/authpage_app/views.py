@@ -99,7 +99,3 @@ def register(request):
             res_data["success"] = "ok"
 
         return render(request, "authpage_app/register.html", res_data)
-
-
-# def register(request):
-#     return render(request, "authpage_app/register.html")
