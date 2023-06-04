@@ -5,8 +5,8 @@ input .form-control{
 }
 
 .logoSize {
-  width: 20px;
-  height: 20px;
+  width: 90px;
+  height: 90px;
 }
 
 .posterSize {
@@ -18,7 +18,14 @@ input .form-control{
 
 .bannerSize {
   aspect-ratio: 2/3;
-  width: 700px;
+  width: 600px;
+  height: auto;
+  object-fit: contain;
+}
+
+.searchSize {
+  aspect-ratio: 2/3;
+  width: 500px;
   height: auto;
   object-fit: contain;
 }

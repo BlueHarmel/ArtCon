@@ -12,7 +12,7 @@
         <p class="fs-1 fw-bold">공유 게시판</p>
         <p class="fs-6">공유 게시판입니다. 자유롭게 전시회에 대한 주제를 가지고 글을 써보세요.</p>
         {% if user.is_authenticated %}
-        <a href="{% url 'write' %}" class="btn btn-primary position-relative" style="float:right;"> 글쓰기</a>
+        <a href="{% url 'board:write' %}" class="btn btn-primary position-relative" style="float:right;"> 글쓰기</a>
         {% endif %}
       </div>
         <p>테스트 게시판</p>
@@ -32,10 +32,10 @@
           {% if board %}
           <tr>
             <th scope="row">{{forloop.counter}}</th>
-            <td><a href="/board/{{board.id}}" style="text-decoration:none;color:black">{{board.username}}</a></td>
-            <td><a href="/board/{{board.id}}" style="text-decoration:none;color:black">{{board.postname}}</a></td>
-            <td><a href="/board/{{board.id}}" style="text-decoration:none;color:black">{{board.board_name}}</a></td>
-            <td><a href="/board/{{board.id}}" style="text-decoration:none;color:black">{{board.date}}</a></td>
+            <td><a href="{% url 'board:board_single' pk=board.id %}" style="text-decoration:none;color:black">{{board.username}}</a></td>
+            <td><a href="{% url 'board:board_single' pk=board.id %}" style="text-decoration:none;color:black">{{board.postname}}</a></td>
+            <td><a href="{% url 'board:board_single' pk=board.id %}" style="text-decoration:none;color:black">{{board.board_name}}</a></td>
+            <td><a href="{% url 'board:board_single' pk=board.id %}" style="text-decoration:none;color:black">{{board.date}}</a></td>
           </tr>
           {% endif %}
           {% endfor %}
