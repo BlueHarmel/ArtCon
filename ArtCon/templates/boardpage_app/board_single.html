@@ -8,39 +8,19 @@
                 <p class="fs-1 fw-bold">게시판</p>
             </div>
         </div>
-    <!-- Start Map 
-    <div id="mapid" style="width: 100%; height: 300px;"></div>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
-    <script>
-        var mymap = L.map('mapid').setView([-23.013104, -43.394365, 13], 13);
-
-        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-            maxZoom: 18,
-            attribution: 'Zay Telmplte | Template Design by <a href="https://templatemo.com/">Templatemo</a> | Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-                '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-                'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-            id: 'mapbox/streets-v11',
-            tileSize: 512,
-            zoomOffset: -1
-        }).addTo(mymap);
-
-        L.marker([-23.013104, -43.394365, 13]).addTo(mymap)
-            .bindPopup("<b>Zay</b> eCommerce Template<br />Location.").openPopup();
-
-        mymap.scrollWheelZoom.disable();
-        mymap.touchZoom.disable();
-    </script>
-    End Map -->
 
     <!-- Start Contact -->
     <div class="container border border-black">
         <span class="border border-black">
         <div class="row py-3">
             <form class="col-md-12 m-auto" method="post" role="form">
-                <div class="mb-2">
+                <div class="mb-2 pd-3">
                     <p>{{board.date}}</p>
-                    <div class="d-inline-flex text-nowrap fs-6 border rounded-3 p-1">작성자</div>
-                    <p class="fs-4 fw-bold">{{board.username}}</p>
+                </div>
+                <div class="d-flex flex-row p-1">
+                    <p class="fs-4 fw-bold mr-5">{{board.username}}
+                        <div class="d-inline-flex text-nowrap fs-6 border rounded-3 align-items-center">작성자</div>
+                    </p>
                 </div>
                 <div class="m-5">
                 </div>
@@ -69,11 +49,6 @@
     <span class="border border-black">
         <div class="row py-3">
             <form class="col-md-12 m-auto">
-            <ul class="list-group">
-                <li class="list-group-item">나도 가보고 싶다!</li>
-                <li class="list-group-item">거기 재미 없었어요 ㅡㅡ</li>
-                <li class="list-group-item">나 가봤는데 엄청 좋았음!!</li>
-            </ul>
         </form>
         </div>
     </span>

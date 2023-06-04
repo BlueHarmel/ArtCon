@@ -11,7 +11,7 @@
     <div class="container py-5">
         <div class="d-flex row">
             <!-- Start Exhibition List -->
-            <div class="col-lg-5 col-md-6 my-5">
+            <div class="col-lg-5 col-md-5 my-5">
                 <h3 class="h3 fw-bold mb-2">추천 전시회 목록</h3>
                 <!-- Start List of Recommendation-->
                 <div class="row">
@@ -54,7 +54,7 @@
             <!-- End Exhibition List -->
 
             <!-- Start Map -->
-            <div class="container col-lg-7 col-md-6 my-5">
+            <div class="container col-lg-7 col-md-7 my-5">
                 <div class="d-flex flex-row align-items-end mb-3">
                   <h1 class="h3 fw-bold">지도로 찾아보기</h1>
                   <button onclick="getLocation()" class="btn btn-primary mx-3">현재 위치 찾기</button>
@@ -76,6 +76,7 @@
 
                     // 지도 생성
                     const map = new kakao.maps.Map(container, options);
+                    
                     // window.onload = setMap(defaultPosition);
                     kakao.maps.event.addListener(map, 'bounds_changed', function() {
                         let bounds = map.getBounds();
@@ -101,6 +102,11 @@
                                     marker['latlng'] = new kakao.maps.LatLng(exhibits[0][i]['x'], exhibits[0][i]['y'])
                                     position.push(marker);
                                 }
+                                const positions = {
+                                    content: '{{ exhibit.E_name }}',
+                                    latlng: marker['latlng']
+                                }
+                                
                                 const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
                                 for (let i = 0; i < position.length; i ++) {      
                                     const imageSize = new kakao.maps.Size(24, 35);                       
@@ -123,7 +129,6 @@
                                         infowindow.open(map, marker);
                                     };
                                 }
-
                                 function makeOutListener(infowindow) {
                                     return function() {
                                         infowindow.close();

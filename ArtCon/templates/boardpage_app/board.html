@@ -2,22 +2,21 @@
 {% load static %}
 {% block content %}
     <!-- Start Content Page -->
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="container bg-white border p-6 m-6">
-      <div class="container py-5">
-        
-        <p class="fs-1 fw-bold">공유 게시판</p>
-        <p class="fs-6">공유 게시판입니다. 자유롭게 전시회에 대한 주제를 가지고 글을 써보세요.</p>
-        {% if user.is_authenticated %}
-        <a href="{% url 'write' %}" class="btn btn-primary position-relative" style="float:right;"> 글쓰기</a>
+    <div class="container bg-white border p-5 my-5 align-self-center">
+      <div class="container py-5 d-flex d-row justify-content-between">
+        <div class="mb-5">
+          <p class="fs-1 fw-bold">공유 게시판</p>
+          <p class="fs-5">전시회에 대한 주제를 가지고 자유롭게 글을 써보세요.</p>
+          {% if user.is_authenticated %}
+        </div>
+        <div class="align-items-end">
+          <a href="{% url 'write' %}" class="btn btn-primary btn-lg">글쓰기</a>
+        </div>
         {% endif %}
       </div>
-        <p>테스트 게시판</p>
+        <p>게시글</p>
         <hr class="border border-primary border-1">
-        <table class="table table-striped">
+        <table class="table table-striped col-md-6">
         <thead>
           <tr>
             <th scope="col">글번호</th>
@@ -42,33 +41,8 @@
           </tbody>
         </table>
     </div>
-    <!-- Start Map 
-    <div id="mapid" style="width: 100%; height: 300px;"></div>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
-    <script>
-        var mymap = L.map('mapid').setView([-23.013104, -43.394365, 13], 13);
 
-        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-            maxZoom: 18,
-            attribution: 'Zay Telmplte | Template Design by <a href="https://templatemo.com/">Templatemo</a> | Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-                '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-                'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-            id: 'mapbox/streets-v11',
-            tileSize: 512,
-            zoomOffset: -1
-        }).addTo(mymap);
-
-        L.marker([-23.013104, -43.394365, 13]).addTo(mymap)
-            .bindPopup("<b>Zay</b> eCommerce Template<br />Location.").openPopup();
-
-        mymap.scrollWheelZoom.disable();
-        mymap.touchZoom.disable();
-    </script>
-    End Map -->
-
-    <!-- Start Board -->
-
-    <div class="container py-5">
+    <div class="container py-3 mb-5">
         <div class="row py-1">
             <form class="col-md-12 m-auto">
                 <button type="button" class="btn btn-outline-primary position-relative" style="float:left;">< Prev</button>
