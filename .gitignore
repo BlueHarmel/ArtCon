@@ -1,2 +1,4 @@
 ArtCon/secrets.json
 __pycache__/
+*.crt
+*.key
