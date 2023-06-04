@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.http.response import HttpResponse
 from django.urls import path, include
 from . import views
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -28,4 +29,5 @@ urlpatterns = [
     path("recommend/", include("recompage_app.urls")),
     path("search/", include("searchpage_app.urls")),
     path("summernote/", include("django_summernote.urls")),
+    path("logout/", LogoutView.as_view(next_page="mainPage"), name="logout"),
 ]

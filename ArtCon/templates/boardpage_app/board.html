@@ -11,7 +11,10 @@
         
         <p class="fs-1 fw-bold">공유 게시판</p>
         <p class="fs-6">공유 게시판입니다. 자유롭게 전시회에 대한 주제를 가지고 글을 써보세요.</p>
-        <a href="{% url 'write' %}" class="btn btn-primary position-relative" style="float:right;"> 글쓰기</a></div>
+        {% if user.is_authenticated %}
+        <a href="{% url 'write' %}" class="btn btn-primary position-relative" style="float:right;"> 글쓰기</a>
+        {% endif %}
+      </div>
         <p>테스트 게시판</p>
         <hr class="border border-primary border-1">
         <table class="table table-striped">

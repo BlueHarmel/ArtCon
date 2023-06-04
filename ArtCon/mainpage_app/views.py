@@ -6,6 +6,7 @@ from exhibpage_app.models import Exhibit
 from django.core import serializers
 from django.contrib import auth
 
+
 # Create your views here.
 # 메인페이지인데 변수 이름을 recommend라 했는데 수정 필요할지도
 def mainpage_app(request):
@@ -25,9 +26,5 @@ def mainpage_app(request):
         "banner2": banner2,
         "banner3": banner3,
     }
-    if request.method == 'GET':
-        return render(request, "mainpage_app/index.html", context)
-    if request.method == 'POST':
-        auth.logout(request)
-        return render(request, "mainpage_app/index.html", context)
-    
+    # if request.method == "GET":
+    return render(request, "mainpage_app/index.html", context)
