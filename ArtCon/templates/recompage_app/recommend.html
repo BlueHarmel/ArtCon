@@ -127,8 +127,12 @@
                                     center: new kakao.maps.LatLng(x, y), 
                                     level: 3
                                 };
+                                const userMarker = new kakao.maps.Marker({
+                                  position: options.center
+                                })
                                 // 지도 생성
                                 const map = new kakao.maps.Map(container, options);
+                                userMarker.setMap(map);
                                 let bounds = map.getBounds();
                                 const boundsStr = bounds.toString();
 
