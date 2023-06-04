@@ -42,11 +42,11 @@
                 </div>
                 <div class="mb-4">
                     <label for="FormControlInput1" class="form-label">선호하는 전시 카테고리</label>
-                    <select class="form-select" aria-label="Default select example">
+                    <select class="form-select" name = "prefer_title" aria-label="Default select example">
                         <option value="" disabled selected>선호 전시를 선택해주세요.</option>
-                        <option value="조형">조형</option>
-                        <option value="전시">전시</option>
-                        <option value="사진">사진</option>
+                        {% for exhibit in exhibits %}
+                          <option value = "{{ exhibit.E_name }}">{{ exhibit.E_name }}</option>
+                        {% endfor %}
                       </select>
                 </div>
                 <div class="mb-4">

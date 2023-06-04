@@ -28,7 +28,7 @@
           {% for board in test1_boards%}
           {% if board %}
           <tr>
-            <th scope="row">{{board.id}}</th>
+            <th scope="row">{{forloop.counter}}</th>
             <td><a href="/board/{{board.id}}" style="text-decoration:none;color:black">{{board.username}}</a></td>
             <td><a href="/board/{{board.id}}" style="text-decoration:none;color:black">{{board.postname}}</a></td>
             <td><a href="/board/{{board.id}}" style="text-decoration:none;color:black">{{board.board_name}}</a></td>

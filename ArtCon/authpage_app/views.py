@@ -3,6 +3,8 @@ from django.contrib import auth
 from .models import User
 from exhibpage_app.models import Exhibit
 import re
+import random
+from django.db.models import Count
 
 
 def login(request):
@@ -46,16 +48,19 @@ def register(request):
         "^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$"
     )
     if request.method == "GET":
-        return render(request, "authpage_app/register.html")
+        # Exhibit 모델에서 랜덤한 전시회 3개 선택
+        random_exhibits = random.sample(list(Exhibit.objects.all()), 3)
+        context = {"exhibits": random_exhibits}
+        return render(request, "authpage_app/register.html", context)
     elif request.method == "POST":
-        username = request.POST["username"]
-        password1 = request.POST["password1"]
-        password2 = request.POST["password2"]
-        email = request.POST["email"]
-        phone_number = request.POST["phone_number"]
-        firstname = request.POST["first_name"]
-        lastname = request.POST["last_name"]
-        prefer_title = request.POST["prefer_title"]
+        username = request.POST.get("username")
+        password1 = request.POST.get("password1")
+        password2 = request.POST.get("password2")
+        email = request.POST.get("email")
+        phone_number = request.POST.get("phone_number")
+        firstname = request.POST.get("first_name")
+        lastname = request.POST.get("last_name")
+        prefer_title = request.POST.get("prefer_title")
 
         res_data = {}
         if (
@@ -65,6 +70,7 @@ def register(request):
             or lastname == ""
             or phone_number == ""
             or password1 == ""
+            or prefer_title == ""
         ):
             res_data["empty_error"] = "모든 정보가 입력되지 않았습니다."
         elif password1 != password2:
@@ -87,7 +93,7 @@ def register(request):
                 first_name=request.POST["first_name"],
                 last_name=request.POST["last_name"],
                 phone_number=request.POST["phone_number"],
-                prefer_title=request.POST["prefer_title"]
+                prefer_title=request.POST["prefer_title"],
             )
             auth.login(request, user)
             res_data["success"] = "ok"
