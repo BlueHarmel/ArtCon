@@ -3,7 +3,7 @@
 {% block content %}
 
     <!-- Start Content -->
-    <script src="https://ajax.googleapis.com/ajax/libs/d3js/7.8.4/d3.min.js">var $j784 = jQuery.noConflict();</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/d3js/7.8.4/d3.min.js">const $j784 = jQuery.noConflict();</script>
     {% csrf_token %}
     <script>
         const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
@@ -11,7 +11,7 @@
     <div class="container py-5">
         <div class="d-flex row">
             <!-- Start Exhibition List -->
-            <div class="col-lg-5 col-md-6 my-5">
+            <div class="col-lg-5 col-md-5 my-5">
                 <h3 class="h3 fw-bold mb-2">추천 전시회 목록</h3>
                 <!-- Start List of Recommendation-->
                 <div class="row">
@@ -53,7 +53,7 @@
             <!-- End Exhibition List -->
 
             <!-- Start Map -->
-            <div class="container col-lg-7 col-md-6 my-5">
+            <div class="container col-lg-7 col-md-7 my-5">
                 <div class="d-flex flex-row align-items-end mb-3">
                   <h1 class="h3 fw-bold">지도로 찾아보기</h1>
                   <button onclick="getLocation()" class="btn btn-primary mx-3">현재 위치 찾기</button>
@@ -63,7 +63,8 @@
                     <div id="map_exhibits" value="{{map_exhibits|safe}}">{{map_exhibits|safe}}</div>
                     <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=68869ffd346ee561ce8051bca3b782f7"></script>
                     <script>
-                    // 좌표 얻어오기                    
+                    // 좌표 얻어오기
+                    // const boundsStr = bounds.toString();      
                     const defaultPosition = new kakao.maps.LatLng(37.566535, 126.9779692);
 
                     const container = document.getElementById('map');
@@ -71,9 +72,11 @@
                         center: defaultPosition, 
                         level: 3
                     };
+
                     // 지도 생성
                     const map = new kakao.maps.Map(container, options);
-
+                    
+                    // window.onload = setMap(defaultPosition);
                     kakao.maps.event.addListener(map, 'bounds_changed', function() {
                         let bounds = map.getBounds();
                         const boundsStr = bounds.toString();
@@ -98,19 +101,39 @@
                                     marker['latlng'] = new kakao.maps.LatLng(exhibits[0][i]['x'], exhibits[0][i]['y'])
                                     position.push(marker);
                                 }
-                                var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+                                const positions = {
+                                    content: '{{ exhibit.E_name }}',
+                                    latlng: marker['latlng']
+                                }
+                                
+                                const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
                                 for (let i = 0; i < position.length; i ++) {      
-                                    var imageSize = new kakao.maps.Size(24, 35);                       
-                                    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+                                    const imageSize = new kakao.maps.Size(24, 35);                       
+                                    const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
                                     const marker = new kakao.maps.Marker({
                                         map: map,
                                         position: position[i].latlng, 
                                         title : position[i].title,
                                         image : markerImage
                                     });
+                                    const ininfowindow = new kakao.maps.InfoWindow({
+                                        content: positions[i].content
+                                    });
+                                    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+                                    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
                                 };
+
+                                function makeOverListener(map, marker, infowindow) {
+                                    return function() {
+                                        infowindow.open(map, marker);
+                                    };
                                 }
-                                
+                                function makeOutListener(infowindow) {
+                                    return function() {
+                                        infowindow.close();
+                                    };
+                                }
+                            } 
                         });
                     });
                     function getLocation() {

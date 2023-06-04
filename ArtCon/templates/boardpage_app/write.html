@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <!-- Start Content Page -->
         <div class="d-flex flex-column p-5 bg-white align-items-center py-3">
             <div class="fs-1 pt-3 text-dark" style="letter-spacing: 5px;">
                 <br>
@@ -15,7 +14,7 @@
           {% csrf_token %}
 
           {% for form in forms %}
-          <div>
+          <div class="mb-5">
             <label for="{{ form.id_for_label }}">{{form.label}}</label>
             {{form}}
           </div>
@@ -36,7 +35,5 @@
     </div>
 </span>
 </div>
-<br>
-<br>
-<br>
+
 {% endblock %}

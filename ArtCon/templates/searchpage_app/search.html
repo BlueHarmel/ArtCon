@@ -30,7 +30,7 @@
 
     <!-- Start Info -->
         <div class="d-flex bg-white shadow my-5">
-            <div class="d-flex text-start m-3 p-5 col-4">
+            <div class="d-flex text-start m-3 p-5 col-3">
               {% if searched_title %}
                 <h3>{{ searched_title }} 검색 결과</h3>
             </div>
@@ -38,7 +38,7 @@
                 
                 {% for exhibit in exhibits %}
                 <div class="d-flex flex-row" style="margin: 10px 0px;">
-                    <img src="{{exhibit.img}}" class="pic-sm m-3 posterSize" value="이미지 삽입"/>
+                    <img src="{{exhibit.img}}" class="pic-sm m-3 searchSize" value="이미지 삽입"/>
                     <div class="d-flex flex-column p-3">
                         <p class="h3">{{exhibit.E_name}}</p>
                         <p>{{exhibit.start_date}} - {{exhibit.end_date}}</p>
@@ -48,15 +48,20 @@
                 </div>
                 {% endfor %}
                 {% elif searched_date %}
-                <h3>{{searched_date}} 관람 가능 전시</h3>
+                <div class="flex-column">
+                   <p class="h2 fw-bold">{{searched_date}}</p>
+                   <p class="h2">관람 가능한 전시</p> 
+                </div>
+                
+
             </div>
             <div class="d-flex flex-column p-5 m-3 col-8">
                 
                 {% for exhibit in exhibits %}
                 <div class="d-flex flex-row" style="margin: 10px 0px;">
-                    <img src="{{exhibit.img}}" class="pic-sm m-3 posterSize" value="이미지 삽입"/>
-                    <div class="d-flex flex-column p-3">
-                        <p class="h3">{{exhibit.E_name}}</p>
+                    <img src="{{exhibit.img}}" class="pic-sm m-3 searchSize" value="이미지 삽입"/>
+                    <div class="d-flex flex-column pt-3 px-5">
+                        <p class="h4 fw-normal">{{exhibit.E_name}}</p>
                         <p>{{exhibit.start_date}} - {{exhibit.end_date}}</p>
                         <br>
                         <a href="{% url 'exhibition' %}?exhibitID={{exhibit.id}}" class="text-decoration-line-underline text-primary">자세히 보기</a>

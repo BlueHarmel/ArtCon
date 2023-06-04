@@ -8,15 +8,19 @@
                 <p class="fs-1 fw-bold">게시판</p>
             </div>
         </div>
+
     <!-- Start Contact -->
     <div class="container border border-black">
         <span class="border border-black">
         <div class="row py-3">
             <form class="col-md-12 m-auto" method="post" role="form">
-                <div class="mb-2">
+                <div class="mb-2 pd-3">
                     <p>{{board.date}}</p>
-                    <div class="d-inline-flex text-nowrap fs-6 border rounded-3 p-1">작성자</div>
-                    <p class="fs-4 fw-bold">{{board.username}}</p>
+                </div>
+                <div class="d-flex flex-row p-1">
+                    <p class="fs-4 fw-bold mr-5">{{board.username}}
+                        <div class="d-inline-flex text-nowrap fs-6 border rounded-3 align-items-center">작성자</div>
+                    </p>
                 </div>
                 <div class="m-5">
                 </div>
@@ -45,11 +49,6 @@
     <span class="border border-black">
         <div class="row py-3">
             <form class="col-md-12 m-auto">
-            <ul class="list-group">
-                <li class="list-group-item">나도 가보고 싶다!</li>
-                <li class="list-group-item">거기 재미 없었어요 ㅡㅡ</li>
-                <li class="list-group-item">나 가봤는데 엄청 좋았음!!</li>
-            </ul>
         </form>
         </div>
     </span>
