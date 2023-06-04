@@ -64,9 +64,9 @@
                         <i class="fa fa-fw fa-search text-dark"></i>
                     </a>
                     {% if user.is_authenticated %}
-                    <form method="POST"> {% csrf_token %}
+                    <form method="POST" action="{% url 'logout' %}"> {% csrf_token %}
                         <a href="{% url 'mainPage' %}" class="text-dark mx-2 text-normal fs-6 text-decoration-none ">{{ user.username }} 마이페이지(예정)</a>
-                        <button type="submit" class="btn btn-primary" value="logout" onclick="location.href='{% url 'mainPage' %}'">로그아웃</button>
+                        <button type="submit" class="btn btn-primary">로그아웃</button>
                     </form>
                     {% endif %}
                     {% if user.is_anonymous %}
