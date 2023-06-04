@@ -38,7 +38,7 @@
                                 <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
                                 <i class="fa-solid fa-location-dot" style="color: #000000;"></i>
                                         </a>
-                                    <p class="fs-6"><i class="fas fa-regular fa-clock" style="margin-right: 3px;"></i>{{exhibit.time}}</p>
+                                    <p class="fs-6"><i class="fas fa-regular fa-clock" style="margin-right: 3px;"></i>{{exhibit.start_date}}~{{exhibit.end_date}}</p>
                                     <p class="fs-6"><i class="fas fa-map-marker-alt" style="margin-right: 3px;"></i>{{exhibit.L_name}}</p>
                                     <a href="{% url 'exhibition' %}?exhibitID={{exhibit.id}}" class="fs-6">자세히 보기</a>
 
