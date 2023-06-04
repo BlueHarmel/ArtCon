@@ -22,11 +22,11 @@
 <body class="d-flex flex-column">
 
     <!-- Start Header -->
-    <nav class="navbar navbar-expand-lg navbar-light shadow py-3">
+    <nav class="navbar navbar-expand-lg navbar-light shadow py-2">
         <div class="container d-flex justify-content-between align-items-center">
-            <div class="logoSize">
+            <div>
                 <a class="align-self-center fs-3" href="{% url 'mainPage' %}">
-                    <img src="{% static 'img/Logo.png'%}">
+                    <img class="logoSize" src="{% static 'img/Logo.png'%}">
                 </a>
             </div>
             
@@ -65,7 +65,7 @@
                     </a>
                     {% if user.is_authenticated %}
                     <form method="POST" action="{% url 'logout' %}"> {% csrf_token %}
-                        <a href="{% url 'mainPage' %}" class="text-dark mx-2 text-normal fs-6 text-decoration-none ">{{ user.username }} 마이페이지(예정)</a>
+                        <a href="{% url 'mainPage' %}" class="text-dark mx-2 text-normal fs-6 text-decoration-none ">{{ user.username }} 마이페이지</a>
                         <button type="submit" class="btn btn-primary">로그아웃</button>
                     </form>
                     {% endif %}
@@ -93,10 +93,6 @@
                             경기도 용인시 처인구 모현읍 외대로 81
                         </li>
                         <li>
-                            <i class="fa fa-phone fa-fw"></i>
-                            <a class="text-decoration-none text-dark" href="tel:010-0000-0000">010-1234-5678</a>
-                        </li>
-                        <li>
                             <i class="fa fa-envelope fa-fw"></i>
                             <a class="text-decoration-none text-dark" href="mailto:artcon2023@gmail.com">artcon2023@gmail.com</a>
                         </li>
@@ -107,24 +103,24 @@
                     <h3 class="h3 text-dark -bottom pb-3 -light">Info<hr class="text-primary"></h3>
                     <ul class="list-unstyled footer-link-list">
                         <li><a class="text-decoration-none text-dark" href="{% url 'mainPage' %}">Home</a></li>
-                        <li><a class="text-decoration-none text-dark" href="#">About Us</a></li>
                         <li><a class="text-decoration-none text-dark" href="mailto:artcon2023@gmail.com">Contact</a></li>
                     </ul>
                 </div>
-            </div>
-
-            <div class="row text-light my-3">
-                <div class="col-auto me-auto">
-                    <ul class="list-inline text-left footer-icons">
-                        <li class="list-inline-item  -light rounded-circle text-center">
-                            <a class="text-dark text-decoration-none" target="_blank" href="http://facebook.com/profile.php?id=100093355740659"><i class="fab fa-facebook-f fa-lg fa-fw"></i></a>
-                        </li>
-                        <li class="list-inline-item  -light rounded-circle text-center">
-                            <a class="text-dark text-decoration-none" target="_blank" href="https://www.instagram.com/artcon_connect"><i class="fab fa-instagram fa-lg fa-fw"></i></a>
-                        </li>
-                    </ul>
+                <div class="row text-light my-3">
+                    <div class="col-auto me-auto">
+                        <ul class="list-inline text-left footer-icons">
+                            <li class="list-inline-item  -light rounded-circle text-center">
+                                <a class="text-dark text-decoration-none" target="_blank" href="http://facebook.com/profile.php?id=100093355740659"><i class="fab fa-facebook-f fa-lg fa-fw"></i></a>
+                            </li>
+                            <li class="list-inline-item  -light rounded-circle text-center">
+                                <a class="text-dark text-decoration-none" target="_blank" href="https://www.instagram.com/artcon_connect"><i class="fab fa-instagram fa-lg fa-fw"></i></a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
+
+            
         </div>
 
         <div class="w-100 bg-primary py-1">
