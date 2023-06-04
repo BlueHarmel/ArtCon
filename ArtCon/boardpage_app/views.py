@@ -58,3 +58,46 @@ def board_single(request, pk):
     context["board"] = board
 
     return render(request, "boardpage_app/board_single.html", context)
+
+
+def board_delete(request, pk):
+    login_session = request.session.get("user", "")
+    board = get_object_or_404(Post, id=pk)
+    if board.username.id == login_session:
+        board.delete()
+        return redirect("/board")
+    else:
+        return redirect(f"/board/{pk}/")
+
+
+def board_modify(request, pk):
+    login_session = request.session.get("user", "")
+    context = {"login_session": login_session}
+
+    board = get_object_or_404(Post, id=pk)
+    context["board"] = board
+
+    if board.username.id != login_session:
+        return redirect(f"/board/{pk}/")
+
+    if request.method == "GET":
+        write_form = BoardWriteForm(instance=board)
+        context["forms"] = write_form
+        return render(request, "boardpage_app/modify.html", context)
+
+    elif request.method == "POST":
+        write_form = BoardWriteForm(request.POST)
+
+        if write_form.is_valid():
+            board.postname = write_form.postname
+            board.contents = write_form.contents
+            board.board_name = write_form.board_name
+
+            board.save()
+            return redirect("/board")
+        else:
+            context["forms"] = write_form
+            if write_form.errors:
+                for value in write_form.errors.values():
+                    context["error"] = value
+            return render(request, "boardpage_app/modify.html", context)
