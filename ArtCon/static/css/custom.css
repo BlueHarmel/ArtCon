@@ -1,5 +1,9 @@
 /*Custom Css*/
 
+li a:hover {
+  color: #902923;
+} 
+
 input .form-control{
     margin-left: 5px;
 }

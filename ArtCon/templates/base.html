@@ -38,35 +38,35 @@
                 <div class="flex-fill">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <li class="nav-item">
-                            <a class="nav-link fs-6 fw-normal" href="{% url 'mainPage' %}">홈</a>
+                            <a class="hoverColor nav-link fs-6 fw-bold" href="{% url 'mainPage' %}">홈</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fs-6 fw-normal" href="{% url 'search' %}">검색</a>
+                            <a class="hoverColor nav-link fs-6 fw-bold" href="{% url 'search' %}">검색</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fs-6 fw-normal" href="{% url 'recommend' %}">추천 전시회</a>
+                            <a class="hoverColor nav-link fs-6 fw-bold" href="{% url 'recommend' %}">추천 전시회</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fs-6 fw-normal" href="{% url 'board:board' %}">모임 게시판</a>
+                            <a class="hoverColor nav-link fs-6 fw-bold" href="{% url 'board:board' %}">모임 게시판</a>
                         </li>
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">
                     <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-6 pr-1">
                         <div class="input-group">
-                            <input type="text" class="form-control mr-3" id="inputMobileSearch" placeholder="전시회 검색">
+                            <input type="text" class="form-control" id="inputMobileSearch" placeholder="전시회 검색">
                             <div class="input-group-text">
                                 <i class="fa fa-fw fa-search"></i>
                             </div>
                         </div>
                     </div>
-                    <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
+                    <a class="nav-icon d-none d-lg-inline m-2" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
                         <i class="fa fa-fw fa-search text-dark"></i>
                     </a>
                     {% if user.is_authenticated %}
-                    <form method="POST" action="{% url 'logout' %}"> {% csrf_token %}
-                        <a href="{% url 'mainPage' %}" class="text-dark mx-2 text-normal fs-6 text-decoration-none">마이페이지</a>
-                        <button type="submit" class="btn btn-primary">로그아웃</button>
+                    <form method="POST" action="{% url 'logout' %}" class="ml-2"> {% csrf_token %}
+                        <a href="{% url 'mainPage' %}" class="text-dark fs-6 text-normal text-decoration-none">마이페이지</a>
+                        <button type="submit" class="btn btn-primary ml-3">로그아웃</button>
                     </form>
                     {% endif %}
                     {% if user.is_anonymous %}
