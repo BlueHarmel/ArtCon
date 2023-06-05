@@ -591,8 +591,8 @@ driver = webdriver.Chrome(
 driver.set_window_size(1920, 1280)
 driver.implicitly_wait(2)
 
-# seoul_crawl()
-naver_crawl()
+seoul_crawl()
+# naver_crawl()
 # interp_crawl()
-# yes_crawl()
-# mmca_crawl()
+yes_crawl()
+mmca_crawl()

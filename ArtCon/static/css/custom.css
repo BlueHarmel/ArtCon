@@ -4,6 +4,11 @@ input .form-control{
     margin-left: 5px;
 }
 
+.logoSize {
+  width: 90px;
+  height: 90px;
+}
+
 .posterSize {
   width: 500px; 
   aspect-ratio: 2/3;
@@ -13,38 +18,35 @@ input .form-control{
 
 .bannerSize {
   aspect-ratio: 2/3;
-  width: 800px;
+  width: 600px;
   height: auto;
   object-fit: contain;
 }
 
+.searchSize {
+  aspect-ratio: 2/3;
+  width: 100px;
+  height: auto;
+  object-fit:contain;
+}
 
-/* img optimizing
-@media screen and (max-width: 1200px) and (orientation: portrait){
+.singleImgSize {
+  max-width: 500px;
+  height: auto;
+}
 
-} 
-  // For screens with a maximum width of 768px
-  @media screen and (max-width: 768px) and (orientation: portrait) {
-    .posterSize {
-      width: 250px;
-      aspect-ratio: 2/3;
-      height: auto;
-      object-fit: cover;
-      
-    }
-  }
-  
-  // For screens with a maximum width of 480px
-  @media screen and (max-width: 480px) and (orientation: portrait) {
-    .posterSize {
-      width: 200px;
-      aspect-ratio: 2/3;
-      height: cover;
-      
-    }
-  }
-*/
+.recomImgSize {
+  width: 400px; 
+  height: auto;
+}
 
+.a img {
+  transition: all 0.1s linear;
+}
+
+.a:hover img {
+  transform: scale(1.1);
+}
 
 /* map */
 .map {
@@ -96,14 +98,6 @@ input .form-control{
     border: 1px solid rgb(59, 113, 202, 0.25);
 }
 
-.s1{
-    text-shadow: 2px 2px 2px rgb(65, 65, 65);
-}
-
-.s2{
-    text-shadow: 4px 2px 2px rgb(65, 65, 65);
-}
-
 .pic-sm{
     width: 150px;
     height: 200px;
@@ -122,3 +116,7 @@ input .form-control{
     height: 400px;
 }
 
+.carousel-item > a {
+  text-decoration : none;
+  color :rgb(65, 65, 65)
+}

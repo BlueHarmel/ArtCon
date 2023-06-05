@@ -1,20 +1,20 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+    <!-- Start Content Page -->
         <div class="d-flex flex-column p-5 bg-white align-items-center py-3">
-            <div class="fs-1 pt-3 text-dark" style="letter-spacing: 5px;">
-                <br>
-                <p class="fs-1 fw-bold">게시판 글쓰기</p>
+            <div class="fs-1 pt-3 mb-3 text-dark" style="letter-spacing: 5px;">
+                <p class="fs-1 fw-bold">게시글 수정하기</p>
             </div>
         </div>
-        <div class="container border border-black">
+        <div class="container border border-black align-items-center">
           <span class="border border-black">
           <div class="row py-3">
         <form class="col-md-10 m-auto" action="" method='POST' role="form">
           {% csrf_token %}
 
           {% for form in forms %}
-          <div class="mb-5">
+          <div>
             <label for="{{ form.id_for_label }}">{{form.label}}</label>
             {{form}}
           </div>
@@ -26,7 +26,7 @@
           <div class="row">
             <div class="col text-center mt-2">
               <button type="submit" class="btn btn-outline-primary btn-lg px-3">
-                글쓰기
+                글 수정하기
               </button>
             </div>
           </div>
@@ -35,5 +35,6 @@
     </div>
 </span>
 </div>
+    <!-- End Contact -->
 
 {% endblock %}

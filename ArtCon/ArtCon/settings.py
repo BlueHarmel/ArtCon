@@ -62,6 +62,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "bootstrap4",
+    "django_summernote",
+    "django_sslserver2"
 ]
 
 MIDDLEWARE = [
@@ -154,3 +156,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "authpage_app.User"
 LOGIN_REDIRECT_URL = "/index"
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
