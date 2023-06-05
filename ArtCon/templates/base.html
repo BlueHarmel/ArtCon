@@ -60,9 +60,6 @@
                             </div>
                         </div>
                     </div>
-                    <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
-                        <i class="fa fa-fw fa-search text-dark"></i>
-                    </a>
                     {% if user.is_authenticated %}
                     <form method="POST" action="{% url 'logout' %}"> {% csrf_token %}
                         <a href="{% url 'mainPage' %}" class="text-dark mx-2 text-normal fs-6 text-decoration-none">마이페이지</a>
