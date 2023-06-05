@@ -63,7 +63,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "bootstrap4",
     "django_summernote",
-    "django_sslserver2"
+    # "django_sslserver2"
 ]
 
 MIDDLEWARE = [
@@ -100,6 +100,7 @@ WSGI_APPLICATION = "ArtCon.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 MYSQL_CONFIG = get_secret("MYSQL_CONFIG")
+pymysql.version_info = (1,4,3,"final",0)
 pymysql.install_as_MySQLdb()
 DATABASES = {
     "default": {
