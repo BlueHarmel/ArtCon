@@ -41,17 +41,18 @@ def findP(request):
 
 
 def register(request):
+    res_data = {}
     userdb = User.objects.all()
     email_validation = re.compile("^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")
     phone_number_validation = re.compile("\d{2,3}-\d{3,4}-\d{4}")
     password_validation = re.compile(
         "^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$"
     )
+    # Exhibit 모델에서 랜덤한 전시회 3개 선택
+    random_exhibits = random.sample(list(Exhibit.objects.all()), 3)
+    res_data['exhibits'] = random_exhibits
     if request.method == "GET":
-        # Exhibit 모델에서 랜덤한 전시회 3개 선택
-        random_exhibits = random.sample(list(Exhibit.objects.all()), 3)
-        context = {"exhibits": random_exhibits}
-        return render(request, "authpage_app/register.html", context)
+        return render(request, "authpage_app/register.html", res_data)
     elif request.method == "POST":
         username = request.POST.get("username")
         password1 = request.POST.get("password1")
@@ -62,7 +63,6 @@ def register(request):
         lastname = request.POST.get("last_name")
         prefer_title = request.POST.get("prefer_title")
 
-        res_data = {}
         if (
             username == ""
             or email == ""
@@ -97,5 +97,5 @@ def register(request):
             )
             auth.login(request, user)
             res_data["success"] = "ok"
-
+        print(res_data)
         return render(request, "authpage_app/register.html", res_data)
