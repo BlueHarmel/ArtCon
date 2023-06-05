@@ -1,19 +1,16 @@
-Package                    Version
--------------------------- ---------
-
-beautifulsoup4             4.12.2
-bootstrap4                 0.1.0
-charset-normalizer         3.1.0
-chromedriver-autoinstaller 0.4.0
-django-phonenumber-field   7.1.0
-django-phonenumbers        1.0.1
-django-summernote          0.8.20.0
-konlpy                     0.6.0
-numpy                      1.24.3
-pandas                     2.0.2
-phonenumbers               8.13.11
-pip                        23.1.2
-scikit-learn               1.2.2
-selenium                   4.8.3
-selenium-wire              5.1.0
-sklearn                    0.0.post5
+beautifulsoup4==4.12.2
+bootstrap4==0.1.0
+charset-normalizer==3.1.0
+chromedriver-autoinstaller==0.4.0
+django-phonenumber-field==7.1.0
+django-phonenumbers==1.0.1
+django-summernote==0.8.20.0
+konlpy==0.6.0
+numpy==1.24.3
+pandas==2.0.2
+phonenumbers==8.13.11
+pip==23.1.2
+scikit-learn==1.2.2
+selenium==4.8.3
+selenium-wire==5.1.0
+sklearn==0.0.post5
