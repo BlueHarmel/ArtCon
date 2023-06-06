@@ -7,8 +7,8 @@
         <div class="mb-5">
           <p class="fs-1 fw-bold">공유 게시판</p>
           <p class="fs-5">전시회에 대한 주제를 가지고 자유롭게 글을 써보세요.</p>
-          {% if user.is_authenticated %}
         </div>
+          {% if user.is_authenticated %}
         <div class="align-items-end">
           <a href="{% url 'board:write' %}" class="btn btn-primary btn-lg">글쓰기</a>
         </div>
