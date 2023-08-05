@@ -39,13 +39,25 @@
                   </div>
                 <div class="m-5">
                 </div>
-                <div class="input-group mb-3">
+                <!--<div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="댓글을 입력해주세요." aria-label="댓글 입력" aria-describedby="button-addon2">
                     <button class="btn btn-outline-primary" type="button" id="button-addon2">댓글작성</button>
                   </div>
+                -->
             </form>
         </div>
     </span>
+
+    <div>
+      <form action="{% url 'board:likes' pk=board.id %}" method='POST'>
+        {% csrf_token %}
+        {% if user in board.like_users.all %}
+          <input type="submit" value='좋아요 취소'>
+        {% else %}
+          <input type="submit" value='좋아요'>
+        {% endif %}
+      </form>
+    </div>
     <div class="row">
         <div class="col text-center mt-2">
             <a href="{% url 'board:board'%}" class="text-decoration-none">
@@ -68,6 +80,43 @@
         </div>
     </div>
     <div class="m-5">
+      <h4>댓글 목록</h4>
+
+      <!--read-->
+      {% if comments %}
+        <p><b>{{ comments|length }}개의 댓글이 있습니다.</b></p>
+      {% endif %}
+      <ul>
+        {% for comment in comments %}
+          <li>
+            {{ comment.username }} - {{ comment.contents }}
+            <!--delete-->
+            {% if user == comment.username %}
+              <form action="{% url 'board:comments_delete' board.id comment.pk %}" method="POST" class="d-inline">
+                {% csrf_token %}
+                <input type="submit" value="DELETE">
+              </form>
+            {% endif %}
+          </li>
+        {% empty %}
+          <p>댓글이 없어요..</p>
+        {% endfor %}
+      </ul>
+      
+      <hr>
+      
+      <!--create-->
+      {% if request.user.is_authenticated %}
+        <form action="{% url 'board:comments_create' board.id %}" method="POST">
+          {% csrf_token %}
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" name="contents" placeholder="댓글을 입력해주세요." aria-label="댓글 입력" aria-describedby="button-addon2">
+            <button class="btn btn-outline-primary" type="submit" id="button-addon2">댓글작성</button>
+          </div>
+        </form>
+      {% else %}
+        <a href="{% url 'accounts:login' %}">[댓글을 작성하려면 로그인하세요.]</a>
+      {% endif %}
     </div>
     </div>
 <br>

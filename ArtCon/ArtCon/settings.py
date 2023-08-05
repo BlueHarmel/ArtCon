@@ -99,19 +99,26 @@ WSGI_APPLICATION = "ArtCon.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-MYSQL_CONFIG = get_secret("MYSQL_CONFIG")
-pymysql.version_info = (1,4,3,"final",0)
-pymysql.install_as_MySQLdb()
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": MYSQL_CONFIG["NAME"],
-        "USER": MYSQL_CONFIG["USER"],
-        "PASSWORD": MYSQL_CONFIG["PASSWORD"],
-        "HOST": MYSQL_CONFIG["HOST"],
-        "PORT": MYSQL_CONFIG["PORT"],
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "mydatabase",
     }
 }
+
+# MYSQL_CONFIG = get_secret("MYSQL_CONFIG")
+# pymysql.version_info = (1, 4, 3, "final", 0)
+# pymysql.install_as_MySQLdb()
+# DATABASES = {
+#    "default": {
+#        "ENGINE": "django.db.backends.mysql",
+#        "NAME": MYSQL_CONFIG["NAME"],
+#        "USER": MYSQL_CONFIG["USER"],
+#        "PASSWORD": MYSQL_CONFIG["PASSWORD"],
+#        "HOST": MYSQL_CONFIG["HOST"],
+#        "PORT": MYSQL_CONFIG["PORT"],
+#    }
+# }
 
 
 # Password validation

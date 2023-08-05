@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post
+from .models import Post, Comment
 from django_summernote.fields import SummernoteTextField
 from django_summernote.widgets import SummernoteWidget
 
@@ -53,3 +53,14 @@ class BoardWriteForm(forms.ModelForm):
             self.postname = postname
             self.contents = contents
             self.board_name = board_name
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ["contents"]
+        # fields = '__all__'
+        exclude = (
+            "postname",
+            "username",
+        )

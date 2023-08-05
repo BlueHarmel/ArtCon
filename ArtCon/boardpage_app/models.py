@@ -13,6 +13,9 @@ class Post(models.Model):
     board_name = models.CharField(max_length=32, default="test", verbose_name="게시판 종류")
     update_dttm = models.DateTimeField(auto_now=True, verbose_name="마지막 수정일")
     hits = models.PositiveIntegerField(default=0, verbose_name="조회수")
+    like_users = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, related_name="like_articles"
+    )
 
     def __str__(self):
         return self.postname
@@ -24,11 +27,10 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
+    postname = models.ForeignKey(Post, on_delete=models.CASCADE)
     contents = models.CharField(max_length=100)
     username = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    date = models.DateTimeField(default=timezone.now)
+    date = models.DateTimeField(default=timezone.now, null=False)
 
     def __str__(self):
-        return str(
-            {"contents": self.contents, "username": self.username, "date": self.date}
-        )
+        return self.contents

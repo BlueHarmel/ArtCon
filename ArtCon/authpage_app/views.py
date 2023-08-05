@@ -49,8 +49,8 @@ def register(request):
         "^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$"
     )
     # Exhibit 모델에서 랜덤한 전시회 3개 선택
-    random_exhibits = random.sample(list(Exhibit.objects.all()), 3)
-    res_data['exhibits'] = random_exhibits
+    # random_exhibits = random.sample(list(Exhibit.objects.all()), 3)
+    # res_data["exhibits"] = random_exhibits
     if request.method == "GET":
         return render(request, "authpage_app/register.html", res_data)
     elif request.method == "POST":
@@ -61,7 +61,7 @@ def register(request):
         phone_number = request.POST.get("phone_number")
         firstname = request.POST.get("first_name")
         lastname = request.POST.get("last_name")
-        prefer_title = request.POST.get("prefer_title")
+        # prefer_title = request.POST.get("prefer_title")
 
         if (
             username == ""
@@ -70,7 +70,7 @@ def register(request):
             or lastname == ""
             or phone_number == ""
             or password1 == ""
-            or prefer_title == ""
+            # or prefer_title == ""
         ):
             res_data["empty_error"] = "모든 정보가 입력되지 않았습니다."
         elif password1 != password2:
@@ -93,7 +93,7 @@ def register(request):
                 first_name=request.POST["first_name"],
                 last_name=request.POST["last_name"],
                 phone_number=request.POST["phone_number"],
-                prefer_title=request.POST["prefer_title"],
+                # prefer_title=request.POST["prefer_title"],
             )
             auth.login(request, user)
             res_data["success"] = "ok"
