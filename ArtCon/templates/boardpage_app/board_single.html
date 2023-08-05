@@ -2,77 +2,82 @@
 {% load static %}
 {% block content %}
     <!-- Start Content Page -->
-        <div class="d-flex flex-column p-5 bg-white align-items-center py-3">
+        <div class="d-flex flex-column p-5 bg-white align-items-center my-3">
             <div class="fs-1 pt-3 text-dark" style="letter-spacing: 5px;">
-                <br>
-                <p class="fs-1 fw-bold">게시판</p>
+                <p class="fs-1 fw-bold">공유 게시판</p>
             </div>
         </div>
 
     <!-- Start Contact -->
-    <div class="container border border-black">
-        <span class>
-        <div class="row py-3">
+    <div class="container border-top border-bottom border-primary border-3 rounded-2 board_single">
+        <div class="row p-3">
             <form class="col-md-12 m-auto" method="post" role="form">
-                <div class="mb-2 pd-3">
+                <div class="mt-3">
+                    <p class="fs-1 fw-bold mb-3">{{board.postname}}</p>
+                </div>
+                
+                <!-- <div class="d-flex flex-row my-3 px-1 align-items-center">
+                  <div class="row mr-1">
+                    <p class="fs-5 fw-bold mr-2">작성자</p>
+                    <p>{{board.username}}</p>
+                  </div>
+                  <div class="row pr-3">
+                    <p class="fs-5 fw-bold mr-2">작성일</p>
                     <p>{{board.date}}</p>
+                  </div>
+                </div> -->
+
+                <div class="d-flex d-inline align-items-end justify-content-start mt-3 border-top border-bottom border-secondary">
+                  <dl class="d-flex d-row">
+                    <dt class="mx-3">번호</dt>
+                    <dd class="mx-3">1</dd>
+                  </dl>
+                  <dl class="d-flex d-row">
+                    <dt class="mx-3">작성자</dt>
+                    <dd class="mx-3">{{board.username}}</dd>
+                  </dl>
+                  <dl class="d-flex d-row">
+                    <dt class="mx-3">작성일</dt>
+                    <dd class="mx-3">{{board.date}}</dd>
+                  </dl>
                 </div>
-                <div class="d-flex flex-row p-1">
-                    <p class="h2 fw-bold pr-3">{{board.username}}
-                        <div class="d-inline-flex text-nowrap fs-5 border rounded-3 p-1 mx-2">작성자</div>
-                    </p>
-                </div>
-                <div class="m-5">
-                </div>
-                <div class="mb-3">
-                    <p class="fs-1 fw-bold">{{board.postname}}</p>
-                </div>
-                <div class="m-5">
-                </div>
-                <div class="mb-3">
+
+                <div class="my-5">
                     <p class="fs-4">{{board.contents|safe}}</p>
                 </div>
-                <div class="m-5">
-                </div>
-                <div class="h4 pb-2 mb-4 text-white border-bottom border-black">
-                     ..
-                  </div>
-                <div class="m-5">
-                </div>
-                <!--<div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="댓글을 입력해주세요." aria-label="댓글 입력" aria-describedby="button-addon2">
-                    <button class="btn btn-outline-primary" type="button" id="button-addon2">댓글작성</button>
-                  </div>
-                -->
             </form>
-        </div>
-    </span>
+            
+          <div class="mt-3">
+            <form action="{% url 'board:likes' pk=board.id %}" method='POST'>
+              {% csrf_token %}
+              {% if user in board.like_users.all %}
+                <input type="submit" value='좋아요 취소' class="btn-primary rounded-2">
+              {% else %}
+                <input type="submit" value='좋아요' class="btn-primary rounded-2">
+              {% endif %}
+            </form>
+          </div>
+          <div class="h4 pb-2 mb-2 text-white border-bottom border-black">
+            ..
+          </div>
 
-    <div>
-      <form action="{% url 'board:likes' pk=board.id %}" method='POST'>
-        {% csrf_token %}
-        {% if user in board.like_users.all %}
-          <input type="submit" value='좋아요 취소'>
-        {% else %}
-          <input type="submit" value='좋아요'>
-        {% endif %}
-      </form>
-    </div>
+      </div>
+    
     <div class="row">
-        <div class="col text-center mt-2">
+        <div class="col text-center mt-1">
             <a href="{% url 'board:board'%}" class="text-decoration-none">
-                <button type="submit" class="btn btn-outline-primary btn-lg px-3">
+                <button type="submit" class="btn btn-outline-primary btn-sm px-3">
                     글 목록
                 </button>
             </a>
             {% if user.is_authenticated %}
             <a href="/board/{{ board.id }}/modify/" class="text-decoration-none">
-              <button type="submit" class="btn btn-outline-primary btn-lg px-3">
+              <button type="submit" class="btn btn-outline-primary btn-sm px-3">
                   글 수정
               </button>
           </a>
           <a href="/board/{{ board.id }}/delete/">
-            <button type="submit" class="btn btn-outline-primary btn-lg px-3">
+            <button type="submit" class="btn btn-outline-primary btn-sm px-3">
                 글 삭제
             </button>
         </a>
@@ -109,9 +114,9 @@
       {% if request.user.is_authenticated %}
         <form action="{% url 'board:comments_create' board.id %}" method="POST">
           {% csrf_token %}
-          <div class="input-group mb-3">
+          <div class="input-group mb-5">
             <input type="text" class="form-control" name="contents" placeholder="댓글을 입력해주세요." aria-label="댓글 입력" aria-describedby="button-addon2">
-            <button class="btn btn-outline-primary" type="submit" id="button-addon2">댓글작성</button>
+            <button class="btn btn-primary" type="submit" id="button-addon2">댓글작성</button>
           </div>
         </form>
       {% else %}

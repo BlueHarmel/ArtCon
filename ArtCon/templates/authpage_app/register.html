@@ -8,7 +8,7 @@
             <h1 style="font-weight: 700; font-size: 50px;">ArtCon</h1>
             <p class="fw-bold fs-5">회원가입</p>
         </div>
-        <div class="col-3 p-2">
+        <div class="col-lg-3 col-md-6 p-2">
             <div>
                 <p class="text-primary">아래 항목을 빠짐없이 입력해주세요.</p>
             </div>
@@ -20,17 +20,16 @@
                             <br><p id="message">{{ username_error }}</p>
                     </div>
                 </div>
-                <div class="mb-4">
+                <div class="mb-3">
                     <label for="FormControlInput1" class="form-label">비밀번호</label>
                     <input name="password1" type="password" class="form-control" id="FormControlInput1" placeholder="숫자, 특수문자 포함 8자 이상">
                         <br><p id="message">{{ pw_error01 }}</p>
                 </div>
-                <div class="mb-4">
+                <div class="mb-3">
                     <label for="FormControlInput1" class="form-label">비밀번호 확인</label>
                     <input name="password2" type="password" class="form-control" id="FormControlInput1" placeholder="">
                         <br><p id="message">{{ pw_error02 }}</p>
                 </div>
-                <!--유효성 검사 필요-->
                 <div class="mb-4">
                     <label for="FormControlInput1" class="form-label">성</label>
                     <input name="last_name" type="name" class="form-control" id="FormControlInput1" placeholder="">
@@ -38,6 +37,22 @@
                 <div class="mb-4">
                     <label for="FormControlInput1" class="form-label">이름</label>
                     <input name="first_name" type="name" class="form-control" id="FormControlInput1" placeholder="">
+                </div>
+                <div class="d-flex flex-row mb-4 align-items-center justify-content-between">
+                    <div class="d-flex flex-row align-items-center">
+                        <div>
+                            <label>생년월일</label>
+                        </div>  
+                        <div class="mx-3">
+                            <input name="birthday" type="date" class="form-control" id="FormControlInput1" placeholder="">
+                        </div>
+                    </div>
+                    <div>
+                        <input type="radio" name="gender" value="Male" checked="checked" class="mx-1">남성
+                    </div>
+                    <div class="mx-3">
+                        <input type="radio" name="gender" value="Female" class="mx-1">여성
+                    </div>
                 </div>
                 <!--
                 <div class="mb-4">
@@ -50,12 +65,12 @@
                       </select>
                 </div>
                 -->
-                <div class="mb-4">
+                <div class="mb-3">
                     <label for="FormControlInput1" class="form-label">이메일 주소</label>
                     <input name="email" type="email" class="form-control" id="FormContorlInput1" placeholder="id@artcon.com">
                         <br><p id="message">{{ email_error }}</p>
                 </div>
-                <div class="mb-5">
+                <div class="mb-4">
                     <label for="FormControlInput1" class="form-label">전화번호</label>
                     <input name="phone_number" type="phoneNumber" class="form-control" id="FormContorlInput1" placeholder="010-0000-0000">
                         <br><p id="message">{{ phone_number_error }}{{ phone_number_error02 }}</p>
