@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import HttpResponse
 import json
-from exhibpage_app.models import Exhibit
+from exhibpage_app.models import Performance
 from django.core import serializers
 from django.contrib import auth
 
@@ -10,13 +10,13 @@ from django.contrib import auth
 # Create your views here.
 # 메인페이지인데 변수 이름을 recommend라 했는데 수정 필요할지도
 def mainpage_app(request):
-    recommend1 = Exhibit.objects.filter(id__exact=1).values()
-    recommend2 = Exhibit.objects.filter(id__exact=2).values()
-    recommend3 = Exhibit.objects.filter(id__exact=3).values()
-    recommend4 = Exhibit.objects.filter(id__exact=4).values()
-    banner1 = Exhibit.objects.filter(id__exact=5).values()
-    banner2 = Exhibit.objects.filter(id__exact=6).values()
-    banner3 = Exhibit.objects.filter(id__exact=7).values()
+    recommend1 = Performance.objects.filter(id__exact=1).values()
+    recommend2 = Performance.objects.filter(id__exact=2).values()
+    recommend3 = Performance.objects.filter(id__exact=3).values()
+    recommend4 = Performance.objects.filter(id__exact=4).values()
+    banner1 = Performance.objects.filter(id__exact=5).values()
+    banner2 = Performance.objects.filter(id__exact=6).values()
+    banner3 = Performance.objects.filter(id__exact=7).values()
     context = {
         "recommend1": recommend1,
         "recommend2": recommend2,

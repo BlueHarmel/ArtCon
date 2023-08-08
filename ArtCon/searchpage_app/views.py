@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from exhibpage_app.models import Exhibit
+from exhibpage_app.models import Performance
 import datetime
 
 
@@ -12,7 +12,7 @@ def search(request):
             return render(request, "searchpage_app/search.html")
         else:
             exhibits = list(
-                Exhibit.objects.filter(
+                Performance.objects.filter(
                     start_date__lte=searched_date, end_date__gte=searched_date
                 ).values()
             )
@@ -20,7 +20,7 @@ def search(request):
             return render(request, "searchpage_app/search.html", context=context)
     else:
         if searched_date == "":
-            exhibits = Exhibit.objects.filter(E_name__contains=searched_title)
+            exhibits = Performance.objects.filter(E_name__contains=searched_title)
             return render(
                 request,
                 "searchpage_app/search.html",
@@ -28,7 +28,7 @@ def search(request):
             )
         else:
             exhibits = list(
-                Exhibit.objects.filter(
+                Performance.objects.filter(
                     E_name__contains=searched_title,
                     start_date__lte=searched_date,
                     end_date__gte=searched_date,
