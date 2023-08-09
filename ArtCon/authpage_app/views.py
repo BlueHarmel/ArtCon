@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import auth
 from .models import User
-from exhibpage_app.models import Exhibit
+from exhibpage_app.models import Performance
 import re
 import random
 from django.db.models import Count
