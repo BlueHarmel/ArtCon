@@ -10,12 +10,14 @@ class Post(models.Model):
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="작성자"
     )
     date = models.DateTimeField(auto_now_add=True, verbose_name="글 작성일")
-    board_name = models.CharField(max_length=32, default="test", verbose_name="게시판 종류")
     update_dttm = models.DateTimeField(auto_now=True, verbose_name="마지막 수정일")
     hits = models.PositiveIntegerField(default=0, verbose_name="조회수")
     like_users = models.ManyToManyField(
         settings.AUTH_USER_MODEL, related_name="like_articles"
     )
+    tag1 = models.CharField(max_length=30, verbose_name="배우")
+    tag2 = models.CharField(max_length=10, verbose_name="장르")
+    tag3 = models.CharField(max_length=10, verbose_name="지역")
 
     def __str__(self):
         return self.postname

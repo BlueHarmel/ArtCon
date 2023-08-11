@@ -41,15 +41,16 @@
                     <dt class="mx-3">작성일</dt>
                     <dd class="mx-3">{{board.date}}</dd>
                   </dl>
+                  <dl class="d-flex d-row">
+                    <dt class="mx-3">조회수</dt>
+                    <dd class="mx-3">{{board.hits}}</dd>
+                  </dl>
                 </div>
 
                 <div class="d-flex flex-row p-1">
                     <p class="h2 fw-bold pr-3">{{board.username}}
                         <div class="d-inline-flex text-nowrap fs-5 border rounded-3 p-1 mx-2">작성자</div>
                     </p>
-                </div>
-                <div>
-                  <p>조회수 : {{board.hits}}</p>
                 </div>
                 <div class="m-5">
                 </div>
@@ -77,18 +78,6 @@
             ..
           </div>
       </div>
-    </div>
-    
-    <div>
-      <form action="{% url 'board:likes' pk=board.id %}" method='POST'>
-        {% csrf_token %}
-        {% if user in board.like_users.all %}
-          <input type="submit" value='좋아요 취소'>
-        {% else %}
-          <input type="submit" value='좋아요'>
-        {% endif %}
-      </form>
-    </div>
     <div class = "row">
       <button type = "button" class = "btn btn-light float-right">
           {% post_to_facebook post.get_absolute "facebook" %}

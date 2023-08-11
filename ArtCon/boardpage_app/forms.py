@@ -21,17 +21,18 @@ class BoardWriteForm(forms.ModelForm):
 
     contents = SummernoteTextField()
 
-    options = ("test1", "test1"), ("test2", "test2")
+    genres = ("drama", "정극"), ("comedy", "코미디")
+    locations = ("seoul", "서울"), ("gyeongsangnam-do", "경상남도")
 
-    board_name = forms.ChoiceField(
-        label="게시판 선택", widget=forms.Select(), choices=options
-    )
+    tag1 = forms.CharField(label="배우")
+    tag2 = forms.ChoiceField(label="장르", widget=forms.Select(), choices=genres)
+    tag3 = forms.ChoiceField(label="지역", widget=forms.Select(), choices=locations)
 
-    field_order = ["postname", "board_name" "contents"]
+    field_order = ["postname", "tag1", "tag2", "tag3", "contents"]
 
     class Meta:
         model = Post
-        fields = ["postname", "contents", "board_name"]
+        fields = ["postname", "contents", "tag1", "tag2", "tag3"]
         widgets = {
             "contents": forms.Textarea(
                 attrs={"class": "form-control mt-1", "id": "id_contents"}
@@ -43,7 +44,9 @@ class BoardWriteForm(forms.ModelForm):
 
         postname = cleaned_data.get("postname", "")
         contents = cleaned_data.get("contents", "")
-        board_name = cleaned_data.get("board_name", "test1")
+        tag1 = cleaned_data.get("tag1", "")
+        tag2 = cleaned_data.get("tag2", "drama")
+        tag3 = cleaned_data.get("tag3", "seoul")
 
         if postname == "":
             self.add_error("postname", "글 제목을 입력하세요.")
@@ -52,7 +55,9 @@ class BoardWriteForm(forms.ModelForm):
         else:
             self.postname = postname
             self.contents = contents
-            self.board_name = board_name
+            self.tag1 = tag1
+            self.tag2 = tag2
+            self.tag3 = tag3
 
 
 class CommentForm(forms.ModelForm):

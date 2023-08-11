@@ -11,11 +11,10 @@ def board(request):
     login_session = request.session.get("login_session", "")
     context = {"login_session": login_session}
 
-    test1_boards = Post.objects.filter(board_name="test1")
-    test2_boards = Post.objects.filter(board_name="test2")
+    posts = Post.objects.all()
+    # test2_boards = Post.objects.filter(board_name="test2")
 
-    context["test1_boards"] = test1_boards
-    context["test2_boards"] = test2_boards
+    context["posts"] = posts
 
     return render(request, "boardpage_app/board.html", context)
 
@@ -39,7 +38,9 @@ def write(request):
                 postname=write_form.postname,
                 contents=write_form.contents,
                 username=username,
-                board_name=write_form.board_name,
+                tag1=write_form.tag1,
+                tag2=write_form.tag2,
+                tag3=write_form.tag3,
             )
             board.save()
             return redirect("/board")
@@ -118,7 +119,9 @@ def board_modify(request, pk):
         if write_form.is_valid():
             board.postname = write_form.postname
             board.contents = write_form.contents
-            board.board_name = write_form.board_name
+            board.tag1 = write_form.tag1
+            board.tag2 = write_form.tag2
+            board.tag3 = write_form.tag3
 
             board.save()
             return redirect("/board")

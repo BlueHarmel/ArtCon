@@ -28,21 +28,21 @@
             <th scope="col">번호</th>
             <th scope="col">아이디</th>
             <th scope="col">제목</th>
-            <th scope="col">전시회명</th>
             <th scope="col">날짜</th>
             <th scope="col">조회수</th>
+            <th scope="col">태그</th>
           </tr>
         </thead>
         <tbody>
-          {% for board in test1_boards%}
-          {% if board %}
+          {% for post in posts%}
+          {% if post %}
           <tr>
             <th scope="row">{{forloop.counter}}</th>
-            <td><a href="{% url 'board:board_single' pk=board.id %}" style="text-decoration:none;color:black">{{board.username}}</a></td>
-            <td><a href="{% url 'board:board_single' pk=board.id %}" style="text-decoration:none;color:black">{{board.postname}}</a></td>
-            <td><a href="{% url 'board:board_single' pk=board.id %}" style="text-decoration:none;color:black">{{board.board_name}}</a></td>
-            <td><a href="{% url 'board:board_single' pk=board.id %}" style="text-decoration:none;color:black">{{board.date}}</a></td>
-            <td><a href="{% url 'board:board_single' pk=board.id %}" style="text-decoration:none;color:black">{{board.hits}}</a></td>
+            <td><a href="{% url 'board:board_single' pk=post.id %}" style="text-decoration:none;color:black">{{post.username}}</a></td>
+            <td><a href="{% url 'board:board_single' pk=post.id %}" style="text-decoration:none;color:black">{{post.postname}}</a></td>
+            <td><a href="{% url 'board:board_single' pk=post.id %}" style="text-decoration:none;color:black">{{post.date}}</a></td>
+            <td><a href="{% url 'board:board_single' pk=post.id %}" style="text-decoration:none;color:black">{{post.hits}}</a></td>
+            <td><a href="{% url 'board:board_single' pk=post.id %}" style="text-decoration:none;color:black">{{post.tag1}} | {{post.tag2}} | {{post.tag3}}</a></td>
           </tr>
           {% endif %}
           {% endfor %}
