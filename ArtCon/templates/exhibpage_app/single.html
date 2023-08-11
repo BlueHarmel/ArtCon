@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-lg-4 col-md-5 mt-5">
                     <div class="card mb-5">
-                        <img class="card-img col-md-4 singleImgSize" src="{{ exhibit.0.img }}" alt="Card image cap" id="product-detail">
+                        <img class="card-img col-md-4 singleImgSize" src="{{ exhibit.0.P_Img }}" alt="Card image cap" id="product-detail">
                     </div>
                 </div>
             
@@ -22,7 +22,7 @@
                     <div class="card mb-5 p-3">
                         <div class="card-body h-100">
                             <div class="d-flex flex-row">
-                                <h3 class="h3 fw-bold px-3">{{ exhibit.0.E_name }}
+                                <h3 class="h3 fw-bold px-3">{{ exhibit.0.P_name }}
                                     <div class="d-inline-flex text-nowrap fs-6 border rounded-3 p-1">전시회</div>
                                 </h3>   
                             </div>
@@ -39,7 +39,7 @@
                             <div class="d-flex flex-row align-items-center justify-content-between mb-5 px-3">
                                 <div class="d-flex flex-column">
                                     <p class="h4 fw-bold">날짜</p>
-                                    <p>{{ exhibit.0.start_date}} ~ {{ exhibit.0.end_date}}</p>
+                                    <p>{{ exhibit.0.P_startdate}} ~ {{ exhibit.0.P_enddate}}</p>
                                 </div>
                                 <div class="mx-1">
                                     <button onclick = "location.href='{{exhibit.0.url}}'" type="submit" class="btn btn-primary text-nowrap">예약하기</button>
@@ -50,8 +50,8 @@
                                     <p class="h4 fw-bold">장소</p>
                                     <p>{{ exhibit.0.L_name }}</p>
                                 </div>
-                                <div id="exhibitX" dataValue="{{exhibit.0.x}}"></div>
-                                <div id="exhibitY" dataValue="{{exhibit.0.y}}"></div>
+                                <div id="exhibitX" dataValue="{{exhibit.0.la}}"></div>
+                                <div id="exhibitY" dataValue="{{exhibit.0.lo}}"></div>
                                 <div class="mx-1">
                                     <button onclick="getLocation()" type="submit" class="btn btn-primary text-nowrap">지도보기</a>
                                 </div>
