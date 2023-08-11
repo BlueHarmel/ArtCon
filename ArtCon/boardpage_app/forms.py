@@ -21,8 +21,8 @@ class BoardWriteForm(forms.ModelForm):
 
     contents = SummernoteTextField()
 
-    genres = ("drama", "정극"), ("comedy", "코미디")
-    locations = ("seoul", "서울"), ("gyeongsangnam-do", "경상남도")
+    genres = ("정극", "정극"), ("코미디", "코미디")
+    locations = ("서울", "서울"), ("경상남도", "경상남도")
 
     tag1 = forms.CharField(label="배우")
     tag2 = forms.ChoiceField(label="장르", widget=forms.Select(), choices=genres)
@@ -45,8 +45,8 @@ class BoardWriteForm(forms.ModelForm):
         postname = cleaned_data.get("postname", "")
         contents = cleaned_data.get("contents", "")
         tag1 = cleaned_data.get("tag1", "")
-        tag2 = cleaned_data.get("tag2", "drama")
-        tag3 = cleaned_data.get("tag3", "seoul")
+        tag2 = cleaned_data.get("tag2", "정극")
+        tag3 = cleaned_data.get("tag3", "서울")
 
         if postname == "":
             self.add_error("postname", "글 제목을 입력하세요.")

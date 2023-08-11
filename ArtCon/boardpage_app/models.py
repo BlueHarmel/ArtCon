@@ -16,8 +16,8 @@ class Post(models.Model):
         settings.AUTH_USER_MODEL, related_name="like_articles"
     )
     tag1 = models.CharField(max_length=30, verbose_name="배우")
-    tag2 = models.CharField(max_length=10, verbose_name="장르")
-    tag3 = models.CharField(max_length=10, verbose_name="지역")
+    tag2 = models.CharField(max_length=30, verbose_name="장르")
+    tag3 = models.CharField(max_length=30, verbose_name="지역")
 
     def __str__(self):
         return self.postname
