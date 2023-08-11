@@ -5,6 +5,7 @@ chromedriver-autoinstaller==0.4.0
 django-phonenumber-field==7.1.0
 django-phonenumbers==1.0.1
 django-summernote==0.8.20.0
+django-social-share==2.3.0
 konlpy==0.6.0
 numpy==1.24.3
 pandas==2.0.2

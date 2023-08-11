@@ -24,6 +24,7 @@
             <th scope="col">제목</th>
             <th scope="col">전시회명</th>
             <th scope="col">날짜</th>
+            <th scope="col">조회수</th>
           </tr>
         </thead>
         <tbody>
@@ -35,6 +36,7 @@
             <td><a href="{% url 'board:board_single' pk=board.id %}" style="text-decoration:none;color:black">{{board.postname}}</a></td>
             <td><a href="{% url 'board:board_single' pk=board.id %}" style="text-decoration:none;color:black">{{board.board_name}}</a></td>
             <td><a href="{% url 'board:board_single' pk=board.id %}" style="text-decoration:none;color:black">{{board.date}}</a></td>
+            <td><a href="{% url 'board:board_single' pk=board.id %}" style="text-decoration:none;color:black">{{board.hits}}</a></td>
           </tr>
           {% endif %}
           {% endfor %}
