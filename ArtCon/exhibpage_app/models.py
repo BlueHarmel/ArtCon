@@ -44,7 +44,7 @@ class Performance(models.Model):
     P_Img = models.CharField(max_length=500)
     P_genre = models.CharField(max_length=20)
     P_state = models.CharField(max_length=10)
-    P_summary = models.CharField(max_length=2000)
+    P_summary = models.CharField(max_length=5000)
 
     def __str__(self):
         return str({'P_id': self.P_id,
@@ -65,6 +65,7 @@ class Location(models.Model):
     L_address = models.CharField(max_length=500)
     L_la = models.FloatField()
     L_lo = models.FloatField()
+    L_url = models.CharField(max_length=500)
 
     def __str__(self):
         return str({'L_name': self.L_name,
@@ -72,5 +73,6 @@ class Location(models.Model):
                     'L_telnum': self.L_telnum,
                     'L_address': self.L_address,
                     'L_la': self.L_la,
-                    'L_lo': self.L_lo
+                    'L_lo': self.L_lo,
+                    'L_url': self.L_url
                     })
