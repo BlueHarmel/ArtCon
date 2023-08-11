@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "bootstrap4",
     "django_summernote",
+    "django_social_share",
     # "django_sslserver2"
 ]
 
