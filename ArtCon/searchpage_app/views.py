@@ -4,39 +4,88 @@ import datetime
 
 
 def search(request):
-    searched_title = request.POST.get("searched", "")
+    searched_name = request.POST.get("searched", "")
     searched_date = request.POST.get("date", "")
+    searched_genre = request.POST.get("genre","")
 
-    if searched_title == "":
+    if searched_name == "":
         if searched_date == "":
-            return render(request, "searchpage_app/search.html")
+            if searched_genre == "":
+                return render(request, "searchpage_app/search.html")
+            else:
+                performance_data = genre(searched_genre)
+                context = {"searched_genre": searched_genre, "performance_data": performance_data}
+                return render(request, "searchpage_app/search.html", context=context)
         else:
-            exhibits = list(
-                Performance.objects.filter(
-                    start_date__lte=searched_date, end_date__gte=searched_date
-                ).values()
-            )
-            context = {"searched_date": searched_date, "exhibits": exhibits}
-            return render(request, "searchpage_app/search.html", context=context)
+            if searched_genre == "":
+                performance_data = date(searched_date)
+                context = {"searched_date": searched_date, "performance_data": performance_data}
+                return render(request, "searchpage_app/search.html", context=context)
+            else:
+                performance_data = date_genre(searched_date,searched_genre)
+                context = {"searched_date":searched_date, "searched_genre":searched_genre, "perfornamce_data":performance_data}
+                return render(request, "searchpage_app/search.html", context=context) 
     else:
         if searched_date == "":
-            exhibits = Performance.objects.filter(E_name__contains=searched_title)
-            return render(
-                request,
-                "searchpage_app/search.html",
-                {"searched_title": searched_title, "exhibits": exhibits},
-            )
+            if searched_genre == "":
+                performance_data = name(searched_name)
+                context = {"searched_name": searched_name, "performance_data": performance_data}
+                return render(request, "searchpage_app/search.html", context=context)
+            else:
+                performance_data = name_genre(searched_name,searched_genre)
+                context = {"searched_name": searched_name, "searched_genre": searched_genre, "performance_data": performance_data}
+                return render(request, "searchpage_app/search.html", context=context)
         else:
-            exhibits = list(
+            if searched_genre == "":
+                performance_data = name_date(searched_name, searched_date)
+                context = {"searched_name": searched_name, "searched_date": searched_date, "performance_data": performance_data}
+                return render(request, "searchpage_app/search.html", context=context)
+            else:
+                performance_data = name_date_genre(searched_name, searched_date, searched_genre)
+                context = {"searched_name": searched_name, "searched_date": searched_date, "searched_genre": searched_genre, "performance_data": performance_data}
+                return render(request, "searchpage_app/search.html", context=context)
+
+def name(name):
+    performance_data = Performance.objects.filter(P_name__contains=name)
+    return performance_data
+def date(date):
+    performance_data = list(
                 Performance.objects.filter(
-                    E_name__contains=searched_title,
-                    start_date__lte=searched_date,
-                    end_date__gte=searched_date,
+                    P_startdate__lte=date, P_enddate__gte=date
                 ).values()
             )
-            context = {
-                "searched_title": searched_title,
-                "searched_date": searched_date,
-                "exhibits": exhibits,
-            }
-            return render(request, "searchpage_app/search.html", context=context)
+    return performance_data
+def name_date(name, date):
+    performance_data = list(
+                Performance.objects.filter(
+                    P_name__contains=name,
+                    P_startdate__lte=date,
+                    P_enddate__gte=date,
+                ).values()
+            )
+    return performance_data
+def genre(genre):
+    performance_data = Performance.objects.filter(P_genre__contains=genre)
+    return performance_data
+def name_genre(name, genre):
+    performance_data = Performance.objects.filter(P_name__contains=name, P_genre__contains=genre)
+    return performance_data
+def date_genre(date, genre):
+    performance_data = list(
+                Performance.objects.filter(
+                    P_startdate__lte=date,
+                    P_enddate__gte=date,
+                    P_genre__contains=genre,
+                ).values()
+            )
+    return performance_data
+def name_date_genre(name, date, genre):
+    performance_data = list(
+                Performance.objects.filter(
+                    P_name__contains=name,
+                    P_startdate__lte=date,
+                    P_enddate__gte=date,
+                    P_genre__contains=genre,
+                ).values()
+            )
+    return performance_data
