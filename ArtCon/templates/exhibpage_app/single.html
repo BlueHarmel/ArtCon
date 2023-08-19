@@ -85,6 +85,48 @@
                     </div>
                 </div>
             </div>
+            <div class="m-5">
+              <h4>리뷰 목록</h4>
+        
+              <!--read-->
+              {% if reviews %}
+                <p><b>{{ reviews|length }}개의 리뷰가 있습니다.</b></p>
+              {% endif %}
+              <ul>
+                {% for review in reviews %}
+                  <li>
+                    {{ review.username }} - {{ review.rank }} - {{ review.contents }}
+                    <!--delete-->
+                    {% if user == review.username %}
+                      <form action="{% url 'exhibit:reviews_delete' pk review.pk %}" method="POST" class="d-inline">
+                        {% csrf_token %}
+                        <input type="submit" value="DELETE">
+                      </form>
+                    {% endif %}
+                  </li>
+                {% empty %}
+                  <p>리뷰가 없어요..</p>
+                {% endfor %}
+              </ul>
+              
+              <hr>
+              
+              <!--create-->
+              {% if request.user.is_authenticated %}
+                <form action="{% url 'exhibit:reviews_create' pk %}" method="POST">
+                  <div class="input-group mb-5">
+                  {% csrf_token %}
+                  {% for form in forms %}
+                  <div>
+                    <label for="{{ form.id_for_label }}">{{form.label}}</label>
+                    {{form}}
+                  </div>
+                  {% endfor %}
+                  <button class="btn btn-primary" type="submit" id="button-addon2">리뷰작성</button>
+              {% else %}
+                <a href="{% url 'authpage_app:login' %}">[리뷰를 작성하려면 로그인하세요.]</a>
+              {% endif %}
+            </div>
             {% endif %}    
         </div>
     </section>

@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+from django.conf import settings
 
 # Create your models here.
 
@@ -24,7 +26,7 @@ from django.db import models
 #                     'img': self.img,
 #                     'summary': self.summary
 #                     })
-    
+
 # class Location(models.Model):
 #     L_name = models.CharField(max_length=50)
 #     x = models.FloatField()
@@ -34,7 +36,8 @@ from django.db import models
 #         return str({'L_name': self.L_name,
 #                     'x': self.x,
 #                     'y': self.y})
-    
+
+
 class Performance(models.Model):
     P_id = models.CharField(max_length=20)
     P_name = models.CharField(max_length=100)
@@ -47,17 +50,21 @@ class Performance(models.Model):
     P_summary = models.CharField(max_length=5000)
 
     def __str__(self):
-        return str({'P_id': self.P_id,
-                    'P_name': self.P_name,
-                    'P_startdate': self.P_startdate,
-                    'P_enddate': self.P_enddate,
-                    'L_name': self.L_name,
-                    'P_Img': self.P_Img,
-                    'P_genre': self.P_genre,
-                    'P_state': self.P_state,
-                    'P_summary': self.P_summary
-                    })
-    
+        return str(
+            {
+                "P_id": self.P_id,
+                "P_name": self.P_name,
+                "P_startdate": self.P_startdate,
+                "P_enddate": self.P_enddate,
+                "L_name": self.L_name,
+                "P_Img": self.P_Img,
+                "P_genre": self.P_genre,
+                "P_state": self.P_state,
+                "P_summary": self.P_summary,
+            }
+        )
+
+
 class Location(models.Model):
     L_name = models.CharField(max_length=100)
     L_id = models.CharField(max_length=20)
@@ -68,11 +75,28 @@ class Location(models.Model):
     L_url = models.CharField(max_length=500)
 
     def __str__(self):
-        return str({'L_name': self.L_name,
-                    'L_id': self.L_id,
-                    'L_telnum': self.L_telnum,
-                    'L_address': self.L_address,
-                    'L_la': self.L_la,
-                    'L_lo': self.L_lo,
-                    'L_url': self.L_url
-                    })
+        return str(
+            {
+                "L_name": self.L_name,
+                "L_id": self.L_id,
+                "L_telnum": self.L_telnum,
+                "L_address": self.L_address,
+                "L_la": self.L_la,
+                "L_lo": self.L_lo,
+                "L_url": self.L_url,
+            }
+        )
+
+
+class Review(models.Model):
+    P_id = models.ForeignKey(Performance, on_delete=models.CASCADE)
+    contents = models.CharField(max_length=100)
+    username = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    date = models.DateTimeField(default=timezone.now, null=False)
+    # 좋아요
+    like = models.CharField(max_length=20)
+    # 별점
+    rank = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.contents

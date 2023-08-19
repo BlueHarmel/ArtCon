@@ -25,7 +25,7 @@
         </a>
         <div class="carousel-inner">
             <div class="carousel-item active">
-              <a href = "{% url 'exhibition' %}?exhibitID={{banner1.0.id}}">
+              <a href = "{% url 'exhibit:exhibition' banner1.0.id %}">
                 <div class="container align-items-center">
                     <div class="row p-3">
                         <div class="mx-auto col-md-8 col-lg-4 align-items-center">
@@ -41,7 +41,7 @@
               </a>
             </div>
             <div class="carousel-item">
-              <a href = "{% url 'exhibition' %}?exhibitID={{banner2.0.id}}">
+              <a href = "{% url 'exhibit:exhibition' banner2.0.id %}">
                 <div class="container">
                     <div class="row p-3">
                         <div class="mx-auto col-md-8 col-lg-4 align-items-center">
@@ -57,7 +57,7 @@
               </a>
             </div>
             <div class="carousel-item">
-              <a href = "{% url 'exhibition' %}?exhibitID={{banner3.0.id}}">
+              <a href = "{% url 'exhibit:exhibition' banner3.0.id %}">
                 <div class="container">
                     <div class="row p-3">
                         <div class="mx-auto col-md-8 col-lg-4 align-items-center">
@@ -92,16 +92,16 @@
         </div>
         <div class="row">
             <div class="col-2 col-md-3 col-sm-3 p-3 mt-3">
-                <a id="test1" href="{% url 'exhibition' %}?exhibitID={{recommend1.0.id}}"><img src = "{{recommend1.0.P_Img}}",id='recommendimg1' class="rounded-3 posterSize img-fluid border-opacity-25 "></a>
+                <a id="test1" href="{% url 'exhibit:exhibition' recommend1.0.id %}"><img src = "{{recommend1.0.P_Img}}",id='recommendimg1' class="rounded-3 posterSize img-fluid border-opacity-25 "></a>
             </div>
             <div class="col-2 col-md-3 col-sm-3 p-3 mt-3">
-                <a id="test2" href="{% url 'exhibition' %}?exhibitID={{recommend2.0.id}}"><img src = "{{recommend2.0.P_Img}}",id='recommendimg2' class="rounded-3 posterSize img-fluid border-opacity-25 "></a>
+                <a id="test2" href="{% url 'exhibit:exhibition' recommend2.0.id %}"><img src = "{{recommend2.0.P_Img}}",id='recommendimg2' class="rounded-3 posterSize img-fluid border-opacity-25 "></a>
             </div>
             <div class="col-2 col-md-3 col-sm-3 p-3 mt-3">
-                <a id="test3" href="{% url 'exhibition' %}?exhibitID={{recommend3.0.id}}"><img src = "{{recommend3.0.P_Img}}",id='recommendimg3' class="rounded-3 posterSize img-fluid border-opacity-25 "></a>
+                <a id="test3" href="{% url 'exhibit:exhibition' recommend3.0.id %}"><img src = "{{recommend3.0.P_Img}}",id='recommendimg3' class="rounded-3 posterSize img-fluid border-opacity-25 "></a>
             </div>
             <div class="col-2 col-md-3 col-sm-3 p-3 mt-3">
-                <a id="test4" href="{% url 'exhibition' %}?exhibitID={{recommend4.0.id}}"><img src = "{{recommend4.0.P_Img}}",id='recommendimg4' class="rounded-3 posterSize img-fluid border-opacity-25 "></a>
+                <a id="test4" href="{% url 'exhibit:exhibition' recommend4.0.id %}"><img src = "{{recommend4.0.P_Img}}",id='recommendimg4' class="rounded-3 posterSize img-fluid border-opacity-25 "></a>
             </div>
         </div>
     </section>
