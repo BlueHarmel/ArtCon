@@ -21,17 +21,39 @@ class BoardWriteForm(forms.ModelForm):
 
     contents = SummernoteTextField()
 
-    options = ("test1", "test1"), ("test2", "test2")
-
-    board_name = forms.ChoiceField(
-        label="게시판 선택", widget=forms.Select(), choices=options
+    genres = (
+        ("뮤지컬", "뮤지컬"),
+        ("서양음악(클래식)", "서양음악(클래식)"),
+        ("복합", "복합"),
+        ("무용", "무용"),
+        ("대중음악", "대중음악"),
+        ("연극", "연극"),
+        ("한국음악(국악)", "한국음악(국악)"),
+        ("서커스/마술", "서커스/마술"),
+        ("대중무용", "대중무용"),
+        ("발레", "발레"),
+    )
+    locations = (
+        ("서울", "서울"),
+        ("경기도", "경기도"),
+        ("충청북도", "충청북도"),
+        ("충청남도", "충청남도"),
+        ("전라북도", "전라북도"),
+        ("전라남도", "전라남도"),
+        ("경상북도", "경상북도"),
+        ("경상남도", "경상남도"),
+        ("강원도", "강원도"),
     )
 
-    field_order = ["postname", "board_name" "contents"]
+    tag1 = forms.CharField(label="배우")
+    tag2 = forms.ChoiceField(label="장르", widget=forms.Select(), choices=genres)
+    tag3 = forms.ChoiceField(label="지역", widget=forms.Select(), choices=locations)
+
+    field_order = ["postname", "tag1", "tag2", "tag3", "contents"]
 
     class Meta:
         model = Post
-        fields = ["postname", "contents", "board_name"]
+        fields = ["postname", "contents", "tag1", "tag2", "tag3"]
         widgets = {
             "contents": forms.Textarea(
                 attrs={"class": "form-control mt-1", "id": "id_contents"}
@@ -43,7 +65,9 @@ class BoardWriteForm(forms.ModelForm):
 
         postname = cleaned_data.get("postname", "")
         contents = cleaned_data.get("contents", "")
-        board_name = cleaned_data.get("board_name", "test1")
+        tag1 = cleaned_data.get("tag1", "")
+        tag2 = cleaned_data.get("tag2", "정극")
+        tag3 = cleaned_data.get("tag3", "서울")
 
         if postname == "":
             self.add_error("postname", "글 제목을 입력하세요.")
@@ -52,7 +76,9 @@ class BoardWriteForm(forms.ModelForm):
         else:
             self.postname = postname
             self.contents = contents
-            self.board_name = board_name
+            self.tag1 = tag1
+            self.tag2 = tag2
+            self.tag3 = tag3
 
 
 class CommentForm(forms.ModelForm):

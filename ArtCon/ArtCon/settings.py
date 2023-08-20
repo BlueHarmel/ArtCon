@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "bootstrap4",
     "django_summernote",
+    "django_social_share",
     # "django_sslserver2"
 ]
 
@@ -100,24 +101,24 @@ WSGI_APPLICATION = "ArtCon.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 # DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": "mydatabase",
-#     }
+#    "default": {
+#        "ENGINE": "django.db.backends.sqlite3",
+#        "NAME": "mydatabase",
+#    }
 # }
 
 MYSQL_CONFIG = get_secret("MYSQL_CONFIG")
 # pymysql.version_info = (1, 4, 3, "final", 0)
 pymysql.install_as_MySQLdb()
 DATABASES = {
-   "default": {
-       "ENGINE": "django.db.backends.mysql",
-       "NAME": MYSQL_CONFIG["NAME"],
-       "USER": MYSQL_CONFIG["USER"],
-       "PASSWORD": MYSQL_CONFIG["PASSWORD"],
-       "HOST": MYSQL_CONFIG["HOST"],
-       "PORT": MYSQL_CONFIG["PORT"],
-   }
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": MYSQL_CONFIG["NAME"],
+        "USER": MYSQL_CONFIG["USER"],
+        "PASSWORD": MYSQL_CONFIG["PASSWORD"],
+        "HOST": MYSQL_CONFIG["HOST"],
+        "PORT": MYSQL_CONFIG["PORT"],
+    }
 }
 
 

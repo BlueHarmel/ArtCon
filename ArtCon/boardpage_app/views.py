@@ -3,6 +3,7 @@ from .forms import BoardWriteForm, CommentForm
 from .models import Post, Comment
 from authpage_app.models import User
 from django.views.decorators.http import require_GET, require_POST
+from datetime import date, datetime, timedelta
 
 
 # Create your views here.
@@ -10,11 +11,20 @@ def board(request):
     login_session = request.session.get("login_session", "")
     context = {"login_session": login_session}
 
-    test1_boards = Post.objects.filter(board_name="test1")
-    test2_boards = Post.objects.filter(board_name="test2")
+    tag1_filter = request.GET.get("tag1")
+    tag2_filter = request.GET.get("tag2")
+    tag3_filter = request.GET.get("tag3")
 
-    context["test1_boards"] = test1_boards
-    context["test2_boards"] = test2_boards
+    posts = Post.objects.all()
+
+    if tag1_filter:
+        posts = posts.filter(tag1=tag1_filter)
+    if tag2_filter:
+        posts = posts.filter(tag2=tag2_filter)
+    if tag3_filter:
+        posts = posts.filter(tag3=tag3_filter)
+
+    context["posts"] = posts
 
     return render(request, "boardpage_app/board.html", context)
 
@@ -38,7 +48,9 @@ def write(request):
                 postname=write_form.postname,
                 contents=write_form.contents,
                 username=username,
-                board_name=write_form.board_name,
+                tag1=write_form.tag1,
+                tag2=write_form.tag2,
+                tag3=write_form.tag3,
             )
             board.save()
             return redirect("/board")
@@ -60,7 +72,30 @@ def board_single(request, pk):
     context["board"] = board
     context["comments"] = comments
 
-    return render(request, "boardpage_app/board_single.html", context)
+    if board.username.id == login_session:
+        context["writer"] = True
+    else:
+        context["writer"] = False
+
+    response = render(request, "boardpage_app/board_single.html", context)
+
+    # 조회수 기능
+    expire_date, now = datetime.now(), datetime.now()
+    expire_date += timedelta(days=1)
+    expire_date = expire_date.replace(hour=0, minute=0, second=0, microsecond=0)
+    expire_date -= now
+    max_age = expire_date.total_seconds()
+
+    cookie_value = request.COOKIES.get("hitboard", "_")
+
+    if f"_{pk}_" not in cookie_value:
+        cookie_value += f"{pk}_"
+        response.set_cookie(
+            "hitboard", value=cookie_value, max_age=max_age, httponly=True
+        )
+        board.hits += 1
+        board.save()
+    return response
 
 
 def board_delete(request, pk):
@@ -94,7 +129,9 @@ def board_modify(request, pk):
         if write_form.is_valid():
             board.postname = write_form.postname
             board.contents = write_form.contents
-            board.board_name = write_form.board_name
+            board.tag1 = write_form.tag1
+            board.tag2 = write_form.tag2
+            board.tag3 = write_form.tag3
 
             board.save()
             return redirect("/board")
@@ -116,7 +153,7 @@ def likes(request, pk):
         else:
             article.like_users.add(request.user)
         return redirect(f"/board/{pk}/")
-    return redirect("accouts:login")
+    return redirect("authpage_app:login")
 
 
 @require_POST
@@ -132,7 +169,7 @@ def comments_create(request, pk):
         else:
             print(comment_form.errors)
         return redirect("board:board_single", pk)
-    return redirect("accounts:login")
+    return redirect("authpage_app:login")
 
 
 @require_POST
