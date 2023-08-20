@@ -20,11 +20,22 @@ def exhibition(request, pk):
     reviews = Review.objects.filter(P_id=pk)
     review_form = ReviewForm()
 
+    total_rank = 0
+    num_review = len(reviews)
+
+    if num_review > 0:
+        for review in reviews:
+            total_rank += int(review.rank)
+        avg_rank = f"{(total_rank / num_review):.1f}"
+    else:
+        avg_rank = f"{0:.1f}"
+
     context = {
         "pk": pk,
         "exhibit": performance_data,
         "reviews": reviews,
         "forms": review_form,
+        "avg_rank": avg_rank,
     }
 
     return render(request, "exhibpage_app/single.html", context=context)
