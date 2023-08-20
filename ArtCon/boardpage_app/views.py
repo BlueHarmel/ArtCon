@@ -11,8 +11,18 @@ def board(request):
     login_session = request.session.get("login_session", "")
     context = {"login_session": login_session}
 
+    tag1_filter = request.GET.get("tag1")
+    tag2_filter = request.GET.get("tag2")
+    tag3_filter = request.GET.get("tag3")
+
     posts = Post.objects.all()
-    # test2_boards = Post.objects.filter(board_name="test2")
+
+    if tag1_filter:
+        posts = posts.filter(tag1=tag1_filter)
+    if tag2_filter:
+        posts = posts.filter(tag2=tag2_filter)
+    if tag3_filter:
+        posts = posts.filter(tag3=tag3_filter)
 
     context["posts"] = posts
 

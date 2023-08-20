@@ -20,6 +20,44 @@
         </div>
         {% endif %}
       </div>
+
+      <div>
+        <form method="get">
+          <label for="tag1">배우</label>
+          <input type="text" name="tag1" id="tag1">
+          <!-- Repeat for tag2 and tag3 -->
+          <label for="tag1">장르</label>
+          <select name="tag2" id="tag2">
+            <option value="">선택안함</option>
+            <option value="뮤지컬">뮤지컬</option>
+            <option value="서양음악(클래식)">서양음악(클래식)</option>
+            <option value="복합">복합</option>
+            <option value="무용">무용</option>
+            <option value="대중음악">대중음악</option>
+            <option value="연극">연극</option>
+            <option value="한국음악(국악)">한국음악(국악)</option>
+            <option value="서커스/마술">서커스/마술</option>
+            <option value="대중무용">대중무용</option>
+            <option value="발레">발레</option>
+            <!-- Add more options here -->
+          </select>
+          <label for="tag1">지역</label>
+          <select name="tag3" id="tag3">
+            <option value="">선택안함</option>
+            <option value="서울">서울</option>
+            <option value="경기도">경기도</option>
+            <option value="충청북도">충청북도</option>
+            <option value="충청남도">충청남도</option>
+            <option value="전라북도">전라북도</option>
+            <option value="전라남도">전라남도</option>
+            <option value="경상북도">경상북도</option>
+            <option value="경상남도">경상남도</option>
+            <option value="강원도">강원도</option>
+            <!-- Add more options here -->
+          </select>
+          <button type="submit">필터 적용</button>
+        </form>
+      </div>
         
         <hr class="border border-primary border-3">
         <table class="table table-striped col-md-6">
