@@ -14,7 +14,7 @@
         <div class="d-flex flex-column col-12 my-5 bg-white shadow align-items-center justify-content-center">
             <div class="m-5 p-5 col-lg-6 col-md-8 align-items-center">
                 <p class="h3 text-center"><b class="text-primary fw-bold text-center">날짜</b>로 전시회를 검색해보세요</p>
-                <form action="{% url 'search' %}" method="GET">
+                <form action="{% url 'search:search' %}" method="GET">
                   {% csrf_token %}
                   <div class="input-group mb-1">
                     <input type="date" class="form-control form-control-lg my-4" name="date" data-placeholder="날짜 선택">

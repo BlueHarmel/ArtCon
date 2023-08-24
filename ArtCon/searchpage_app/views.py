@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from exhibpage_app.models import Performance
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import QueryDict
 
 
 def search(request):
@@ -39,5 +40,19 @@ def search(request):
             exhibits_page = paginator.page(paginator.num_pages)
 
         context["exhibits"] = exhibits_page
+
+        if int(page) == 1:
+            query_params = QueryDict(mutable=True)
+            query_params["page"] = 1
+            if searched_name:
+                query_params["name"] = searched_name
+            if searched_date:
+                query_params["date"] = searched_date
+            if searched_genre:
+                query_params["genre"] = searched_genre
+            if (
+                query_params.urlencode() != request.GET.urlencode()
+            ):  # 검색 조건이 변경되었을 때만 리다이렉트 수행
+                return redirect(request.path_info + "?" + query_params.urlencode())
 
     return render(request, "searchpage_app/search.html", context=context)
