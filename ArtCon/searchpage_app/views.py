@@ -18,9 +18,9 @@ def search(request):
             P_startdate__lte=searched_date, P_enddate__gte=searched_date
         )
         context["searched_date"] = searched_date
-    exhibits = exhibits.order_by("P_startdate")
+    exhibits = exhibits.order_by("-P_startdate")
 
-    paginator = Paginator(exhibits, 4)  # 4 exhibits per page
+    paginator = Paginator(exhibits, 8)  # 8 exhibits per page
     page = request.GET.get("page", 1)
 
     try:
