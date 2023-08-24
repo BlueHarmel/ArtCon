@@ -15,12 +15,15 @@
             <div class="m-5 p-5 col-lg-6 col-md-8 align-items-center">
                 <p class="h3 text-center"><b class="text-primary fw-bold text-center">날짜</b>로 전시회를 검색해보세요</p>
                 <form action="{% url 'search' %}" method="GET">
+                  {% csrf_token %}
                   <div class="input-group mb-1">
-                    <input name="date" type="date" class="form-control form-control-lg my-4" data-placeholder="날짜 선택">
+                    <input type="date" class="form-control form-control-lg my-4" name="date" data-placeholder="날짜 선택">
                   </div>
                   <div class="mb-2">
-                      {% csrf_token %}
-                      <input type="search" class="form-control form-control-lg" name="searched" placeholder="(옵션) 전시회 키워드 검색">
+                    <input type="search" class="form-control form-control-lg" name="name" placeholder="(옵션) 전시회 키워드 검색">
+                  </div>
+                  <div class="mb-2">
+                    <input type="search" class="form-control form-control-lg" name="genre" placeholder="(옵션) 전시회 장르 검색">
                   </div>
                   <div class="text-center">
                     <button type="submit" class="btn btn-primary btn-lg text-white mt-3">
@@ -34,9 +37,18 @@
     <!-- Start Info -->
         <div class="d-flex bg-white shadow my-5">
             <div class="d-flex text-start m-3 p-5 col-3">
-              {% if searched_title %}
-                <h3>{{ searched_title }} 검색 결과</h3>
+              <div class="flex-column">
+              {% if searched_name %}
+                <p class="h2 fw-bold">전시회명 : {{ searched_name }}</p>
+              {% endif %}
+              {% if searched_date %}
+                <p class="h2 fw-bold">날짜 : {{searched_date}}</p>
+              {% endif %}
+              {% if searched_genre %}
+                <p class="h2 fw-bold">장르명 : {{ searched_genre }}</p>
+              {% endif %}
             </div>
+          </div>
             <div class="d-flex flex-column p-5 m-3 col-8">
                 {% if exhibits %}
                   {% for exhibit in exhibits %}
@@ -52,65 +64,25 @@
                   {% endfor %}
                   <div class="pagination">
                     <span class="step-links">
-                        {% if exhibits.has_previous %}
-                            <a href="?page=1{% if searched_title %}&searched={{ searched_title }}{% endif %}{% if searched_date %}&date={{ searched_date }}{% endif %}">&laquo; first</a>
-                            <a href="?page={{ exhibits.previous_page_number }}{% if searched_title %}&searched={{ searched_title }}{% endif %}{% if searched_date %}&date={{ searched_date }}{% endif %}">previous</a>
-                        {% endif %}
-                        
-                        <span class="current">
-                            Page {{ exhibits.number }} of {{ exhibits.paginator.num_pages }}.
-                        </span>
-                        
-                        {% if exhibits.has_next %}
-                            <a href="?page={{ exhibits.next_page_number }}{% if searched_title %}&searched={{ searched_title }}{% endif %}{% if searched_date %}&date={{ searched_date }}{% endif %}">next</a>
-                            <a href="?page={{ exhibits.paginator.num_pages }}{% if searched_title %}&searched={{ searched_title }}{% endif %}{% if searched_date %}&date={{ searched_date }}{% endif %}">last &raquo;</a>
-                        {% endif %}
+                      {% if exhibits.has_previous %}
+                          <a href="?page=1{% if searched_name %}&name={{ searched_name }}{% endif %}{% if searched_date %}&date={{ searched_date }}{% endif %}{% if searched_genre %}&genre={{ searched_genre }}{% endif %}">&laquo; first</a>
+                          <a href="?page={{ exhibits.previous_page_number }}{% if searched_name %}&name={{ searched_name }}{% endif %}{% if searched_date %}&date={{ searched_date }}{% endif %}{% if searched_genre %}&genre={{ searched_genre }}{% endif %}">previous</a>
+                      {% endif %}
+
+                      <span class="current">
+                          Page {{ exhibits.number }} of {{ exhibits.paginator.num_pages }}.
+                      </span>
+
+                      {% if exhibits.has_next %}
+                          <a href="?page={{ exhibits.next_page_number }}{% if searched_name %}&name={{ searched_name }}{% endif %}{% if searched_date %}&date={{ searched_date }}{% endif %}{% if searched_genre %}&genre={{ searched_genre }}{% endif %}">next</a>
+                          <a href="?page={{ exhibits.paginator.num_pages }}{% if searched_name %}&name={{ searched_name }}{% endif %}{% if searched_date %}&date={{ searched_date }}{% endif %}{% if searched_genre %}&genre={{ searched_genre }}{% endif %}">last &raquo;</a>
+                      {% endif %}
                     </span>
                   </div>
                 {% else %}
                   <p> 검색 결과가 없습니다 </p>
                 {% endif %}
-                {% elif searched_date %}
-                <div class="flex-column">
-                   <p class="h2 fw-bold">{{searched_date}}</p>
-                   <p class="h2">관람 가능한 전시</p> 
-                </div>
             </div>
-            <div class="d-flex flex-column p-5 m-3 col-8">
-                {% for exhibit in exhibits %}
-                <div class="d-flex flex-row my-5">
-                    <img src="{{exhibit.P_Img}}" class="pic-sm m-3 searchSize" value="이미지 삽입"/>
-                    <div class="d-flex flex-column pt-3 px-5">
-                        <p class="h4 fw-normal">{{exhibit.P_name}}</p>
-                        <p>{{exhibit.P_startdate}} - {{exhibit.P_enddate}}</p>
-                        <br/>
-                        <a href="{% url 'exhibit:exhibition' exhibit.id %}" class="text-decoration-line-underline text-primary">자세히 보기</a>
-                    </div>
-                </div>
-                {% endfor %}
-                <div class="pagination">
-                  <span class="step-links">
-                      {% if exhibits.has_previous %}
-                          <a href="?page=1{% if searched_title %}&searched={{ searched_title }}{% endif %}{% if searched_date %}&date={{ searched_date }}{% endif %}">&laquo; first</a>
-                          <a href="?page={{ exhibits.previous_page_number }}{% if searched_title %}&searched={{ searched_title }}{% endif %}{% if searched_date %}&date={{ searched_date }}{% endif %}">previous</a>
-                      {% endif %}
-                      
-                      <span class="current">
-                          Page {{ exhibits.number }} of {{ exhibits.paginator.num_pages }}.
-                      </span>
-                      
-                      {% if exhibits.has_next %}
-                          <a href="?page={{ exhibits.next_page_number }}{% if searched_title %}&searched={{ searched_title }}{% endif %}{% if searched_date %}&date={{ searched_date }}{% endif %}">next</a>
-                          <a href="?page={{ exhibits.paginator.num_pages }}{% if searched_title %}&searched={{ searched_title }}{% endif %}{% if searched_date %}&date={{ searched_date }}{% endif %}">last &raquo;</a>
-                      {% endif %}
-                  </span>
-                </div>
-                {% else %}    
-            </div>
-            <div class="my-5 p-3">
-                <p class="h3 text-center">오늘은 어떤 전시회가 보고 싶으신가요?</p>
-            </div>
-            {% endif %}
         </div>
     <!-- End Info -->
     </section>
