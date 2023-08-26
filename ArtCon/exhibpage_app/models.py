@@ -94,7 +94,7 @@ class Review(models.Model):
     username = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date = models.DateTimeField(default=timezone.now, null=False)
     # 좋아요
-    like = models.CharField(max_length=20)
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="like_reviews")
     # 별점
     rank = models.CharField(max_length=20)
 

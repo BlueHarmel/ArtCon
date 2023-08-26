@@ -10,4 +10,5 @@ urlpatterns = [
         views.reviews_delete,
         name="reviews_delete",
     ),
+    path("<int:performance_pk>/reviews/<int:review_pk>/like/", views.review_likes, name="review_likes"),
 ]

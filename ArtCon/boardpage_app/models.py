@@ -33,7 +33,7 @@ class Comment(models.Model):
     contents = models.CharField(max_length=100)
     username = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date = models.DateTimeField(default=timezone.now, null=False)
-    like = models.CharField(max_length=20)  # 좋아요
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="like_comments")  # 좋아요
 
     def __str__(self):
         return self.contents

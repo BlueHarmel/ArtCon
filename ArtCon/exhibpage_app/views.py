@@ -66,3 +66,15 @@ def reviews_delete(request, performance_pk, review_pk):
         if request.user == review.username:
             review.delete()
     return redirect("exhibit:exhibition", performance_pk)
+
+@require_POST
+def review_likes(request, performance_pk, review_pk):
+    if request.user.is_authenticated:
+        review = get_object_or_404(Review, id=review_pk)
+
+        if review.like_users.filter(pk=request.user.pk).exists():
+            review.like_users.remove(request.user)
+        else:
+            review.like_users.add(request.user)
+        return redirect("exhibit:exhibition", performance_pk)
+    return redirect("authpage_app:login")
