@@ -179,3 +179,15 @@ def comments_delete(request, article_pk, comment_pk):
         if request.user == comment.username:
             comment.delete()
     return redirect("board:board_single", article_pk)
+
+@require_POST
+def comment_likes(request, article_pk, comment_pk):
+    if request.user.is_authenticated:
+        comment = get_object_or_404(Comment, id=comment_pk)
+
+        if comment.like_users.filter(pk=request.user.pk).exists():
+            comment.like_users.remove(request.user)
+        else:
+            comment.like_users.add(request.user)
+        return redirect(f"/board/{article_pk}/")
+    return redirect("authpage_app:login")

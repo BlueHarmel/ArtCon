@@ -65,7 +65,9 @@
                 </div>
             </form>
             
-          <div class="mt-5">
+
+          <div class="mt-3">
+            <p> 좋아요 갯수 : {{ board.like_users.count }} </p>
             <form action="{% url 'board:likes' pk=board.id %}" method='POST'>
               {% csrf_token %}
               {% if user in board.like_users.all %}
@@ -123,6 +125,15 @@
         {% for comment in comments %}
           <li>
             {{ comment.username }} - {{ comment.contents }}
+            <p> 댓글 좋아요 갯수 : {{ comment.like_users.count }} </p>
+            <form action="{% url 'board:comment_likes' board.id comment.pk %}" method='POST'>
+              {% csrf_token %}
+              {% if user in comment.like_users.all %}
+                <input type="submit" value='좋아요 취소' class="btn-primary rounded-2">
+              {% else %}
+                <input type="submit" value='좋아요' class="btn-primary rounded-2">
+              {% endif %}
+            </form>
             <!--delete-->
             {% if user == comment.username %}
               <form action="{% url 'board:comments_delete' board.id comment.pk %}" method="POST" class="d-inline">
