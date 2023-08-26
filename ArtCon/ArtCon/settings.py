@@ -108,7 +108,7 @@ WSGI_APPLICATION = "ArtCon.wsgi.application"
 # }
 
 MYSQL_CONFIG = get_secret("MYSQL_CONFIG")
-# pymysql.version_info = (1, 4, 3, "final", 0)
+pymysql.version_info = (1, 4, 3, "final", 0)
 pymysql.install_as_MySQLdb()
 DATABASES = {
     "default": {
