@@ -122,5 +122,9 @@ input .form-control{
 
 .carousel-item > a {
   text-decoration : none;
-  color :rgb(65, 65, 65)
+  color :rgb(65, 65, 65);
+}
+
+.navbar > .nav-link > div:hover {
+  background-color: #902923;
 }
