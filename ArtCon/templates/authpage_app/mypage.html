@@ -3,9 +3,83 @@
 {% load social_share %}
 {% block content %}
 
-    <!--화면 시작-->
 
-    <div class="d-flex flex-column p-5 bg-white align-items-center my-3">
+<!-- Start page -->
+
+<div class="d-flex flex-column p-3 bg-white align-items-center mt-3 mb-5">
+  <div class="fs-1 pt-3 text-dark" style="letter-spacing: 5px;">
+      <p class="fs-1 fw-bold">마이 페이지</p>
+  </div>
+</div>
+<!-- Start body -->
+  <div class="d-flex flex-row p-3 mx-5 my-3 align-items-center justify-content-center">
+    <div class="d-flex flex-column px-2 py-3 mx-2 container">
+      <div class="d-inline-flex align-items-center justify-content-between my-3">
+        <div class="d-inline-flex">
+          <i class="fa-user-circle fs-3 mx-3"></i>
+          <p class="fs-3"><b class="fw-bold">아트콘</b>님, 안녕하세요</p>
+        </div>
+        <div>
+          <a href="#" class="fs-xs-1 text-dark">회원정보 수정</a>
+        </div>
+      </div>
+      <hr>
+
+      <div class="d-flex flex-column">
+        <div class="container mt-3 mb-5">
+          <h3 class="h3 p-2 fw-bold text-primary">찜한 목록</h3>
+          <div class="card d-flex flex-row px-2 my-2
+            align-items-center justify-content-between">
+            <div class="p-2 my-2">
+                <a><img src = "{{recommend1.0.P_Img}}",id='recommendimg1' class="rounded-3 pic-sm img-fluid border-opacity-25 "></a>
+            </div>
+            <div class="p-2 my-2">
+                <a><img src = "{{recommend2.0.P_Img}}",id='recommendimg2' class="rounded-3 pic-sm img-fluid border-opacity-25 "></a>
+            </div>
+            <div class="p-2 my-2">
+                <a><img src = "{{recommend3.0.P_Img}}",id='recommendimg3' class="rounded-3 pic-sm img-fluid border-opacity-25 "></a>
+            </div>
+            <div class="p-2 my-2">
+                <a><img src = "{{recommend4.0.P_Img}}",id='recommendimg4' class="rounded-3 pic-sm img-fluid border-opacity-25 "></a>
+            </div>
+            <div class="p-2 my-2">
+              <a><img src = "{{recommend4.0.P_Img}}",id='recommendimg4' class="rounded-3 pic-sm img-fluid border-opacity-25 "></a>
+            </div>
+          </div>
+        </div>
+        <hr>
+
+        <div class="container mt-3 mb-5">
+          <h3 class="h3 p-2 fw-bold text-primary">내가 작성한 리뷰</h3>
+          <div class="card d-flex flex-row px-2 my-2
+            align-items-center justify-content-between">
+            <div class="p-2 my-2">
+                <a><img src = "{{recommend1.0.P_Img}}",id='recommendimg1' class="rounded-3 pic-sm img-fluid border-opacity-25 "></a>
+            </div>
+            <div class="p-2 my-2">
+                <a><img src = "{{recommend2.0.P_Img}}",id='recommendimg2' class="rounded-3 pic-sm img-fluid border-opacity-25 "></a>
+            </div>
+            <div class="p-2 my-2">
+                <a><img src = "{{recommend3.0.P_Img}}",id='recommendimg3' class="rounded-3 pic-sm img-fluid border-opacity-25 "></a>
+            </div>
+            <div class="p-2 my-2">
+                <a><img src = "{{recommend4.0.P_Img}}",id='recommendimg4' class="rounded-3 pic-sm img-fluid border-opacity-25 "></a>
+            </div>
+            <div class="p-2 my-2">
+              <a><img src = "{{recommend4.0.P_Img}}",id='recommendimg4' class="rounded-3 pic-sm img-fluid border-opacity-25 "></a>
+            </div>
+          </div>
+        </div>              
+      </div>
+    </div>
+  </div>
+<!-- End body -->
+
+<!-- End page -->
+
+
+
+    <!-- <div class="d-flex flex-column p-5 bg-white align-items-center my-3">
         <div class="fs-1 pt-3 text-dark" style="letter-spacing: 5px;">
             <p class="fs-1 fw-bold">마이 페이지</p>
         </div>
@@ -87,9 +161,9 @@
       
             contentDiv.innerHTML = "<h3>" + pageTitle + "</h3>" + pageContent;
           }
-        </script>
+        </script> 
+      </div> -->
   
-      <!-- 화면 끝 -->
 
 
 {% endblock %}
