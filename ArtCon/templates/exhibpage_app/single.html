@@ -35,6 +35,15 @@
                                 <i class="fa fa-star text-secondary"></i>
                                 <span class="list-inline-item text-dark mx-2">평점 {{avg_rank}}</span>
                             </p>
+                            {% if request.user.is_authenticated %}
+                            {% if is_followed %}
+                              <a href="{% url 'exhibit:unfollow_exhibition' pk %}">Unfollow</a>
+                            {% else %}
+                              <a href="{% url 'exhibit:follow_exhibition' pk %}">Follow</a>
+                            {% endif %}
+                          {% else %}
+                            <a href="{% url 'authpage_app:login' %}">Login to Follow</a>
+                          {% endif %}
 
                             <div class="d-flex flex-row align-items-center justify-content-between mb-5 px-3">
                                 <div class="d-flex flex-column">
@@ -50,8 +59,8 @@
                                     <p class="h4 fw-bold">장소</p>
                                     <p>{{ exhibit.0.L_name }}</p>
                                 </div>
-                                <div id="exhibitX" dataValue="{{exhibit.0.la}}"></div>
-                                <div id="exhibitY" dataValue="{{exhibit.0.lo}}"></div>
+                                <div id="exhibitX" dataValue="{{la}}"></div>
+                                <div id="exhibitY" dataValue="{{lo}}"></div>
                                 <div class="mx-1">
                                     <button onclick="getLocation()" type="submit" class="btn btn-primary text-nowrap">지도보기</a>
                                 </div>

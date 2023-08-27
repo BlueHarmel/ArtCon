@@ -9,14 +9,18 @@ from django.views.decorators.http import require_GET, require_POST
 def exhibition(request, pk):
     pk = pk  # request.GET.get("exhibitID")
     performance_data = list(Performance.objects.filter(id__exact=pk).values())
+    is_followed = False
+    if request.user.is_authenticated:
+        user_followed_perform = [
+            perform["P_id"] for perform in request.user.followed_perform.values("P_id")
+        ]
+        is_followed = performance_data[0]["P_id"] in user_followed_perform
     # print(performance_data)
     p_location = performance_data[0]["L_name"].split()[0]
     # print(p_location)
     location = list(Location.objects.filter(L_name__startswith=p_location).values())
     # print(location)
     # print(performance_data[0])
-    performance_data[0]["la"] = location[0]["L_la"]
-    performance_data[0]["lo"] = location[0]["L_lo"]
     reviews = Review.objects.filter(P_id=pk)
     review_form = ReviewForm()
 
@@ -33,9 +37,12 @@ def exhibition(request, pk):
     context = {
         "pk": pk,
         "exhibit": performance_data,
+        "la": location[0]["L_la"],
+        "lo": location[0]["L_lo"],
         "reviews": reviews,
         "forms": review_form,
         "avg_rank": avg_rank,
+        "is_followed": is_followed,  # 추가
     }
 
     return render(request, "exhibpage_app/single.html", context=context)
@@ -67,6 +74,7 @@ def reviews_delete(request, performance_pk, review_pk):
             review.delete()
     return redirect("exhibit:exhibition", performance_pk)
 
+
 @require_POST
 def review_likes(request, performance_pk, review_pk):
     if request.user.is_authenticated:
@@ -78,3 +86,18 @@ def review_likes(request, performance_pk, review_pk):
             review.like_users.add(request.user)
         return redirect("exhibit:exhibition", performance_pk)
     return redirect("authpage_app:login")
+
+
+def follow_perform(request, perform_id):
+    if request.user.is_authenticated:
+        perform = get_object_or_404(Performance, id=perform_id)
+        person = request.user
+
+        if perform in person.followed_perform.all():
+            person.followed_perform.remove(perform)
+            print("언팔로우")
+        else:
+            person.followed_perform.add(perform)
+            print("팔로우")
+
+    return redirect("exhibit:exhibition", perform_id)
