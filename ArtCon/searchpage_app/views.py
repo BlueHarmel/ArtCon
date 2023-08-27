@@ -5,7 +5,6 @@ from django.http import QueryDict
 
 
 def search(request):
-    print(request.GET)
     searched_name = request.GET.get("name", "")
     searched_date = request.GET.get("date", "")
     searched_genre = request.GET.get("genre", "")
