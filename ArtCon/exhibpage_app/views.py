@@ -57,6 +57,7 @@ def reviews_create(request, pk):
             review = review_form.save(commit=False)
             review.P_id = article
             review.username = request.user
+            review.Perform_id = pk
             print("Before saving:", review)  # Debugging line
             review.save()
             print("After saving:", review)  # Debugging line

@@ -89,12 +89,15 @@ class Location(models.Model):
 
 
 class Review(models.Model):
+    Perform_id = models.IntegerField(default=0, null=False, blank=False)
     P_id = models.ForeignKey(Performance, on_delete=models.CASCADE)
     contents = models.CharField(max_length=100)
     username = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date = models.DateTimeField(default=timezone.now, null=False)
     # 좋아요
-    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="like_reviews")
+    like_users = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, related_name="like_reviews"
+    )
     # 별점
     rank = models.CharField(max_length=20)
 
