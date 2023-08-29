@@ -2,16 +2,20 @@ from django.shortcuts import render, redirect
 from exhibpage_app.models import Performance
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import QueryDict
-
+import json
+import time
 
 def search(request):
     print(request.GET)
+    user_id = request.user.username
     searched_name = request.GET.get("name", "")
     searched_date = request.GET.get("date", "")
     searched_genre = request.GET.get("genre", "")
     context = {}
-
     exhibits = Performance.objects.all()
+
+    logging_text = {'user_id': user_id, 'page': 'search', 'searched_name': searched_name, 'searched_date': searched_date, 'searched_genre': searched_genre}
+    
 
     if searched_name:
         exhibits = exhibits.filter(P_name__contains=searched_name)
@@ -54,5 +58,11 @@ def search(request):
                 query_params.urlencode() != request.GET.urlencode()
             ):  # 검색 조건이 변경되었을 때만 리다이렉트 수행
                 return redirect(request.path_info + "?" + query_params.urlencode())
+    logging(logging_text)
 
     return render(request, "searchpage_app/search.html", context=context)
+
+def logging(log_dict):
+    with open('../test.log', 'a', encoding='utf-8') as f:
+        text = json.dumps(log_dict) + '\n'
+        f.write(text)

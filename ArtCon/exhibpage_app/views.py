@@ -3,7 +3,7 @@ from .models import Performance, Location, Review
 from .forms import ReviewForm
 from authpage_app.models import User
 from django.views.decorators.http import require_GET, require_POST
-
+import json
 
 # 페이지 로드
 def exhibition(request, pk):
@@ -66,3 +66,4 @@ def reviews_delete(request, performance_pk, review_pk):
         if request.user == review.username:
             review.delete()
     return redirect("exhibit:exhibition", performance_pk)
+
