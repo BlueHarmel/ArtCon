@@ -30,21 +30,11 @@
           <h3 class="h3 p-2 fw-bold text-primary">찜한 목록</h3>
           <div class="card d-flex flex-row px-2 my-2
             align-items-center justify-content-between">
-            <div class="p-2 my-2">
-                <a><img src = "{{recommend1.0.P_Img}}",id='recommendimg1' class="rounded-3 pic-sm img-fluid border-opacity-25 "></a>
-            </div>
-            <div class="p-2 my-2">
-                <a><img src = "{{recommend2.0.P_Img}}",id='recommendimg2' class="rounded-3 pic-sm img-fluid border-opacity-25 "></a>
-            </div>
-            <div class="p-2 my-2">
-                <a><img src = "{{recommend3.0.P_Img}}",id='recommendimg3' class="rounded-3 pic-sm img-fluid border-opacity-25 "></a>
-            </div>
-            <div class="p-2 my-2">
-                <a><img src = "{{recommend4.0.P_Img}}",id='recommendimg4' class="rounded-3 pic-sm img-fluid border-opacity-25 "></a>
-            </div>
-            <div class="p-2 my-2">
-              <a><img src = "{{recommend4.0.P_Img}}",id='recommendimg4' class="rounded-3 pic-sm img-fluid border-opacity-25 "></a>
-            </div>
+            {% for perform in followed_perform %}
+              <div class="p-2 my-2">
+                  <a href = {% url 'exhibit:exhibition' perform.id %}><img src = "{{perform.P_Img}}",id='recommendimg1' class="rounded-3 pic-sm img-fluid border-opacity-25 "></a>
+              </div>
+            {% endfor %}
           </div>
         </div>
         <hr>
@@ -53,21 +43,12 @@
           <h3 class="h3 p-2 fw-bold text-primary">내가 작성한 리뷰</h3>
           <div class="card d-flex flex-row px-2 my-2
             align-items-center justify-content-between">
+            {% for review in my_reviews %}
             <div class="p-2 my-2">
-                <a><img src = "{{recommend1.0.P_Img}}",id='recommendimg1' class="rounded-3 pic-sm img-fluid border-opacity-25 "></a>
+                <a href="{% url 'exhibit:exhibition' review.Perform_id %}">{{review.contents}}</a>
             </div>
-            <div class="p-2 my-2">
-                <a><img src = "{{recommend2.0.P_Img}}",id='recommendimg2' class="rounded-3 pic-sm img-fluid border-opacity-25 "></a>
-            </div>
-            <div class="p-2 my-2">
-                <a><img src = "{{recommend3.0.P_Img}}",id='recommendimg3' class="rounded-3 pic-sm img-fluid border-opacity-25 "></a>
-            </div>
-            <div class="p-2 my-2">
-                <a><img src = "{{recommend4.0.P_Img}}",id='recommendimg4' class="rounded-3 pic-sm img-fluid border-opacity-25 "></a>
-            </div>
-            <div class="p-2 my-2">
-              <a><img src = "{{recommend4.0.P_Img}}",id='recommendimg4' class="rounded-3 pic-sm img-fluid border-opacity-25 "></a>
-            </div>
+            {% endfor %}
+
           </div>
         </div>              
       </div>
