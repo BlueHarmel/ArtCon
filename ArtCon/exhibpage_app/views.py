@@ -4,21 +4,28 @@ from .forms import ReviewForm
 from authpage_app.models import User
 from django.views.decorators.http import require_GET, require_POST
 import json
+import datetime
 
 # 페이지 로드
 def exhibition(request, pk):
     pk = pk  # request.GET.get("exhibitID")
     performance_data = list(Performance.objects.filter(id__exact=pk).values())
-    # print(performance_data)
     p_location = performance_data[0]["L_name"].split()[0]
-    # print(p_location)
     location = list(Location.objects.filter(L_name__startswith=p_location).values())
-    # print(location)
-    # print(performance_data[0])
     performance_data[0]["la"] = location[0]["L_la"]
     performance_data[0]["lo"] = location[0]["L_lo"]
     reviews = Review.objects.filter(P_id=pk)
     review_form = ReviewForm()
+    user_id = request.user.username
+
+    if user_id:
+        user_data = User.objects.filter(username__exact=user_id)
+        user_age = user_data[0]['age']
+        user_gender = user_data[0]['gender']
+    else:
+        user_age = ''
+        user_gender = ''
+    log_text = {'user_id': user_id, 'user_age': user_age, 'user_gender': user_gender, 'page': 'exhibpage', 'performance_name': performance_data[0]['P_name'], 'time': datetime.datetime.today()}
 
     total_rank = 0
     num_review = len(reviews)
@@ -37,6 +44,8 @@ def exhibition(request, pk):
         "forms": review_form,
         "avg_rank": avg_rank,
     }
+
+    logging(log_text)
 
     return render(request, "exhibpage_app/single.html", context=context)
 
@@ -67,3 +76,7 @@ def reviews_delete(request, performance_pk, review_pk):
             review.delete()
     return redirect("exhibit:exhibition", performance_pk)
 
+def logging(log_dict):
+    with open('../test.log', 'a', encoding='utf-8') as f:
+        text = json.dumps(log_dict) + '\n'
+        f.write(text)

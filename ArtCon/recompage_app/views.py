@@ -1,16 +1,16 @@
-# from django.shortcuts import render, redirect
-# from django.urls import reverse
-# import pandas as pd
-# from django.core import serializers
-# from sklearn.feature_extraction.text import TfidfVectorizer
+from django.shortcuts import render, redirect
+from django.urls import reverse
+import pandas as pd
+from django.core import serializers
+from sklearn.feature_extraction.text import TfidfVectorizer
 # from konlpy.tag import Okt
-# from sklearn.metrics.pairwise import linear_kernel
-# import re
-# from exhibpage_app.models import Performance
-# from authpage_app.models import User
-# from exhibpage_app.models import Location
-# from django.http import JsonResponse
-# from django.contrib import messages
+from sklearn.metrics.pairwise import linear_kernel
+import re
+from exhibpage_app.models import Performance
+from authpage_app.models import User
+from exhibpage_app.models import Location
+from django.http import JsonResponse
+from django.contrib import messages
 
 # stopwords = ["을", "를", "이", "가", "은", "는"]
 # okt = Okt()
@@ -18,49 +18,48 @@
 
 # exhibition_names = []
 
-def recommend(request):
-    pass
-# # Create your views here.
 # def recommend(request):
-#     if request.user.is_anonymous:
-#         messages.warning(request, "로그인 후 이용가능합니다")
-#         url = reverse("authpage_app:login")
-#         return redirect(url)
-#     if request.method == "GET":
-#         rec_id = get_recommendations(request)
-#         exhibits = list(Performance.objects.filter(id__in=rec_id).values())
-#         context = {"exhibits": exhibits}
-#         return render(request, "recompage_app/recommend.html", context=context)
+#     pass
+# Create your views here.
+def recommend(request):
+    if request.user.is_anonymous:
+        messages.warning(request, "로그인 후 이용가능합니다")
+        url = reverse("authpage_app:login")
+        return redirect(url)
+    if request.method == "GET":
+        exhibits = list(Performance.objects.filter(id__in=[1,2,3,4,5]).values())
+        context = {"exhibits": exhibits}
+        return render(request, "recompage_app/recommend.html", context=context)
 
-#     if request.method == "POST":
-#         latLng = request.body.decode("utf-8")
-#         s = latLng.split("&")[0][2:]
-#         w = latLng.split("&")[1][2:]
-#         n = latLng.split("&")[2][2:]
-#         e = latLng.split("&")[3][2:]
-#         # print('****swne****')
-#         # print(s,w,n,e)
-#         location = list(
-#             Location.objects.filter(x__gte=s, x__lte=n, y__gte=w, y__lte=e).values()
-#         )
-#         map_exhibits = []
-#         # print('****location****')
-#         # print(location)
-#         for i in location:
-#             l_name = i["L_name"]
-#             exhibit = list(Performance.objects.filter(L_name__exact=l_name).values())
-#             map_exhibit = {}
-#             map_exhibit["id"] = exhibit[0]["id"]
-#             map_exhibit["E_name"] = exhibit[0]["E_name"]
-#             map_exhibit["x"] = i["x"]
-#             map_exhibit["y"] = i["y"]
-#             # print("==============")
-#             # print(exhibit)
-#             map_exhibits.append(map_exhibit)
-#         context = {"map_exhibits": map_exhibits}
-#         # print("************")
-#         # print(context)
-#         return JsonResponse(context)
+    if request.method == "POST":
+        latLng = request.body.decode("utf-8")
+        s = latLng.split("&")[0][2:]
+        w = latLng.split("&")[1][2:]
+        n = latLng.split("&")[2][2:]
+        e = latLng.split("&")[3][2:]
+        # print('****swne****')
+        # print(s,w,n,e)
+        location = list(
+            Location.objects.filter(x__gte=s, x__lte=n, y__gte=w, y__lte=e).values()
+        )
+        map_exhibits = []
+        # print('****location****')
+        # print(location)
+        for i in location:
+            l_name = i["L_name"]
+            exhibit = list(Performance.objects.filter(L_name__exact=l_name).values())
+            map_exhibit = {}
+            map_exhibit["id"] = exhibit[0]["id"]
+            map_exhibit["E_name"] = exhibit[0]["E_name"]
+            map_exhibit["x"] = i["x"]
+            map_exhibit["y"] = i["y"]
+            # print("==============")
+            # print(exhibit)
+            map_exhibits.append(map_exhibit)
+        context = {"map_exhibits": map_exhibits}
+        # print("************")
+        # print(context)
+        return JsonResponse(context)
 
 
 # def remove_special_characters(text):

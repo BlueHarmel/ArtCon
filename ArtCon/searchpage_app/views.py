@@ -4,6 +4,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import QueryDict
 import json
 import time
+from authpage_app.models import User
 
 def search(request):
     print(request.GET)
@@ -14,7 +15,15 @@ def search(request):
     context = {}
     exhibits = Performance.objects.all()
 
-    logging_text = {'user_id': user_id, 'page': 'search', 'searched_name': searched_name, 'searched_date': searched_date, 'searched_genre': searched_genre}
+    # log dict
+    if user_id:
+        user_data = User.objects.filter(username__exact=user_id)
+        user_age = user_data[0]['age']
+        user_gender = user_data[0]['gender']
+    else:
+        user_age = ''
+        user_gender = ''
+    log_text = {'user_id': user_id, 'user_age': user_age, 'user_gender': user_gender, 'page': 'searchpage', 'searched_name': searched_name, 'searched_date': searched_date, 'searched_genre': searched_genre}
     
 
     if searched_name:
@@ -58,7 +67,7 @@ def search(request):
                 query_params.urlencode() != request.GET.urlencode()
             ):  # 검색 조건이 변경되었을 때만 리다이렉트 수행
                 return redirect(request.path_info + "?" + query_params.urlencode())
-    logging(logging_text)
+    logging(log_text)
 
     return render(request, "searchpage_app/search.html", context=context)
 
