@@ -14,21 +14,27 @@
         <div class="d-flex flex-column col-12 my-5 bg-white shadow align-items-center justify-content-center">
             <div class="m-5 p-5 col-lg-6 col-md-8 align-items-center">
                 <p class="h3 text-center"><b class="text-primary fw-bold text-center">날짜</b>로 전시회를 검색해보세요</p>
-                <form action="{% url 'search:search' %}" method="GET">
-                  {% csrf_token %}
-                  <div class="input-group mb-1">
-                    <input type="date" class="form-control form-control-lg my-4" name="date" data-placeholder="날짜 선택">
-                  </div>
-                  <div class="mb-2">
-                    <input type="search" class="form-control form-control-lg" name="name" placeholder="(옵션) 전시회 키워드 검색">
-                  </div>
-                  <div class="mb-2">
-                    <input type="search" class="form-control form-control-lg" name="genre" placeholder="(옵션) 전시회 장르 검색">
-                  </div>
-                  <div class="text-center">
-                    <button type="submit" class="btn btn-primary btn-lg text-white mt-3">
-                      검색하기
-                    </button>
+                    <form action="{% url 'search:search' %}" method="GET">
+                      {% csrf_token %}
+                      <div class="input-group mb-1">
+                          <input type="date" class="form-control form-control-lg my-4" name="date" data-placeholder="날짜 선택">
+                      </div>
+                      <div class="mb-2">
+                          <input type="search" class="form-control form-control-lg" name="name" placeholder="(옵션) 전시회 키워드 검색">
+                      </div>
+                      <div class="mb-2">
+                          {% for genre in form.category %}
+                          <div class="form-check form-check-inline">
+                              {{ genre }}
+                          </div>
+                          {% endfor %}
+                      </div>
+                      <div class="text-center">
+                          <button type="submit" class="btn btn-primary btn-lg text-white mt-3">
+                              검색하기
+                          </button>
+                      </div>
+                  </form>
                   </div>
                 </form>
             </div>
@@ -45,7 +51,7 @@
                 <p class="h2 fw-bold">날짜 : {{searched_date}}</p>
               {% endif %}
               {% if searched_genre %}
-                <p class="h2 fw-bold">장르명 : {{ searched_genre }}</p>
+                <p class="h2 fw-bold">장르명 : {% for genre in searched_genre %}{{ genre }}<br>{% endfor %}</p>
               {% endif %}
             </div>
           </div>
@@ -64,21 +70,22 @@
                   {% endfor %}
                   <div class="pagination">
                     <span class="step-links">
-                      {% if exhibits.has_previous %}
-                          <a href="?page=1{% if searched_name %}&name={{ searched_name }}{% endif %}{% if searched_date %}&date={{ searched_date }}{% endif %}{% if searched_genre %}&genre={{ searched_genre }}{% endif %}">&laquo; first</a>
-                          <a href="?page={{ exhibits.previous_page_number }}{% if searched_name %}&name={{ searched_name }}{% endif %}{% if searched_date %}&date={{ searched_date }}{% endif %}{% if searched_genre %}&genre={{ searched_genre }}{% endif %}">previous</a>
-                      {% endif %}
-
-                      <span class="current">
-                          Page {{ exhibits.number }} of {{ exhibits.paginator.num_pages }}.
-                      </span>
-
-                      {% if exhibits.has_next %}
-                          <a href="?page={{ exhibits.next_page_number }}{% if searched_name %}&name={{ searched_name }}{% endif %}{% if searched_date %}&date={{ searched_date }}{% endif %}{% if searched_genre %}&genre={{ searched_genre }}{% endif %}">next</a>
-                          <a href="?page={{ exhibits.paginator.num_pages }}{% if searched_name %}&name={{ searched_name }}{% endif %}{% if searched_date %}&date={{ searched_date }}{% endif %}{% if searched_genre %}&genre={{ searched_genre }}{% endif %}">last &raquo;</a>
-                      {% endif %}
+                        {% if exhibits.has_previous %}
+                            <a href="{% url 'search:search' %}?page=1{% if searched_name %}&name={{ searched_name }}{% endif %}{% if request.GET.date %}&date={{ request.GET.date }}{% endif %}{% for genre in searched_genre %}&category={{ genre }}{% endfor %}">&laquo; first</a>
+                            <a href="{% url 'search:search' %}?page={{ exhibits.previous_page_number }}{% if searched_name %}&name={{ searched_name }}{% endif %}{% if request.GET.date %}&date={{ request.GET.date }}{% endif %}{% for genre in searched_genre %}&category={{ genre }}{% endfor %}">previous</a>
+                        {% endif %}
+                        
+                        <span class="current">
+                            Page {{ exhibits.number }} of {{ exhibits.paginator.num_pages }}.
+                        </span>
+                
+                        {% if exhibits.has_next %}
+                            <a href="{% url 'search:search' %}?page={{ exhibits.next_page_number }}{% if searched_name %}&name={{ searched_name }}{% endif %}{% if request.GET.date %}&date={{ request.GET.date }}{% endif %}{% for genre in searched_genre %}&category={{ genre }}{% endfor %}">next</a>
+                            <a href="{% url 'search:search' %}?page={{ exhibits.paginator.num_pages }}{% if searched_name %}&name={{ searched_name }}{% endif %}{% if request.GET.date %}&date={{ request.GET.date }}{% endif %}{% for genre in searched_genre %}&category={{ genre }}{% endfor %}">last &raquo;</a>
+                        {% endif %}
                     </span>
-                  </div>
+                </div>
+                
                 {% else %}
                   <p> 검색 결과가 없습니다 </p>
                 {% endif %}

@@ -1,0 +1,4 @@
+<div class="form-check form-check-inline">
+  <input class="{{ widget.attrs.class }}" type="{{ widget.attrs.input_type }}" name="{{ widget.name }}" value="{{ widget.value }}" id="{{ widget.attrs.id }}" {% if widget.is_checked %}checked{% endif %}>
+  <label class="form-check-label" for="{{ widget.attrs.id }}">{{ widget.choice_label }}</label>
+</div>
