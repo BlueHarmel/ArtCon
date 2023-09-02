@@ -141,11 +141,11 @@
                     <form action="{% url 'exhibit:review_likes' pk review.pk %}" method='POST'>
                         {% csrf_token %}
                         {% if user in review.like_users.all %}
-                        <button type="submit" class="btn-primary rounded-2">
+                        <button type="submit" class="btn-un btn text-primary" data-bs-toggle="button">
                           <i class="far fa-thumbs-down"></i> {{ review.like_users.count }}
                         </button>
                         {% else %}
-                        <button type="submit" class="btn-primary rounded-2">
+                        <button type="submit" class="btn-un btn text-primary" data-bs-toggle="button">
                           <i class="far fa-thumbs-up"></i> {{ review.like_users.count }}
                         </button>
                         {% endif %}
