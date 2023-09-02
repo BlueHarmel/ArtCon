@@ -9,21 +9,18 @@
             <p><b class="fs-5">공지사항</b> 📢 비방용 목적의 글은 통보없이 삭제될 수 있습니다. </p>
           </div>
           {% if user.is_authenticated %}
-          <div class="align-items-end">
+          <div class="align-items-end align-self-center">
             <a href="{% url 'board:write' %}" class="btn btn-primary btn-lg">글쓰기</a>
           </div>
           {% endif %}
       </div>
         
-      <div class="d-flex flex-row align-items-end justify-content-between">
-        <div>
+      <!-- <div class="d-flex flex-row align-items-end justify-content-between">
           <p>게시글 목록</p>
-        </div>
-        
-      </div>
+      </div> -->
 
       <div>
-        <form method="get">
+        <form method="get" class="align-content-end">
           <label for="tag1">배우</label>
           <input type="text" name="tag1" id="tag1">
           <!-- Repeat for tag2 and tag3 -->
@@ -56,7 +53,7 @@
             <option value="강원도">강원도</option>
             <!-- Add more options here -->
           </select>
-          <button type="submit" class="btn btn-primary btn-sm">필터 적용</button>
+          <button type="submit" class="btn btn-primary btn-sm mx-3">필터 적용</button>
         </form>
       </div>
         
