@@ -20,7 +20,7 @@ exhibition_names = []
 
 
 def recommend(request):
-    pass
+    return render(request, "recompage_app/recommend.html")
 
 
 # Create your views here.
