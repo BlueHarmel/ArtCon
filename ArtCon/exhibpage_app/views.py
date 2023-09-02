@@ -30,9 +30,9 @@ def exhibition(request, pk):
     if num_review > 0:
         for review in reviews:
             total_rank += int(review.rank)
-        avg_rank = f"{(total_rank / num_review):.1f}"
+        avg_rank = float(total_rank / num_review)
     else:
-        avg_rank = f"{0:.1f}"
+        avg_rank = 0.0
 
     context = {
         "pk": pk,
@@ -44,6 +44,7 @@ def exhibition(request, pk):
         "avg_rank": avg_rank,
         "is_followed": is_followed,  # 추가
     }
+    avg_rank
 
     return render(request, "exhibpage_app/single.html", context=context)
 
