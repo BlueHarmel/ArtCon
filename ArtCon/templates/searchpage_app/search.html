@@ -57,13 +57,14 @@
             <div class="d-flex flex-row flex-wrap p-5 m-3">
                 {% if exhibits %}
                     {% for exhibit in exhibits %}
-                    <div class="searchCard d-flex flex-column mx-2">
+                    <div class="card d-flex flex-column mx-2">
+                        <a href="{% url 'exhibit:exhibition' exhibit.id %}" class="text-decoration-none">
                         <img src="{{exhibit.P_Img}}" class="pic-sm m-3 searchSize" value="이미지 삽입"/>
                         <div class="d-flex flex-column p-3">
                             <p>{{exhibit.P_name}}</p>
                             <p class="fs-6 mb-3">{{exhibit.P_startdate}} - {{exhibit.P_enddate}}</p>
-                            <button href="{% url 'exhibit:exhibition' exhibit.id %}" class="fs-6 btn-un btn text-primary fw-light align-self-start">자세히 보기</button>
                         </div>
+                        </a>
                     </div>
                     {% endfor %}
                   
