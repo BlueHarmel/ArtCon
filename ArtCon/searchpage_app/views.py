@@ -17,9 +17,12 @@ def search(request):
 
     # log dict
     if user_id:
-        user_data = User.objects.filter(username__exact=user_id)
-        user_age = user_data[0]['age']
-        user_gender = user_data[0]['gender']
+        # user_data = User.objects.filter(username__exact=user_id)
+        # print(user_data)
+        # user_age = user_data[0]['age']
+        # user_gender = user_data[0]['gender']
+        user_age = ''
+        user_gender = ''
     else:
         user_age = ''
         user_gender = ''

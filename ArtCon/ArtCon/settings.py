@@ -15,7 +15,12 @@ from django.core.exceptions import ImproperlyConfigured
 from pathlib import Path
 import pymysql
 
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+# SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+# SECURE_SSL_REDIRECT = True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
+
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -78,7 +83,11 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    ##
+    "django_cloudflare.CloudflareMiddleware"
 ]
+
+CF_HEADER_IP_ENABLED = True
 
 ROOT_URLCONF = "ArtCon.urls"
 
@@ -145,7 +154,7 @@ LOGGING = {
 }
 
 MYSQL_CONFIG = get_secret("MYSQL_CONFIG")
-# pymysql.version_info = (1, 4, 3, "final", 0)
+pymysql.version_info = (1, 4, 3, "final", 0)
 pymysql.install_as_MySQLdb()
 DATABASES = {
     "default": {
