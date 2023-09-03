@@ -151,6 +151,7 @@
                         {% endif %}
                       </form>
                     <!--delete-->
+                    <div>
                     {% if user == review.username %}
                       <form action="{% url 'exhibit:reviews_delete' pk review.pk %}" method="POST" class="d-inline">
                         {% csrf_token %}
@@ -158,6 +159,7 @@
                           <i class="fas fa-trash-alt"></i>
                        </button>
                       </form>
+                    </div>
                     {% endif %}
                   </li>
                 {% empty %}
@@ -165,11 +167,12 @@
                 {% endfor %}
               </ul>
               
-              <hr>
               
               <!--create-->
               {% if request.user.is_authenticated %}
                 <form action="{% url 'exhibit:reviews_create' pk %}" method="POST">
+                  <hr class="border border-primary">
+                  <div class="m-3"></div>
                   <div class="input-group mb-5">
                   {% csrf_token %}
                   {% for form in forms %}
