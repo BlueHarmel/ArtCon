@@ -7,4 +7,6 @@ urlpatterns = [
     path("login/", views.login, name="login"),
     path("findP/", views.findP, name="findPassword"),
     path("register/", views.register, name="register"),
+    path("myPage/", views.myPage, name="myPage"),
+    # path("<int:exhib_pk>/follow/", views.follow, name="follow"),
 ]

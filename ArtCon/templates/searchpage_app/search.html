@@ -14,71 +14,86 @@
         <div class="d-flex flex-column col-12 my-5 bg-white shadow align-items-center justify-content-center">
             <div class="m-5 p-5 col-lg-6 col-md-8 align-items-center">
                 <p class="h3 text-center"><b class="text-primary fw-bold text-center">날짜</b>로 전시회를 검색해보세요</p>
-                <form action="{% url 'search:search' %}" method="GET">
-                  {% csrf_token %}
-                  <div class="input-group mb-1">
-                    <input type="date" class="form-control form-control-lg my-4" name="date" data-placeholder="날짜 선택">
-                  </div>
-                  <div class="mb-2">
-                    <input type="search" class="form-control form-control-lg" name="name" placeholder="(옵션) 전시회 키워드 검색">
-                  </div>
-                  <div class="mb-2">
-                    <input type="search" class="form-control form-control-lg" name="genre" placeholder="(옵션) 전시회 장르 검색">
-                  </div>
-                  <div class="text-center">
-                    <button type="submit" class="btn btn-primary btn-lg text-white mt-3">
-                      검색하기
-                    </button>
+                    <form action="{% url 'search:search' %}" method="GET">
+                      {% csrf_token %}
+                      <div class="input-group mb-1">
+                          <input type="date" class="form-control form-control-lg my-4" name="date" data-placeholder="날짜 선택">
+                      </div>
+                      <div class="mb-2">
+                          <input type="search" class="form-control form-control-lg" name="name" placeholder="(옵션) 전시회 키워드 검색">
+                      </div>
+                      <div class="mb-2">
+                          {% for genre in form.category %}
+                          <div class="form-check form-check-inline">
+                              {{ genre }}
+                          </div>
+                          {% endfor %}
+                      </div>
+                      <div class="text-center">
+                          <button type="submit" class="btn btn-primary btn-lg text-white mt-3">
+                              검색하기
+                          </button>
+                      </div>
+                  </form>
+
+                    <div class="flex-row mt-3">
+                        {% if searched_name %}
+                        <p class="h5">전시회명 : {{ searched_name }}</p>
+                        {% endif %}
+                        {% if searched_date %}
+                        <p class="h5">날짜 : {{searched_date}}</p>
+                        {% endif %}
+                        {% if searched_genre %}
+                        <p class="h5">장르명 : {% for genre in searched_genre %}{{ genre }}<br>{% endfor %}</p>
+                        {% endif %}
+                    </div>
                   </div>
                 </form>
             </div>
         </div>
 
     <!-- Start Info -->
-        <div class="d-flex bg-white shadow my-5">
-            <div class="d-flex text-start m-3 p-5 col-3">
-              <div class="flex-column">
-              {% if searched_name %}
-                <p class="h2 fw-bold">전시회명 : {{ searched_name }}</p>
-              {% endif %}
-              {% if searched_date %}
-                <p class="h2 fw-bold">날짜 : {{searched_date}}</p>
-              {% endif %}
-              {% if searched_genre %}
-                <p class="h2 fw-bold">장르명 : {{ searched_genre }}</p>
-              {% endif %}
-            </div>
-          </div>
-            <div class="d-flex flex-column p-5 m-3 col-8">
+        <div class="container d-flex flex-column shadow my-5">
+            <div class="d-flex flex-row flex-wrap p-5 m-3">
                 {% if exhibits %}
-                  {% for exhibit in exhibits %}
-                  <div class="d-flex flex-row my-5">
-                      <img src="{{exhibit.P_Img}}" class="pic-sm m-3 searchSize" value="이미지 삽입"/>
-                      <div class="d-flex flex-column p-3">
-                          <p class="h3">{{exhibit.P_name}}</p>
-                          <p>{{exhibit.P_startdate}} - {{exhibit.P_enddate}}</p>
-                          <br/>
-                          <a href="{% url 'exhibit:exhibition' exhibit.id %}" class="text-decoration-line-underline text-light">자세히 보기</a>
-                      </div>
-                  </div>
-                  {% endfor %}
-                  <div class="pagination">
-                    <span class="step-links">
-                      {% if exhibits.has_previous %}
-                          <a href="?page=1{% if searched_name %}&name={{ searched_name }}{% endif %}{% if searched_date %}&date={{ searched_date }}{% endif %}{% if searched_genre %}&genre={{ searched_genre }}{% endif %}">&laquo; first</a>
-                          <a href="?page={{ exhibits.previous_page_number }}{% if searched_name %}&name={{ searched_name }}{% endif %}{% if searched_date %}&date={{ searched_date }}{% endif %}{% if searched_genre %}&genre={{ searched_genre }}{% endif %}">previous</a>
-                      {% endif %}
-
-                      <span class="current">
-                          Page {{ exhibits.number }} of {{ exhibits.paginator.num_pages }}.
-                      </span>
-
-                      {% if exhibits.has_next %}
-                          <a href="?page={{ exhibits.next_page_number }}{% if searched_name %}&name={{ searched_name }}{% endif %}{% if searched_date %}&date={{ searched_date }}{% endif %}{% if searched_genre %}&genre={{ searched_genre }}{% endif %}">next</a>
-                          <a href="?page={{ exhibits.paginator.num_pages }}{% if searched_name %}&name={{ searched_name }}{% endif %}{% if searched_date %}&date={{ searched_date }}{% endif %}{% if searched_genre %}&genre={{ searched_genre }}{% endif %}">last &raquo;</a>
-                      {% endif %}
-                    </span>
-                  </div>
+                    {% for exhibit in exhibits %}
+                    <div class="card d-flex flex-column mx-2 my-2">
+                        <a href="{% url 'exhibit:exhibition' exhibit.id %}" class="text-decoration-none text-dark">
+                        <img src="{{exhibit.P_Img}}" class="pic-sm m-3 searchSize" value="이미지 삽입"/>
+                        <div class="d-flex flex-column flex-wrap p-3">
+                            <p class="flex-wrap">{{exhibit.P_name}}</p>
+                            <p class="fs-6 mb-3">{{exhibit.P_startdate}} - {{exhibit.P_enddate}}</p>
+                        </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                  
+                    <div class="pagination align-items-center justify-content-center">
+                        <span class="step-links">
+                            {% if exhibits.has_previous %}
+                                <a href="{% url 'search:search' %}?page=1{% if searched_name %}&name={{ searched_name }}{% endif %}{% if request.GET.date %}&date={{ request.GET.date }}{% endif %}{% for genre in searched_genre %}&category={{ genre }}{% endfor %}" class="text-decoration-none">
+                                    <i class="fa fa-solid fa-angle-left"></i>
+                                </a>
+                                <a href="{% url 'search:search' %}?page={{ exhibits.previous_page_number }}{% if searched_name %}&name={{ searched_name }}{% endif %}{% if request.GET.date %}&date={{ request.GET.date }}{% endif %}{% for genre in searched_genre %}&category={{ genre }}{% endfor %}" class="text-decoration-none">
+                                    <i class="fa fa-solid fa-angle-double-left"></i>
+                                </a>
+                            {% endif %}
+                            
+                            <span class="current">
+                                Page {{ exhibits.number }} of {{ exhibits.paginator.num_pages }}.
+                            </span>
+                    
+                            {% if exhibits.has_next %}
+                                <a href="{% url 'search:search' %}?page={{ exhibits.next_page_number }}{% if searched_name %}&name={{ searched_name }}{% endif %}{% if request.GET.date %}&date={{ request.GET.date }}{% endif %}{% for genre in searched_genre %}&category={{ genre }}{% endfor %}" class="text-decoration-none">
+                                    <i class="fa fa-solid fa-angle-right"></i>
+                                </a>
+                                <a href="{% url 'search:search' %}?page={{ exhibits.paginator.num_pages }}{% if searched_name %}&name={{ searched_name }}{% endif %}{% if request.GET.date %}&date={{ request.GET.date }}{% endif %}{% for genre in searched_genre %}&category={{ genre }}{% endfor %}" class="text-decoration-none">
+                                    <i class="fa fa-solid fa-angle-double-right"></i>
+                                </a>
+                            {% endif %}
+                        </span>
+                    </div>
+                
                 {% else %}
                   <p> 검색 결과가 없습니다 </p>
                 {% endif %}

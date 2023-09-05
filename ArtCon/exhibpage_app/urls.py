@@ -10,4 +10,15 @@ urlpatterns = [
         views.reviews_delete,
         name="reviews_delete",
     ),
+    path(
+        "<int:performance_pk>/reviews/<int:review_pk>/like/",
+        views.review_likes,
+        name="review_likes",
+    ),
+    path("<int:perform_id>/follow", views.follow_perform, name="follow_exhibition"),
+    path(
+        "<int:perform_id>/unfollow",
+        views.follow_perform,
+        name="unfollow_exhibition",
+    ),
 ]

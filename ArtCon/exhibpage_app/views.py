@@ -10,10 +10,14 @@ import datetime
 def exhibition(request, pk):
     pk = pk  # request.GET.get("exhibitID")
     performance_data = list(Performance.objects.filter(id__exact=pk).values())
+    is_followed = False
+    if request.user.is_authenticated:
+        user_followed_perform = [
+            perform["P_id"] for perform in request.user.followed_perform.values("P_id")
+        ]
+        is_followed = performance_data[0]["P_id"] in user_followed_perform
     p_location = performance_data[0]["L_name"].split()[0]
     location = list(Location.objects.filter(L_name__startswith=p_location).values())
-    performance_data[0]["la"] = location[0]["L_la"]
-    performance_data[0]["lo"] = location[0]["L_lo"]
     reviews = Review.objects.filter(P_id=pk)
     review_form = ReviewForm()
     user_id = request.user.username
@@ -33,19 +37,21 @@ def exhibition(request, pk):
     if num_review > 0:
         for review in reviews:
             total_rank += int(review.rank)
-        avg_rank = f"{(total_rank / num_review):.1f}"
+        avg_rank = float(total_rank / num_review)
     else:
-        avg_rank = f"{0:.1f}"
+        avg_rank = 0.0
 
     context = {
         "pk": pk,
         "exhibit": performance_data,
+        "la": location[0]["L_la"],
+        "lo": location[0]["L_lo"],
         "reviews": reviews,
         "forms": review_form,
         "avg_rank": avg_rank,
+        "is_followed": is_followed,  # 추가
     }
-
-    logging(log_text)
+    avg_rank
 
     return render(request, "exhibpage_app/single.html", context=context)
 
@@ -59,6 +65,7 @@ def reviews_create(request, pk):
             review = review_form.save(commit=False)
             review.P_id = article
             review.username = request.user
+            review.Perform_id = pk
             print("Before saving:", review)  # Debugging line
             review.save()
             print("After saving:", review)  # Debugging line
@@ -80,3 +87,30 @@ def logging(log_dict):
     with open('../test.log', 'a', encoding='utf-8') as f:
         text = json.dumps(log_dict) + '\n'
         f.write(text)
+
+@require_POST
+def review_likes(request, performance_pk, review_pk):
+    if request.user.is_authenticated:
+        review = get_object_or_404(Review, id=review_pk)
+
+        if review.like_users.filter(pk=request.user.pk).exists():
+            review.like_users.remove(request.user)
+        else:
+            review.like_users.add(request.user)
+        return redirect("exhibit:exhibition", performance_pk)
+    return redirect("authpage_app:login")
+
+
+def follow_perform(request, perform_id):
+    if request.user.is_authenticated:
+        perform = get_object_or_404(Performance, id=perform_id)
+        person = request.user
+
+        if perform in person.followed_perform.all():
+            person.followed_perform.remove(perform)
+            print("언팔로우")
+        else:
+            person.followed_perform.add(perform)
+            print("팔로우")
+
+    return redirect("exhibit:exhibition", perform_id)

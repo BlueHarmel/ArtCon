@@ -122,5 +122,28 @@ input .form-control{
 
 .carousel-item > a {
   text-decoration : none;
-  color :rgb(65, 65, 65)
+  color :rgb(65, 65, 65);
 }
+
+.navbar > .nav-link > div:hover {
+  background-color: #902923;
+}
+
+.btn-un {
+  display: inline-flex;
+}
+
+.btn-un:hover {
+  /* disable hover effect */
+  color: #D6D5C9 !important;
+}
+
+.btn-un:active, .btn-un:focus {
+  border:none;
+  outline: none !important;
+  box-shadow: none !important;
+  
+}
+
+
+

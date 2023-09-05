@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import auth
 from .models import User
-from exhibpage_app.models import Performance
+from exhibpage_app.models import Performance, Review
 import re
 import random
 from django.db.models import Count
@@ -99,3 +99,15 @@ def register(request):
             res_data["success"] = "ok"
         print(res_data)
         return render(request, "authpage_app/register.html", res_data)
+
+
+def myPage(request):
+    person = request.user
+    followed_perform = person.followed_perform.all()
+    my_reviews = Review.objects.filter(username=person)
+    context = {
+        "followed_perform": followed_perform,
+        "my_reviews": my_reviews,
+    }
+
+    return render(request, "authpage_app/mypage.html", context)
