@@ -2,3 +2,5 @@ ArtCon/secrets.json
 __pycache__/
 *.crt
 *.key
+*.csv
+*.npz
