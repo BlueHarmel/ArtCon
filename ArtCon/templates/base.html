@@ -52,7 +52,7 @@
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">
-                    <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-6 pr-1">
+                    <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-6">
                         <div class="input-group">
                             <input type="text" class="form-control" id="inputMobileSearch" placeholder="전시회 검색">
                             <div class="input-group-text">
@@ -64,8 +64,8 @@
                         <i class="fa fa-fw fa-search text-dark"></i>
                     </a>
                     {% if user.is_authenticated %}
-                    <form method="POST" action="{% url 'logout' %}" class="ml-2"> {% csrf_token %}
-                        <a href="{% url 'authpage_app:myPage' %}" class="text-dark fs-6 text-normal text-decoration-none">마이페이지</a>
+                    <form method="POST" action="{% url 'logout' %}" > {% csrf_token %}
+                        <a href="{% url 'authpage_app:myPage' %}" class="text-dark fs-6 text-normal text-decoration-none mx-1">마이페이지</a>
                         <button type="submit" class="btn btn-primary ml-3">로그아웃</button>
                     </form>
                     {% endif %}
