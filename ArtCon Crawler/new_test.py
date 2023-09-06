@@ -6,7 +6,13 @@ import re
 from scipy import sparse
 import numpy as np
 
-past_pf = pd.read_csv("ArtCon Crawler/performance_post_detail.csv", encoding="cp949")
+pre_pf = pd.read_csv("ArtCon Crawler/p_pre.csv", encoding="utf-8")
+now_pf = pd.read_csv("ArtCon Crawler/p_now.csv", encoding="utf-8")
+post_pf = pd.read_csv("ArtCon Crawler/performance_post_detail.csv", encoding="utf-8")
+
+merged_pf = pd.concat([pre_pf, now_pf])
+merged_pf = pd.concat([merged_pf, post_pf])
+print(len(pre_pf), len(now_pf), len(merged_pf))
 
 
 # 'prfcast' 및 'prfcrew' 열의 데이터 처리
@@ -25,8 +31,8 @@ def process_str(text):
         return []
 
 
-for feature in ["prfcast", "prfcrew"]:
-    past_pf[feature] = past_pf[feature].apply(process_str)
+for feature in ["prfnm", "prfcast", "prfcrew"]:
+    merged_pf[feature] = merged_pf[feature].apply(process_str)
 
 
 def create_soup(x):
@@ -39,11 +45,11 @@ def create_soup(x):
     )
 
 
-past_pf["soup"] = past_pf.apply(create_soup, axis=1)
+merged_pf["soup"] = merged_pf.apply(create_soup, axis=1)
 okt = Okt()
 stopwords = ["을", "를", "이", "가", "은", "는"]
 
 tfidf_vectorizer = TfidfVectorizer(tokenizer=okt.morphs, stop_words=stopwords)
-tfidf_matrix = tfidf_vectorizer.fit_transform(past_pf["soup"])
+tfidf_matrix = tfidf_vectorizer.fit_transform(merged_pf["soup"])
 print(tfidf_matrix)
 sparse.save_npz("test.npz", tfidf_matrix)

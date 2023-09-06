@@ -21,61 +21,70 @@
                 <div class="col-lg-7 col-md-7 mt-5">
                     <div class="card mb-5 p-3">
                         <div class="card-body h-100">
-                            <div class="d-flex flex-row">
+                          <div class="d-flex flex-row align-items-center justify-content-between">
+                            <div class="d-flex flex-column">
+                              <div class="d-flex flex-row">
                                 <h3 class="h3 fw-bold px-3">{{ exhibit.0.P_name }}
-                                    <div class="d-inline-flex text-nowrap fs-6 border rounded-3 p-1">전시회</div>
+                                    <div class="d-inline-flex text-nowrap fs-6 border rounded-3 p-1">공연</div>
                                 </h3>   
+                              </div>
+                              <p class="py-2 px-3 mb-5">
+                                {% if avg_rank >= 0 and avg_rank < 1 %}
+                                  <i class="fa fa-star text-secondary"></i>
+                                  <i class="fa fa-star text-secondary"></i>
+                                  <i class="fa fa-star text-secondary"></i>
+                                  <i class="fa fa-star text-secondary"></i>
+                                  <i class="fa fa-star text-secondary"></i>
+                                  {% elif avg_rank >= 1 and avg_rank < 2 %}
+                                  <i class="fa fa-star text-warning"></i>
+                                  <i class="fa fa-star text-secondary"></i>
+                                  <i class="fa fa-star text-secondary"></i>
+                                  <i class="fa fa-star text-secondary"></i>
+                                  <i class="fa fa-star text-secondary"></i>
+                                  {% elif avg_rank >= 2 and avg_rank < 3 %}
+                                  <i class="fa fa-star text-warning"></i>
+                                  <i class="fa fa-star text-warning"></i>
+                                  <i class="fa fa-star text-secondary"></i>
+                                  <i class="fa fa-star text-secondary"></i>
+                                  <i class="fa fa-star text-secondary"></i>
+                                  {% elif avg_rank >= 3 and avg_rank < 4 %}
+                                  <i class="fa fa-star text-warning"></i>
+                                  <i class="fa fa-star text-warning"></i>
+                                  <i class="fa fa-star text-warning"></i>
+                                  <i class="fa fa-star text-secondary"></i>
+                                  <i class="fa fa-star text-secondary"></i>
+                                  {% elif avg_rank >= 4 and avg_rank < 5 %}
+                                  <i class="fa fa-star text-warning"></i>
+                                  <i class="fa fa-star text-warning"></i>
+                                  <i class="fa fa-star text-warning"></i>
+                                  <i class="fa fa-star text-warning"></i>
+                                  <i class="fa fa-star text-secondary"></i>
+                                {% else %}
+                                <i class="fa fa-star text-warning"></i>
+                                <i class="fa fa-star text-warning"></i>
+                                <i class="fa fa-star text-warning"></i>
+                                <i class="fa fa-star text-warning"></i>
+                                <i class="fa fa-star text-warning"></i>
+                                {% endif %}
+                                  <span class="list-inline-item text-dark mx-2">평점 {{avg_rank}}</span>
+                              </p>
                             </div>
-
-                            <p class="py-2 px-3 mb-5">
-                              {% if avg_rank >= 0 and avg_rank < 1 %}
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                {% elif avg_rank >= 1 and avg_rank < 2 %}
-                                <i class="fa fa-star text-warning"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                {% elif avg_rank >= 2 and avg_rank < 3 %}
-                                <i class="fa fa-star text-warning"></i>
-                                <i class="fa fa-star text-warning"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                {% elif avg_rank >= 3 and avg_rank < 4 %}
-                                <i class="fa fa-star text-warning"></i>
-                                <i class="fa fa-star text-warning"></i>
-                                <i class="fa fa-star text-warning"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                {% elif avg_rank >= 4 and avg_rank < 5 %}
-                                <i class="fa fa-star text-warning"></i>
-                                <i class="fa fa-star text-warning"></i>
-                                <i class="fa fa-star text-warning"></i>
-                                <i class="fa fa-star text-warning"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                              {% else %}
-                              <i class="fa fa-star text-warning"></i>
-                              <i class="fa fa-star text-warning"></i>
-                              <i class="fa fa-star text-warning"></i>
-                              <i class="fa fa-star text-warning"></i>
-                              <i class="fa fa-star text-warning"></i>
-                              {% endif %}
-                                <span class="list-inline-item text-dark mx-2">평점 {{avg_rank}}</span>
-                            </p>
-                            {% if request.user.is_authenticated %}
+                            <div class="px-3">
+                              {% if request.user.is_authenticated %}
                             {% if is_followed %}
-                              <a href="{% url 'exhibit:unfollow_exhibition' pk %}">Unfollow</a>
+                              <a href="{% url 'exhibit:unfollow_exhibition' pk %}">찜풀기</a>
                             {% else %}
-                              <a href="{% url 'exhibit:follow_exhibition' pk %}">Follow</a>
+                              <a href="{% url 'exhibit:follow_exhibition' pk %}">찜하기</a>
                             {% endif %}
                           {% else %}
                             <a href="{% url 'authpage_app:login' %}">Login to Follow</a>
                           {% endif %}
+                            </div>
+                            
+                          </div>
+                          
+                            
+                            
 
                             <div class="d-flex flex-row align-items-center justify-content-between mb-5 px-3">
                                 <div class="d-flex flex-column">
@@ -127,52 +136,49 @@
                 </div>
             </div>
             <div class="m-5">
-              <p class="fs-2 fw-bold">REVIEWS ({{ reviews|length }})</p>
+              <p class="fs-3 fw-bold">리뷰 ({{ reviews|length }})</p>
               <hr class="border border-primary">
               <div class="m-3"></div>
               <!--read-->
               {% if reviews %}
 
               {% endif %}
-              <ul>
+              <ul class="list-unstyled">
                 {% for review in reviews %}
                   <li>
                     {{ review.username }} - {{ review.rank }} - {{ review.contents }}
                     <form action="{% url 'exhibit:review_likes' pk review.pk %}" method='POST'>
                         {% csrf_token %}
                         {% if user in review.like_users.all %}
-                        <button type="submit" class="btn-un btn text-primary" data-bs-toggle="button">
+                        <button type="submit" class="btn-un btn text-primary">
                           <i class="far fa-thumbs-down"></i> {{ review.like_users.count }}
                         </button>
                         {% else %}
-                        <button type="submit" class="btn-un btn text-primary" data-bs-toggle="button">
+                        <button type="submit" class="btn-un btn text-primary">
                           <i class="far fa-thumbs-up"></i> {{ review.like_users.count }}
                         </button>
                         {% endif %}
-                      </form>
+                    </form>
                     <!--delete-->
-                    <div>
-                    {% if user == review.username %}
+                        {% if user == review.username %}
                       <form action="{% url 'exhibit:reviews_delete' pk review.pk %}" method="POST" class="d-inline">
                         {% csrf_token %}
                         <button type="submit" class="btn-Secondary rounded-2">
                           <i class="fas fa-trash-alt"></i>
                        </button>
                       </form>
-                    </div>
-                    {% endif %}
+                        {% endif %}
                   </li>
                 {% empty %}
                   <p>리뷰가 없어요..</p>
                 {% endfor %}
               </ul>
               
+              <hr>
               
               <!--create-->
               {% if request.user.is_authenticated %}
                 <form action="{% url 'exhibit:reviews_create' pk %}" method="POST">
-                  <hr class="border border-primary">
-                  <div class="m-3"></div>
                   <div class="input-group mb-5">
                   {% csrf_token %}
                   {% for form in forms %}

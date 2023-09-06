@@ -180,6 +180,7 @@ def comments_delete(request, article_pk, comment_pk):
             comment.delete()
     return redirect("board:board_single", article_pk)
 
+
 @require_POST
 def comment_likes(request, article_pk, comment_pk):
     if request.user.is_authenticated:
