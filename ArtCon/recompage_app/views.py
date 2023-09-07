@@ -3,6 +3,7 @@ from django.urls import reverse
 import pandas as pd
 from django.core import serializers
 from sklearn.feature_extraction.text import TfidfVectorizer
+
 # from konlpy.tag import Okt
 # from konlpy.tag import Okt
 from sklearn.metrics.pairwise import linear_kernel
@@ -22,15 +23,24 @@ from . import recommend_test
 # exhibition_names = []
 
 gender_age = {
-    'man_10_1': 'PF198878', 'man_10_2': 'PF189859',
-    'man_20_1': 'PF192964', 'man_20_2': 'PF192978',
-    'man_30_1': 'PF194963', 'man_30_2': 'PF145857',
-    'man_40_1': 'PF194963', 'man_40_2': 'PF195242',
-    'woman_10_1': 'PF196584', 'woman_10_2': 'PF198891',
-    'woman_20_1': 'PF192964', 'woman_20_2': 'PF191916',
-    'woman_30_1': 'PF138393', 'woman_30_2': 'PF145857',
-    'woman_40_1': 'PF194963', 'woman_40_2': 'PF195242'
-    }
+    "man_10_1": "PF198878",
+    "man_10_2": "PF189859",
+    "man_20_1": "PF192964",
+    "man_20_2": "PF192978",
+    "man_30_1": "PF194963",
+    "man_30_2": "PF145857",
+    "man_40_1": "PF194963",
+    "man_40_2": "PF195242",
+    "woman_10_1": "PF196584",
+    "woman_10_2": "PF198891",
+    "woman_20_1": "PF192964",
+    "woman_20_2": "PF191916",
+    "woman_30_1": "PF138393",
+    "woman_30_2": "PF145857",
+    "woman_40_1": "PF194963",
+    "woman_40_2": "PF195242",
+}
+
 
 # def recommend(request):
 #     pass
@@ -42,28 +52,28 @@ def recommend(request):
         return redirect(url)
     if request.method == "GET":
         print(10)
-        pfcodes = recommend_test.get_recommend(gender_age['woman_20_1'])
+        followed = request.user.followed_perform.all()
+        same_pfcodes = recommend_test.get_recommend(gender_age["woman_20_1"])
+        jjim_pfcodes = recommend_test.get_recommend(followed[0].P_id)
         print(20)
-        exhibits = list(Performance.objects.filter(P_id__in=pfcodes).values())
-        context = {"exhibits": exhibits}
-        pprint.pprint(exhibits)
+        same_exhibits = list(Performance.objects.filter(P_id__in=same_pfcodes).values())
+        jjim_exhibits = list(Performance.objects.filter(P_id__in=jjim_pfcodes).values())
+        context = {"same_exhibits": same_exhibits, "jjim_exhibits": jjim_exhibits}
         return render(request, "recompage_app/recommend.html", context=context)
-# def recommend(request):
-#     return render(request, "recompage_app/recommend.html")
+    # def recommend(request):
+    #     return render(request, "recompage_app/recommend.html")
 
-
-# Create your views here.
-# def recommend(request):
-#    if request.user.is_anonymous:
-#        messages.warning(request, "로그인 후 이용가능합니다")
-#        url = reverse("authpage_app:login")
-#        return redirect(url)
-#    if request.method == "GET":
-#        rec_id = get_recommendations(request)
-#        exhibits = list(Performance.objects.filter(id__in=rec_id).values())
-#        context = {"exhibits": exhibits}
-#        return render(request, "recompage_app/recommend.html", context=context)
-
+    # Create your views here.
+    # def recommend(request):
+    #    if request.user.is_anonymous:
+    #        messages.warning(request, "로그인 후 이용가능합니다")
+    #        url = reverse("authpage_app:login")
+    #        return redirect(url)
+    #    if request.method == "GET":
+    #        rec_id = get_recommendations(request)
+    #        exhibits = list(Performance.objects.filter(id__in=rec_id).values())
+    #        context = {"exhibits": exhibits}
+    #        return render(request, "recompage_app/recommend.html", context=context)
 
     if request.method == "POST":
         latLng = request.body.decode("utf-8")

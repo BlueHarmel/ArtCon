@@ -104,6 +104,7 @@ def register(request):
 def myPage(request):
     person = request.user
     followed_perform = person.followed_perform.all()
+    print(followed_perform[0].P_id)
     my_reviews = Review.objects.filter(username=person)
     context = {
         "followed_perform": followed_perform,
