@@ -54,10 +54,15 @@ def recommend(request):
         print(10)
         followed = request.user.followed_perform.all()
         same_pfcodes = recommend_test.get_recommend(gender_age["woman_20_1"])
-        jjim_pfcodes = recommend_test.get_recommend(followed[0].P_id)
-        print(20)
         same_exhibits = list(Performance.objects.filter(P_id__in=same_pfcodes).values())
-        jjim_exhibits = list(Performance.objects.filter(P_id__in=jjim_pfcodes).values())
+        if followed:
+            jjim_pfcodes = recommend_test.get_recommend(followed[0].P_id)
+            jjim_exhibits = list(
+                Performance.objects.filter(P_id__in=jjim_pfcodes).values()
+            )
+        else:
+            jjim_exhibits = []
+        print(20)
         context = {"same_exhibits": same_exhibits, "jjim_exhibits": jjim_exhibits}
         return render(request, "recompage_app/recommend.html", context=context)
     # def recommend(request):
@@ -77,6 +82,7 @@ def recommend(request):
 
     if request.method == "POST":
         latLng = request.body.decode("utf-8")
+        # print(latLng.split("&")[0])
         s = latLng.split("&")[0][2:]
         w = latLng.split("&")[1][2:]
         n = latLng.split("&")[2][2:]
@@ -84,7 +90,9 @@ def recommend(request):
         # print('****swne****')
         # print(s,w,n,e)
         location = list(
-            Location.objects.filter(x__gte=s, x__lte=n, y__gte=w, y__lte=e).values()
+            Location.objects.filter(
+                L_lo__gte=s, L_lo__lte=n, L_la__gte=w, L_la__lte=e
+            ).values()
         )
         map_exhibits = []
         # print('****location****')

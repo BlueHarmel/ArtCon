@@ -73,6 +73,7 @@ def get_recommend(pfcode):
         prfdate = datetime.datetime(year, month, date)
         if prfdate > today:
             res_list.append(row["mt20id"])
-        if len(res_list) >= 5:
+        if len(res_list) >= 7:
             break
+    res_list = res_list[1:-1]
     return res_list
