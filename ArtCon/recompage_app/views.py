@@ -4,21 +4,33 @@ import pandas as pd
 from django.core import serializers
 from sklearn.feature_extraction.text import TfidfVectorizer
 # from konlpy.tag import Okt
-from konlpy.tag import Okt
+# from konlpy.tag import Okt
 from sklearn.metrics.pairwise import linear_kernel
 import re
+import pprint
 from exhibpage_app.models import Performance
 from authpage_app.models import User
 from exhibpage_app.models import Location
 from django.http import JsonResponse
 from django.contrib import messages
+from . import recommend_test
 
-stopwords = ["을", "를", "이", "가", "은", "는"]
-okt = Okt()
-tfidf_vectorizer = TfidfVectorizer(tokenizer=okt.morphs, stop_words=stopwords)
+# stopwords = ["을", "를", "이", "가", "은", "는"]
+# okt = Okt()
+# tfidf_vectorizer = TfidfVectorizer(tokenizer=okt.morphs, stop_words=stopwords)
 
-exhibition_names = []
+# exhibition_names = []
 
+gender_age = {
+    'man_10_1': 'PF198878', 'man_10_2': 'PF189859',
+    'man_20_1': 'PF192964', 'man_20_2': 'PF192978',
+    'man_30_1': 'PF194963', 'man_30_2': 'PF145857',
+    'man_40_1': 'PF194963', 'man_40_2': 'PF195242',
+    'woman_10_1': 'PF196584', 'woman_10_2': 'PF198891',
+    'woman_20_1': 'PF192964', 'woman_20_2': 'PF191916',
+    'woman_30_1': 'PF138393', 'woman_30_2': 'PF145857',
+    'woman_40_1': 'PF194963', 'woman_40_2': 'PF195242'
+    }
 
 # def recommend(request):
 #     pass
@@ -29,11 +41,15 @@ def recommend(request):
         url = reverse("authpage_app:login")
         return redirect(url)
     if request.method == "GET":
-        exhibits = list(Performance.objects.filter(id__in=[1,2,3,4,5]).values())
+        print(10)
+        pfcodes = recommend_test.get_recommend(gender_age['woman_20_1'])
+        print(20)
+        exhibits = list(Performance.objects.filter(P_id__in=pfcodes).values())
         context = {"exhibits": exhibits}
+        pprint.pprint(exhibits)
         return render(request, "recompage_app/recommend.html", context=context)
-def recommend(request):
-    return render(request, "recompage_app/recommend.html")
+# def recommend(request):
+#     return render(request, "recompage_app/recommend.html")
 
 
 # Create your views here.

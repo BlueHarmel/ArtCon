@@ -52,6 +52,7 @@ def exhibition(request, pk):
         "is_followed": is_followed,  # 추가
     }
     avg_rank
+    logging(log_text)
 
     return render(request, "exhibpage_app/single.html", context=context)
 

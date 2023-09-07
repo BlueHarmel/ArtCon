@@ -15,11 +15,6 @@ from django.core.exceptions import ImproperlyConfigured
 from pathlib import Path
 import pymysql
 
-# SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-# SECURE_SSL_REDIRECT = True
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
-
 
 
 
@@ -72,7 +67,6 @@ INSTALLED_APPS = [
     "django_summernote",
     "django_social_share",
     "django_elasticsearch_dsl",
-    # "django_sslserver2"
 ]
 
 MIDDLEWARE = [

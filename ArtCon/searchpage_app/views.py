@@ -7,55 +7,13 @@ import json
 import time
 from authpage_app.models import User
 
-def search(request):
-    print(request.GET)
-    user_id = request.user.username
-    searched_name = request.GET.get("name", "")
-    searched_date = request.GET.get("date", "")
-    searched_genre = request.GET.get("genre", "")
-    context = {}
-    form = SearchForm(request.GET)
-
-    if form.is_valid():
-        searched_name = form.cleaned_data.get("name")
-        searched_date = form.cleaned_data.get("date")
-        searched_genre = form.cleaned_data.get("category")
-        exhibits = Performance.objects.all()
-
-    # log dict
-    if user_id:
-        # user_data = User.objects.filter(username__exact=user_id)
-        # print(user_data)
-        # user_age = user_data[0]['age']
-        # user_gender = user_data[0]['gender']
-        user_age = ''
-        user_gender = ''
-    else:
-        user_age = ''
-        user_gender = ''
-    log_text = {'user_id': user_id, 'user_age': user_age, 'user_gender': user_gender, 'page': 'searchpage', 'searched_name': searched_name, 'searched_date': searched_date, 'searched_genre': searched_genre}
-    
-
-    if searched_name:
-        exhibits = exhibits.filter(P_name__contains=searched_name)
-        context["searched_name"] = searched_name
-    if searched_date:
-        exhibits = exhibits.filter(
-            P_startdate__lte=searched_date, P_enddate__gte=searched_date
-        )
-        context["searched_date"] = searched_date
-    if searched_genre:
-        exhibits = exhibits.filter(P_genre__contains=searched_genre)
-        context["searched_genre"] = searched_genre
-from .forms import SearchForm
-from exhibpage_app.models import Performance
-
 
 def search(request):
     context = {}
     form = SearchForm(request.GET)
 
     if form.is_valid():
+        user_id = request.user.username
         searched_name = form.cleaned_data.get("name")
         searched_date = form.cleaned_data.get("date")
         searched_genre = form.cleaned_data.get("category")
@@ -128,6 +86,17 @@ def search(request):
                 query_params.urlencode() != request.GET.urlencode()
             ):  # 검색 조건이 변경되었을 때만 리다이렉트 수행
                 return redirect(request.path_info + "?" + query_params.urlencode())
+    if user_id:
+        user_data = User.objects.filter(username__exact=user_id)
+        print(user_data)
+        # user_age = user_data[0]['age']
+        # user_gender = user_data[0]['gender']
+        user_age = ''
+        user_gender = ''
+    else:
+        user_age = ''
+        user_gender = ''
+    log_text = {'user_id': user_id, 'user_age': user_age, 'user_gender': user_gender, 'page': 'searchpage', 'searched_name': searched_name, 'searched_date': searched_date, 'searched_genre': searched_genre}
     logging(log_text)
     context["form"] = form
 
