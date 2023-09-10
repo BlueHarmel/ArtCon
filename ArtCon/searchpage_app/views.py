@@ -96,7 +96,7 @@ def search(request):
     else:
         user_age = ''
         user_gender = ''
-    log_text = {'user_id': user_id, 'user_age': user_age, 'user_gender': user_gender, 'page': 'searchpage', 'searched_name': searched_name, 'searched_date': searched_date, 'searched_genre': searched_genre}
+    log_text = {'user_id': user_id, 'user_age': user_age, 'user_gender': user_gender, 'page': 'searchpage', 'searched_name': searched_name, 'searched_date': str(searched_date), 'searched_genre': searched_genre}
     logging(log_text)
     context["form"] = form
 

@@ -14,6 +14,7 @@ from exhibpage_app.models import Location
 from django.http import JsonResponse
 from django.contrib import messages
 from . import recommend_test
+from datetime import datetime
 
 # stopwords = ["을", "를", "이", "가", "은", "는"]
 # okt = Okt()
@@ -21,7 +22,13 @@ from . import recommend_test
 
 # exhibition_names = []
 
-gender_age = {
+
+# def recommend(request):
+#     pass
+# Create your views here.
+# 2023 10대: 2014~2004, 20대: 2003~1993, 30대: 1992~1982, 40대: 1981~1971
+def get_age_pfcode(user_id):
+    gender_age = {
     'man_10_1': 'PF198878', 'man_10_2': 'PF189859',
     'man_20_1': 'PF192964', 'man_20_2': 'PF192978',
     'man_30_1': 'PF194963', 'man_30_2': 'PF145857',
@@ -31,18 +38,47 @@ gender_age = {
     'woman_30_1': 'PF138393', 'woman_30_2': 'PF145857',
     'woman_40_1': 'PF194963', 'woman_40_2': 'PF195242'
     }
+    user_data = list(User.objects.filter(username__exact=user_id).values())[0]
+    user_birth = datetime.strptime(str(user_data['birth']), '%Y-%m-%d')
+    print(user_birth)
+    today = datetime.now()
+    age_10 = datetime.strptime('2014-01-01','%Y-%m-%d')
+    age_20 = datetime.strptime('2003-01-01','%Y-%m-%d')
+    age_30 = datetime.strptime('1982-01-01','%Y-%m-%d')
+    age_40 = datetime.strptime('1971-01-01','%Y-%m-%d')
+    if user_data['gender'] == 1:
+        if user_birth < age_20:
+            return list(gender_age['man_10_1'], gender_age['man_10_2'])
+        elif age_20 <= user_birth and user_birth < age_30:
+            return list(gender_age['man_20_1'], gender_age['man_20_2'])
+        elif age_30 <= user_birth and user_birth < age_40:
+            return list(gender_age['man_30_1'], gender_age['man_30_2'])
+        else:
+            return [gender_age['man_40_1'], gender_age['man_40_2']]
+    else:
+        if user_birth < age_20:
+            return list(gender_age['woman_10_1'], gender_age['woman_10_2'])
+        elif age_20 <= user_birth and user_birth < age_30:
+            return list(gender_age['woman_20_1'], gender_age['woman_20_2'])
+        elif age_30 <= user_birth and user_birth < age_40:
+            return list(gender_age['woman_30_1'], gender_age['woman_30_2'])
+        else:
+            return list(gender_age['woman_40_1'], gender_age['woman_40_2'])
+    # print(type(user_birth))
+    # print(user_birth)
+    # print(user_data)
+    
 
-# def recommend(request):
-#     pass
-# Create your views here.
 def recommend(request):
     if request.user.is_anonymous:
         messages.warning(request, "로그인 후 이용가능합니다")
         url = reverse("authpage_app:login")
         return redirect(url)
     if request.method == "GET":
+        user_id = request.user.username
+        user_gender_age = get_age_pfcode(user_id)
         print(10)
-        pfcodes = recommend_test.get_recommend(gender_age['woman_20_1'])
+        pfcodes = recommend_test.get_recommend(user_gender_age)
         print(20)
         exhibits = list(Performance.objects.filter(P_id__in=pfcodes).values())
         context = {"exhibits": exhibits}

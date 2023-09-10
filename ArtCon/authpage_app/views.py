@@ -61,6 +61,8 @@ def register(request):
         phone_number = request.POST.get("phone_number")
         firstname = request.POST.get("first_name")
         lastname = request.POST.get("last_name")
+        birth = request.POST.get("birthday")
+        gender = request.POST.get("gender")
         # prefer_title = request.POST.get("prefer_title")
 
         if (
@@ -70,6 +72,7 @@ def register(request):
             or lastname == ""
             or phone_number == ""
             or password1 == ""
+            or birth == ""
             # or prefer_title == ""
         ):
             res_data["empty_error"] = "모든 정보가 입력되지 않았습니다."
@@ -93,6 +96,9 @@ def register(request):
                 first_name=request.POST["first_name"],
                 last_name=request.POST["last_name"],
                 phone_number=request.POST["phone_number"],
+                birth = request.POST["birthday"],
+                gender = request.POST["gender"]
+
                 # prefer_title=request.POST["prefer_title"],
             )
             auth.login(request, user)
