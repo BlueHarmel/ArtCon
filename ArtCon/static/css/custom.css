@@ -29,7 +29,7 @@ input .form-control{
 
 .searchSize {
   aspect-ratio: 2/3;
-  width: 100px;
+  width: 250px;
   height: auto;
   object-fit:contain;
 }
@@ -103,11 +103,11 @@ input .form-control{
 }
 
 .pic-sm{
-    width: 150px;
-    height: 200px;
+    width: 200px;
+    aspect-ratio: 5/7;
     object-fit: cover;
-    margin-right: 15px;
-    margin-bottom: 30px;
+    align-self: center;
+    justify-content: center;
 }
 
 .box-size-sm {
@@ -145,5 +145,8 @@ input .form-control{
   
 }
 
-
-
+.text-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

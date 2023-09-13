@@ -36,7 +36,7 @@ def search(request):
             context["exhibits"] = None
         else:
             exhibits = exhibits.order_by("-P_startdate")
-            paginator = Paginator(exhibits, 8)
+            paginator = Paginator(exhibits, 12)
             page = request.GET.get("page", 1)
 
             try:

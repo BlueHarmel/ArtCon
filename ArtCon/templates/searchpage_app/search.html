@@ -10,14 +10,14 @@
     <!-- Close Page Title -->
 
     <!-- Start Main Function -->
-    <section class="container mt-5 mb-5">
+    <section class="container my-5">
         <div class="d-flex flex-column col-12 my-5 bg-white shadow align-items-center justify-content-center">
-            <div class="m-5 p-5 col-lg-6 col-md-8 align-items-center">
-                <p class="h3 text-center"><b class="text-primary fw-bold text-center">날짜</b>로 전시회를 검색해보세요</p>
+            <div class="m-5 p-3 col-lg-6 col-md-8 align-items-center">
+                <p class="h3 text-center mb-3"><b class="text-primary fw-bold text-center">날짜</b>로 전시회를 검색해보세요</p>
                     <form action="{% url 'search:search' %}" method="GET">
                       {% csrf_token %}
-                      <div class="input-group mb-1">
-                          <input type="date" class="form-control form-control-lg my-4" name="date" data-placeholder="날짜 선택">
+                      <div class="input-group mt-3 mb-2">
+                          <input type="date" class="form-control form-control-lg" name="date" data-placeholder="날짜 선택">
                       </div>
                       <div class="mb-2">
                           <input type="search" class="form-control form-control-lg" name="name" placeholder="(옵션) 전시회 키워드 검색">
@@ -29,13 +29,14 @@
                           </div>
                           {% endfor %}
                       </div>
-                      <div class="text-center">
-                          <button type="submit" class="btn btn-primary btn-lg text-white mt-3">
+                      <div class="text-center my-4">
+                          <button type="submit" class="btn btn-primary btn-lg text-white">
                               검색하기
                           </button>
                       </div>
                   </form>
 
+                    
                     <div class="flex-row mt-3">
                         {% if searched_name %}
                         <p class="h5">전시회명 : {{ searched_name }}</p>
@@ -47,6 +48,8 @@
                         <p class="h5">장르명 : {% for genre in searched_genre %}{{ genre }}<br>{% endfor %}</p>
                         {% endif %}
                     </div>
+                   
+
                   </div>
                 </form>
             </div>
@@ -54,45 +57,48 @@
 
     <!-- Start Info -->
         <div class="container d-flex flex-column shadow my-5">
-            <div class="d-flex flex-row flex-wrap p-5 m-3">
+            <div class="d-flex flex-row flex-wrap p-5 m-3 align-items-center justify-content-between">
                 {% if exhibits %}
                     {% for exhibit in exhibits %}
-                    <div class="card d-flex flex-column mx-2 my-2">
+                    <div class="card d-flex flex-column mx-2 my-3 p-2" style="width: 15rem; height: 25rem;">
                         <a href="{% url 'exhibit:exhibition' exhibit.id %}" class="text-decoration-none text-dark">
-                        <img src="{{exhibit.P_Img}}" class="pic-sm m-3 searchSize" value="이미지 삽입"/>
-                        <div class="d-flex flex-column flex-wrap p-3">
-                            <p class="flex-wrap">{{exhibit.P_name}}</p>
-                            <p class="fs-6 mb-3">{{exhibit.P_startdate}} - {{exhibit.P_enddate}}</p>
+                        <img src="{{exhibit.P_Img}}" class="pic-sm" value="이미지 삽입"/>
+                        <div class="d-flex flex-column flex-wrap">
+                            <p class="card-title text-overflow mb-1">{{exhibit.P_name}}</p>
+                            <p class="mb-3 card-text fs-6">{{exhibit.P_startdate}} - {{exhibit.P_enddate}}</p>
                         </div>
                         </a>
                     </div>
                     {% endfor %}
                   
-                    <div class="pagination align-items-center justify-content-center">
-                        <span class="step-links">
-                            {% if exhibits.has_previous %}
-                                <a href="{% url 'search:search' %}?page=1{% if searched_name %}&name={{ searched_name }}{% endif %}{% if request.GET.date %}&date={{ request.GET.date }}{% endif %}{% for genre in searched_genre %}&category={{ genre }}{% endfor %}" class="text-decoration-none">
-                                    <i class="fa fa-solid fa-angle-left"></i>
-                                </a>
-                                <a href="{% url 'search:search' %}?page={{ exhibits.previous_page_number }}{% if searched_name %}&name={{ searched_name }}{% endif %}{% if request.GET.date %}&date={{ request.GET.date }}{% endif %}{% for genre in searched_genre %}&category={{ genre }}{% endfor %}" class="text-decoration-none">
-                                    <i class="fa fa-solid fa-angle-double-left"></i>
-                                </a>
-                            {% endif %}
-                            
-                            <span class="current">
-                                Page {{ exhibits.number }} of {{ exhibits.paginator.num_pages }}.
+                    <div class="d-flex align-self-center justify-content-center">
+                        <div class="pagination">
+                            <span class="step-links">
+                                {% if exhibits.has_previous %}
+                                    <a href="{% url 'search:search' %}?page=1{% if searched_name %}&name={{ searched_name }}{% endif %}{% if request.GET.date %}&date={{ request.GET.date }}{% endif %}{% for genre in searched_genre %}&category={{ genre }}{% endfor %}" class="text-decoration-none">
+                                        <i class="fa fa-solid fa-angle-left"></i>
+                                    </a>
+                                    <a href="{% url 'search:search' %}?page={{ exhibits.previous_page_number }}{% if searched_name %}&name={{ searched_name }}{% endif %}{% if request.GET.date %}&date={{ request.GET.date }}{% endif %}{% for genre in searched_genre %}&category={{ genre }}{% endfor %}" class="text-decoration-none">
+                                        <i class="fa fa-solid fa-angle-double-left"></i>
+                                    </a>
+                                {% endif %}
+                                
+                                <span class="current">
+                                    Page {{ exhibits.number }} of {{ exhibits.paginator.num_pages }}.
+                                </span>
+                        
+                                {% if exhibits.has_next %}
+                                    <a href="{% url 'search:search' %}?page={{ exhibits.next_page_number }}{% if searched_name %}&name={{ searched_name }}{% endif %}{% if request.GET.date %}&date={{ request.GET.date }}{% endif %}{% for genre in searched_genre %}&category={{ genre }}{% endfor %}" class="text-decoration-none">
+                                        <i class="fa fa-solid fa-angle-right"></i>
+                                    </a>
+                                    <a href="{% url 'search:search' %}?page={{ exhibits.paginator.num_pages }}{% if searched_name %}&name={{ searched_name }}{% endif %}{% if request.GET.date %}&date={{ request.GET.date }}{% endif %}{% for genre in searched_genre %}&category={{ genre }}{% endfor %}" class="text-decoration-none">
+                                        <i class="fa fa-solid fa-angle-double-right"></i>
+                                    </a>
+                                {% endif %}
                             </span>
-                    
-                            {% if exhibits.has_next %}
-                                <a href="{% url 'search:search' %}?page={{ exhibits.next_page_number }}{% if searched_name %}&name={{ searched_name }}{% endif %}{% if request.GET.date %}&date={{ request.GET.date }}{% endif %}{% for genre in searched_genre %}&category={{ genre }}{% endfor %}" class="text-decoration-none">
-                                    <i class="fa fa-solid fa-angle-right"></i>
-                                </a>
-                                <a href="{% url 'search:search' %}?page={{ exhibits.paginator.num_pages }}{% if searched_name %}&name={{ searched_name }}{% endif %}{% if request.GET.date %}&date={{ request.GET.date }}{% endif %}{% for genre in searched_genre %}&category={{ genre }}{% endfor %}" class="text-decoration-none">
-                                    <i class="fa fa-solid fa-angle-double-right"></i>
-                                </a>
-                            {% endif %}
-                        </span>
+                        </div>
                     </div>
+                    
                 
                 {% else %}
                   <p> 검색 결과가 없습니다 </p>
