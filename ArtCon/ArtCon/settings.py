@@ -16,6 +16,8 @@ from pathlib import Path
 import pymysql
 
 
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -64,7 +66,7 @@ INSTALLED_APPS = [
     "bootstrap4",
     "django_summernote",
     "django_social_share",
-    # "django_sslserver2"
+    # "django_elasticsearch_dsl",
 ]
 
 MIDDLEWARE = [
@@ -75,7 +77,11 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    ##
+    "django_cloudflare.CloudflareMiddleware"
 ]
+
+CF_HEADER_IP_ENABLED = True
 
 ROOT_URLCONF = "ArtCon.urls"
 
@@ -97,14 +103,48 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "ArtCon.wsgi.application"
 
+# ELASTICSEARCH_DSL={
+#     'default': {
+#         'hosts': '127.0.0.1:9200'
+#     },
+# }
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-# DATABASES = {
-#    "default": {
-#        "ENGINE": "django.db.backends.sqlite3",
-#        "NAME": "mydatabase",
-#    }
+# LOGGING = {
+#     'version':1,
+#     'disable_existing_loggers': False,
+#     "filters": {
+#         'simple':{
+#             'format': 'velname)s %(message)s'
+#         }
+#     },
+#     'handlers': {
+#         'logstash': {
+#             'level': 'DEBUG',
+#             'class': 'logstash.TCPLogstashHandler',
+#             'host': 'localhost',
+#             'port': 5959, # Default value: 5959
+#             'version': 1, # Version of logstash event schema. Default value: 0 (for backward compatibility of the library)
+#             'message_type': 'django',  # 'type' field in logstash message. Default value: 'logstash'.
+#             'fqdn': False, # Fully qualified domain name. Default value: false.
+#             'tags': ['django.request'], # list of tags. Default: None.
+#         },
+#         'console': {
+#             'level': 'DEBUG',
+#             'class': 'logging.StreamHandler',
+#         },
+#     },
+#     'loggers': {
+#         'django.request': {
+#             'handlers': ['logstash'],
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         },
+#         '': {
+#             'handlers': ['console'],
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         }
+#     },
 # }
 
 MYSQL_CONFIG = get_secret("MYSQL_CONFIG")

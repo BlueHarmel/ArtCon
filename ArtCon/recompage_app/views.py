@@ -3,68 +3,115 @@ from django.urls import reverse
 import pandas as pd
 from django.core import serializers
 from sklearn.feature_extraction.text import TfidfVectorizer
-from konlpy.tag import Okt
+
+# from konlpy.tag import Okt
+# from konlpy.tag import Okt
 from sklearn.metrics.pairwise import linear_kernel
 import re
+import pprint
 from exhibpage_app.models import Performance
 from authpage_app.models import User
 from exhibpage_app.models import Location
 from django.http import JsonResponse
 from django.contrib import messages
+from . import recommend_test
 
-stopwords = ["을", "를", "이", "가", "은", "는"]
-okt = Okt()
-tfidf_vectorizer = TfidfVectorizer(tokenizer=okt.morphs, stop_words=stopwords)
+# stopwords = ["을", "를", "이", "가", "은", "는"]
+# okt = Okt()
+# tfidf_vectorizer = TfidfVectorizer(tokenizer=okt.morphs, stop_words=stopwords)
 
-exhibition_names = []
+# exhibition_names = []
+
+gender_age = {
+    "man_10_1": "PF198878",
+    "man_10_2": "PF189859",
+    "man_20_1": "PF192964",
+    "man_20_2": "PF192978",
+    "man_30_1": "PF194963",
+    "man_30_2": "PF145857",
+    "man_40_1": "PF194963",
+    "man_40_2": "PF195242",
+    "woman_10_1": "PF196584",
+    "woman_10_2": "PF198891",
+    "woman_20_1": "PF192964",
+    "woman_20_2": "PF191916",
+    "woman_30_1": "PF138393",
+    "woman_30_2": "PF145857",
+    "woman_40_1": "PF194963",
+    "woman_40_2": "PF195242",
+}
 
 
-def recommend(request):
-    return render(request, "recompage_app/recommend.html")
-
-
-# Create your views here.
 # def recommend(request):
-#    if request.user.is_anonymous:
-#        messages.warning(request, "로그인 후 이용가능합니다")
-#        url = reverse("authpage_app:login")
-#        return redirect(url)
-#    if request.method == "GET":
-#        rec_id = get_recommendations(request)
-#        exhibits = list(Performance.objects.filter(id__in=rec_id).values())
-#        context = {"exhibits": exhibits}
-#        return render(request, "recompage_app/recommend.html", context=context)
+#     pass
+# Create your views here.
+def recommend(request):
+    if request.user.is_anonymous:
+        messages.warning(request, "로그인 후 이용가능합니다")
+        url = reverse("authpage_app:login")
+        return redirect(url)
+    if request.method == "GET":
+        print(10)
+        followed = request.user.followed_perform.all()
+        same_pfcodes = recommend_test.get_recommend(gender_age["woman_20_1"])
+        same_exhibits = list(Performance.objects.filter(P_id__in=same_pfcodes).values())
+        if followed:
+            jjim_pfcodes = recommend_test.get_recommend(followed[0].P_id)
+            jjim_exhibits = list(
+                Performance.objects.filter(P_id__in=jjim_pfcodes).values()
+            )
+        else:
+            jjim_exhibits = []
+        print(20)
+        context = {"same_exhibits": same_exhibits, "jjim_exhibits": jjim_exhibits}
+        return render(request, "recompage_app/recommend.html", context=context)
+    # def recommend(request):
+    #     return render(request, "recompage_app/recommend.html")
 
+    # Create your views here.
+    # def recommend(request):
+    #    if request.user.is_anonymous:
+    #        messages.warning(request, "로그인 후 이용가능합니다")
+    #        url = reverse("authpage_app:login")
+    #        return redirect(url)
+    #    if request.method == "GET":
+    #        rec_id = get_recommendations(request)
+    #        exhibits = list(Performance.objects.filter(id__in=rec_id).values())
+    #        context = {"exhibits": exhibits}
+    #        return render(request, "recompage_app/recommend.html", context=context)
 
-#     if request.method == "POST":
-#         latLng = request.body.decode("utf-8")
-#         s = latLng.split("&")[0][2:]
-#         w = latLng.split("&")[1][2:]
-#         n = latLng.split("&")[2][2:]
-#         e = latLng.split("&")[3][2:]
-#         # print('****swne****')
-#         # print(s,w,n,e)
-#         location = list(
-#             Location.objects.filter(x__gte=s, x__lte=n, y__gte=w, y__lte=e).values()
-#         )
-#         map_exhibits = []
-#         # print('****location****')
-#         # print(location)
-#         for i in location:
-#             l_name = i["L_name"]
-#             exhibit = list(Performance.objects.filter(L_name__exact=l_name).values())
-#             map_exhibit = {}
-#             map_exhibit["id"] = exhibit[0]["id"]
-#             map_exhibit["E_name"] = exhibit[0]["E_name"]
-#             map_exhibit["x"] = i["x"]
-#             map_exhibit["y"] = i["y"]
-#             # print("==============")
-#             # print(exhibit)
-#             map_exhibits.append(map_exhibit)
-#         context = {"map_exhibits": map_exhibits}
-#         # print("************")
-#         # print(context)
-#         return JsonResponse(context)
+    if request.method == "POST":
+        latLng = request.body.decode("utf-8")
+        # print(latLng.split("&")[0])
+        s = latLng.split("&")[0][2:]
+        w = latLng.split("&")[1][2:]
+        n = latLng.split("&")[2][2:]
+        e = latLng.split("&")[3][2:]
+        # print('****swne****')
+        # print(s,w,n,e)
+        location = list(
+            Location.objects.filter(
+                L_lo__gte=s, L_lo__lte=n, L_la__gte=w, L_la__lte=e
+            ).values()
+        )
+        map_exhibits = []
+        # print('****location****')
+        # print(location)
+        for i in location:
+            l_name = i["L_name"]
+            exhibit = list(Performance.objects.filter(L_name__exact=l_name).values())
+            map_exhibit = {}
+            map_exhibit["id"] = exhibit[0]["id"]
+            map_exhibit["E_name"] = exhibit[0]["E_name"]
+            map_exhibit["x"] = i["x"]
+            map_exhibit["y"] = i["y"]
+            # print("==============")
+            # print(exhibit)
+            map_exhibits.append(map_exhibit)
+        context = {"map_exhibits": map_exhibits}
+        # print("************")
+        # print(context)
+        return JsonResponse(context)
 
 
 # def remove_special_characters(text):
